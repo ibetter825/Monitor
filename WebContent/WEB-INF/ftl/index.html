@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>index</title>
+    <#include "public/static/header.html"/>
+</head>
+
+<body class="easyui-layout">
+    <div data-options="region:'north'" style="border: 0;">
+        <!-- 头部信息 -->
+        <div style="background:url(${(rc.contextPath)!}/images/topbg.gif) repeat-x; width: 100%; height: 100%;">
+            <div class="topleft">
+                <a href="main.html" target="_parent"><img src="${(rc.contextPath)!}/images/logo.png" title="系统首页"></a>
+            </div>
+            <ul class="nav">
+                <li>
+                    <a href="default.html" target="rightFrame" class="selected"><img src="${(rc.contextPath)!}/images/icon01.png" title="工作台">
+                        <h2>工作台</h2>
+                    </a>
+                </li>
+                <li>
+                    <a href="imgtable.html" target="rightFrame"><img src="${(rc.contextPath)!}/images/icon02.png" title="模型管理">
+                        <h2>模型管理</h2>
+                    </a>
+                </li>
+                <li>
+                    <a href="imglist.html" target="rightFrame"><img src="${(rc.contextPath)!}/images/icon03.png" title="模块设计">
+                        <h2>模块设计</h2>
+                    </a>
+                </li>
+                <li>
+                    <a href="tools.html" target="rightFrame"><img src="${(rc.contextPath)!}/images/icon04.png" title="常用工具">
+                        <h2>常用工具</h2>
+                    </a>
+                </li>
+                <li>
+                    <a href="computer.html" target="rightFrame"><img src="${(rc.contextPath)!}/images/icon05.png" title="文件管理">
+                        <h2>文件管理</h2>
+                    </a>
+                </li>
+                <li>
+                    <a href="tab.html" target="rightFrame"><img src="${(rc.contextPath)!}/images/icon06.png" title="系统设置">
+                        <h2>系统设置</h2>
+                    </a>
+                </li>
+            </ul>
+            <div class="topright">
+                <ul>
+                    <li><span><img src="${(rc.contextPath)!}/images/help.png" title="帮助" class="helpimg"></span><a href="#">帮助</a></li>
+                    <li><a href="#">关于</a></li>
+                    <li><a href="login.html" target="_parent">退出</a></li>
+                </ul>
+                <div class="user">
+                    <span>admin</span>
+                    <i>消息</i>
+                    <b>5</b>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-options="region:'west',split:true" title="通讯录" style="width:192px; border: none;">
+        <!-- 菜单信息 -->
+        <dl class="leftmenu">
+            <dd>
+                <div class="title">
+                    <span><img src="${(rc.contextPath)!}/images/leftico01.png"></span>管理信息
+                </div>
+                <ul class="menuson">
+                    <li>
+                        <div class="header">
+                            <cite></cite>
+                            <a href="index.html" target="rightFrame">首页模版</a>
+                            <i></i>
+                        </div>
+                        <ul class="sub-menus">
+                            <li><a href="javascript:;">文件管理</a></li>
+                            <li><a href="javascript:;">模型信息配置</a></li>
+                            <li><a href="javascript:;">基本内容</a></li>
+                            <li><a href="javascript:;">自定义</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="header">
+                            <cite></cite>
+                            <a href="right.html" target="rightFrame">数据列表</a>
+                            <i></i>
+                        </div>
+                        <ul class="sub-menus">
+                            <li><a href="javascript:;">文件数据</a></li>
+                            <li><a href="javascript:;">学生数据列表</a></li>
+                            <li><a href="javascript:;">我的数据列表</a></li>
+                            <li><a href="javascript:;">自定义</a></li>
+                        </ul>
+                    </li>
+                    <li class="active"><cite></cite><a href="right.html" target="rightFrame">数据列表</a><i></i></li>
+                    <li><cite></cite><a href="imgtable.html" target="rightFrame">图片数据表</a><i></i></li>
+                    <li><cite></cite><a href="form.html" target="rightFrame">添加编辑</a><i></i></li>
+                    <li><cite></cite><a href="imglist.html" target="rightFrame">图片列表</a><i></i></li>
+                    <li><cite></cite><a href="imglist1.html" target="rightFrame">自定义</a><i></i></li>
+                    <li><cite></cite><a href="tools.html" target="rightFrame">常用工具</a><i></i></li>
+                    <li><cite></cite><a href="filelist.html" target="rightFrame">信息管理</a><i></i></li>
+                    <li><cite></cite><a href="tab.html" target="rightFrame">Tab页</a><i></i></li>
+                    <li><cite></cite><a href="error.html" target="rightFrame">404页面</a><i></i></li>
+                </ul>
+            </dd>
+            <dd>
+                <div class="title">
+                    <span><img src="${(rc.contextPath)!}/images/leftico02.png"></span>其他设置
+                </div>
+                <ul class="menuson">
+                    <li><cite></cite><a href="flow.html" target="rightFrame">流程图</a><i></i></li>
+                    <li><cite></cite><a href="project.html" target="rightFrame">项目申报</a><i></i></li>
+                    <li><cite></cite><a href="search.html" target="rightFrame">档案列表显示</a><i></i></li>
+                    <li><cite></cite><a href="tech.html" target="rightFrame">技术支持</a><i></i></li>
+                </ul>
+            </dd>
+            <dd>
+                <div class="title"><span><img src="${(rc.contextPath)!}/images/leftico03.png"></span>编辑器</div>
+                <ul class="menuson">
+                    <li><cite></cite><a href="#">自定义</a><i></i></li>
+                    <li><cite></cite><a href="#">常用资料</a><i></i></li>
+                    <li><cite></cite><a href="#">信息列表</a><i></i></li>
+                    <li><cite></cite><a href="#">其他</a><i></i></li>
+                </ul>
+            </dd>
+            <dd>
+                <div class="title"><span><img src="${(rc.contextPath)!}/images/leftico04.png"></span>日期管理</div>
+                <ul class="menuson">
+                    <li><cite></cite><a href="#">自定义</a><i></i></li>
+                    <li><cite></cite><a href="#">常用资料</a><i></i></li>
+                    <li><cite></cite><a href="#">信息列表</a><i></i></li>
+                    <li><cite></cite><a href="#">其他</a><i></i></li>
+                </ul>
+            </dd>
+        </dl>
+    </div>
+    <div data-options="region:'center'">
+        <div class="easyui-layout" data-options="fit:true">
+            <!-- 位置信息 -->
+            <div data-options="region:'north'" style="border: none;">
+                <div class="place">
+                    <span>位置：</span>
+                    <ul class="placeul">
+                        <li><a href="#">首页</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 内容区域 -->
+            <div data-options="region:'center'" style="border: none; overflow: hidden;">
+                <iframe src="${(rc.contextPath)!}/u/comm/table.html" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+            </div>
+            <!-- 版权信息 -->
+            <div data-options="region:'south'" style="border: none;">
+                <div class="footer">
+                    <span>仅供学习交流，请勿用于任何商业用途</span>
+                    <i>版权所有 quanbu</i>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<#include "public/static/javascript.html"/>
+<script>
+    $(function() {
+        //导航切换
+        $(".menuson .header").click(function() {
+            var $parent = $(this).parent();
+            $(".menuson>li.active").not($parent).removeClass("active open").find('.sub-menus').hide();
+
+            $parent.addClass("active");
+            if (!!$(this).next('.sub-menus').size()) {
+                if ($parent.hasClass("open")) {
+                    $parent.removeClass("open").find('.sub-menus').hide();
+                } else {
+                    $parent.addClass("open").find('.sub-menus').show();
+                }
+            }
+        });
+
+        // 三级菜单点击
+        $('.sub-menus li').click(function(e) {
+            $(".sub-menus li.active").removeClass("active")
+            $(this).addClass("active");
+        });
+
+        $('.title').click(function() {
+            var $ul = $(this).next('ul');
+            $('dd').find('.menuson').slideUp();
+            if ($ul.is(':visible')) {
+                $(this).next('.menuson').slideUp();
+            } else {
+                $(this).next('.menuson').slideDown();
+            }
+        });
+    });
+</script>
+
+</html>

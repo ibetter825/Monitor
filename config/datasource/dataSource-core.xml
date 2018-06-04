@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+	
+	<!-- 数据库连接相关初始化 -->
+	<bean id="core_dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${core.c3p0.driverClass}"></property>
+		<property name="jdbcUrl" value="${core.c3p0.url}"></property>
+		<property name="user" value="${core.c3p0.user}"></property>
+		<property name="password" value="${core.c3p0.password}"></property>
+		<property name="initialPoolSize" value="${core.c3p0.initialPoolSize}" />
+		<property name="minPoolSize" value="${core.c3p0.minPoolSize}" />
+		<property name="maxPoolSize" value="${core.c3p0.maxPoolSize}" />
+		<property name="acquireIncrement" value="${core.c3p0.acquireIncrement}" />
+		<property name="acquireRetryAttempts" value="${core.c3p0.acquireRetryAttempts}" />
+		<property name="acquireRetryDelay" value="${core.c3p0.acquireRetryDelay}" />
+		<property name="maxIdleTime" value="${core.c3p0.maxIdleTime}" />
+		<property name="maxStatements" value="${core.c3p0.maxStatements}" />
+        <property name="maxStatementsPerConnection"  value="${core.c3p0.maxStatementsPerConnection}" />
+		<property name="preferredTestQuery" value="${core.c3p0.preferredTestQuery}" />
+		<property name="idleConnectionTestPeriod" value="${core.c3p0.idleConnectionTestPeriod}" />
+		<property name="testConnectionOnCheckin" value="${core.c3p0.testConnectionOnCheckin}" />
+		<property name="testConnectionOnCheckout" value="${core.c3p0.testConnectionOnCheckout}" />
+		<property name="breakAfterAcquireFailure" value="${core.c3p0.breakAfterAcquireFailure}" />
+		<property name="checkoutTimeout" value="${core.c3p0.checkoutTimeout}" />
+	</bean>
+	<!-- 配置SessionFactory -->
+	<bean id="core_sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<!-- 配置数据源属性 -->
+		<property name="dataSource" ref="core_dataSource"></property>
+		<!-- 配置扫描的实体包(pojo) -->
+		<property name="namingStrategy">
+			<bean class="org.hibernate.cfg.ImprovedNamingStrategy"></bean>
+		</property>
+		<property name="packagesToScan" value="com.monitor"></property>
+
+		<!-- 配置Hibernate 的常用属性 -->
+		<property name="hibernateProperties">
+			<props>
+				<!-- 数据库的方言 -->
+				<!-- MySql方言 -->
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</prop>
+				<!-- Oracle方言 -->
+				<!-- <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop> -->
+				<prop key="hibernate.connection.release_mode">after_statement</prop><!-- 如果使用sessionFactory.openSession()不会自动关闭链接，会造成连接池溢出，数据库阻止连接从而报错 -->
+				<prop key="hibernate.autoReconnect">true</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+	</bean>
+    
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="core_sessionFactory"></property>
+	</bean>
+	
+</beans>
