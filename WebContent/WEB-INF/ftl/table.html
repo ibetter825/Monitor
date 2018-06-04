@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 	<title>index</title>
     <#include "public/static/header.html"/>
 </head>
 </head>
 <body>
-table
+<div id="container">
+	
+</div>
 </body>
 <#include "public/static/javascript.html"/>
 <script type="text/javascript">
 
 $(function(){
+	//获取表格配置
 	$.post(jui.uri+'/u/grid',{},function(data){
 		console.log(data);		
 	});
