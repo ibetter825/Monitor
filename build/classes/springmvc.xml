@@ -77,4 +77,13 @@
 
 	<!-- 开启事务 -->
 	<tx:annotation-driven />
+	<!-- 配置拦截器 -->
+	<mvc:interceptors>  
+    <mvc:interceptor>  
+        <mvc:mapping path="/u/**"/>  
+	        <bean class="com.monitor.core.web.interceptor.AuthInterceptor"></bean>  
+	    </mvc:interceptor>  
+	</mvc:interceptors>
+	<!-- 异常处理配置 -->
+	<bean id="exceptionResolver" class="com.monitor.core.web.handler.ExceptionHandler"/>
 </beans>

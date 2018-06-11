@@ -33,6 +33,7 @@ public class GridCellController extends BaseController {
 		map.put("grid", grid);
 		map.put("cells", gridCells);
 		result.setData(map);
+		Integer.valueOf("2s");
 		return result;
 	}
 	
