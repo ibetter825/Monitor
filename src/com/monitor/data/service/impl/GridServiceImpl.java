@@ -13,7 +13,7 @@ public class GridServiceImpl implements GridService {
 	@Autowired
 	private GridDao gridDao;
 
-	@Override
+	//@Override
 	public Grid getById(Integer id) {
 		return gridDao.get(id);
 	}

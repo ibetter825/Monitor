@@ -13,7 +13,7 @@ public class GridCellServiceImpl implements GridCellService {
 	@Autowired
 	private GridCellDao gridCellDao;
 
-	@Override
+	//@Override
 	public GridCell getById(GridCellKey gridCellKey) {
 		return gridCellDao.get(gridCellKey);
 	}
