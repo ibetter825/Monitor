@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.common.collect.Maps;
+import com.monitor.core.aop.annotation.Validator;
 import com.monitor.core.bean.model.ResultModel;
 import com.monitor.core.web.controller.BaseController;
 import com.monitor.data.bean.entity.Grid;
@@ -24,6 +25,7 @@ public class GridCellController extends BaseController {
 	
 	@RequestMapping("/grid")
 	@ResponseBody
+	@Validator
 	public ResultModel index() {
 		ResultModel result = new ResultModel();
 		Grid grid = this.gridService.getById(1);
@@ -33,7 +35,6 @@ public class GridCellController extends BaseController {
 		map.put("grid", grid);
 		map.put("cells", gridCells);
 		result.setData(map);
-		Integer.valueOf("2s");
 		return result;
 	}
 	

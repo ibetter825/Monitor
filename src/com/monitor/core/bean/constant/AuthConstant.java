@@ -75,7 +75,7 @@ public class AuthConstant {
 	 */
 	public final static String WRONG_CAPTCHA_MSG = "验证码错误";
 	/**
-	 * 登录表单出错
+	 * 表单验证失败信息
 	 */
 	public final static String FORM_VALI_FAIL_MSG = "表单验证失败";
 	/**
