@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 127.0.0.1
-Source Server Version : 50711
+Source Server Version : 50715
 Source Host           : 127.0.0.1:3306
 Source Database       : monitor
 
 Target Server Type    : MYSQL
-Target Server Version : 50711
+Target Server Version : 50715
 File Encoding         : 65001
 
-Date: 2018-06-04 21:48:08
+Date: 2018-06-13 16:31:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -81,6 +81,50 @@ CREATE TABLE `c_organ` (
 -- ----------------------------
 -- Records of c_organ
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for c_user
+-- ----------------------------
+DROP TABLE IF EXISTS `c_user`;
+CREATE TABLE `c_user` (
+  `user_no` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户编号自增',
+  `user_name` varchar(100) DEFAULT '' COMMENT '用户登录名',
+  `user_phone` int(11) DEFAULT '0' COMMENT '用户手机号码',
+  `user_email` varchar(200) DEFAULT '' COMMENT '用户邮箱',
+  `user_status` tinyint(4) DEFAULT '1' COMMENT '状态 1正常 0 失效 ，禁用-1软删除',
+  `user_pwd` varchar(100) NOT NULL DEFAULT '' COMMENT '加密后的密码',
+  `user_salt` varchar(10) NOT NULL DEFAULT '',
+  PRIMARY KEY (`user_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=10001 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of c_user
+-- ----------------------------
+INSERT INTO `c_user` VALUES ('10000', 'admin', '1340888888', '', '1', '', '');
+
+-- ----------------------------
+-- Table structure for c_user_info
+-- ----------------------------
+DROP TABLE IF EXISTS `c_user_info`;
+CREATE TABLE `c_user_info` (
+  `user_no` int(11) NOT NULL,
+  `user_avatar` varchar(1000) DEFAULT NULL,
+  `add_time` bigint(20) DEFAULT NULL,
+  `update_time` bigint(20) DEFAULT NULL,
+  `nick_name` varchar(200) DEFAULT '',
+  `user_email` varchar(255) DEFAULT NULL,
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_phone` varchar(255) DEFAULT NULL,
+  `user_pwd` varchar(255) DEFAULT NULL,
+  `user_salt` varchar(255) DEFAULT NULL,
+  `user_status` smallint(6) DEFAULT NULL,
+  PRIMARY KEY (`user_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of c_user_info
+-- ----------------------------
+INSERT INTO `c_user_info` VALUES ('10000', null, null, null, '系统管理员', null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for d_grid

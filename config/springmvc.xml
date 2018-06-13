@@ -81,8 +81,9 @@
 	<tx:annotation-driven />
 	<!-- 配置拦截器 -->
 	<mvc:interceptors>  
-    <mvc:interceptor>  
-        <mvc:mapping path="/u/**"/>  
+    	<mvc:interceptor>  
+        	<mvc:mapping path="/u/**"/>
+        	<mvc:exclude-mapping path="/u/login/**"/>
 	        <bean class="com.monitor.core.web.interceptor.AuthInterceptor"></bean>  
 	    </mvc:interceptor>  
 	</mvc:interceptors>

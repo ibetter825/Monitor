@@ -22,6 +22,7 @@ public class ExceptionHandler implements HandlerExceptionResolver {
 			HttpServletResponse resp, Object obj, Exception e) {
 		//出现错误，需区分ajax还是其他请求
 		logger.error("------程序出现错误");
+		e.printStackTrace();
 		if(WebUtil.isAjax(req)){
 			ResultModel result = new ResultModel(ResultMessageEnum.SYSTEM_EXCEPTION);
 			WebUtil.writeJson(resp, JSON.toJSONString(result));
