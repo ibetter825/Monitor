@@ -45,6 +45,7 @@ public class ExceptionHandler implements HandlerExceptionResolver {
     	        return mav;
     		}
 		} catch (IOException e1) {
+			//需要处理一下
 			e1.printStackTrace();
 		} finally {
 			if(!(e instanceof AuthenticationException))
