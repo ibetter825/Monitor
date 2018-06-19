@@ -13,8 +13,8 @@
             <div class="topleft">
                 <a href="main.html" target="_parent"><img src="${(rc.contextPath)!}/images/logo.png" title="系统首页"></a>
             </div>
-            <ul class="nav">
-                <li>
+            <ul class="nav" id="nav">
+                <!-- <li>
                     <a href="default.html" target="rightFrame" class="selected"><img src="${(rc.contextPath)!}/images/icon01.png" title="工作台">
                         <h2>工作台</h2>
                     </a>
@@ -43,7 +43,7 @@
                     <a href="tab.html" target="rightFrame"><img src="${(rc.contextPath)!}/images/icon06.png" title="系统设置">
                         <h2>系统设置</h2>
                     </a>
-                </li>
+                </li> -->
             </ul>
             <div class="topright">
                 <ul>
@@ -148,7 +148,7 @@
             </div>
             <!-- 内容区域 -->
             <div data-options="region:'center'" style="border: none; overflow: hidden;">
-                <iframe src="${(rc.contextPath)!}/u/comm/table.html" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+                <iframe id="iframe" src="${(rc.contextPath)!}/u/comm/desk.html" frameborder="0" style="width: 100%; height: 100%;"></iframe>
             </div>
             <!-- 版权信息 -->
             <div data-options="region:'south'" style="border: none;">
@@ -164,6 +164,8 @@
 <#include "public/static/javascript.html"/>
 <script>
     $(function() {
+    	//设置一级菜单
+    	setMenus();
         //导航切换
         $(".menuson .header").click(function() {
             var $parent = $(this).parent();
@@ -195,6 +197,59 @@
             }
         });
     });
+    //获取菜单集合
+    function getMenus(){
+    	return [
+    	        {
+					"id": "M01",
+					"name": "工作台",
+					"url": "u/comm/desk.html",
+					"img": "images/icon01.png",
+					"icon": "",
+					"children": []
+		    	},{
+					"id": "M99",
+					"name": "系统设置",
+					"url": "",
+					"img": "images/icon06.png",
+					"icon": "",
+					"children": [
+						{
+							"id": "M99",
+							"name": "用户管理",
+							"url": "u/comm/index.html",
+							"img": "images/leftico01.png",
+							"icon": "",
+							"children": []
+						}
+					]
+		    	}
+    	];
+    }
+    var menuMap = {};///存储菜单
+    //设置菜单html
+    function setMenus(){
+    	var menus = getMenus();
+    	var menu, html = [], id, children, href;
+    	for(var i = 0; i < menus.length; i++){
+    		menu = menus[i];
+    		id = menu['id'];
+    		children = menu['children'];
+    		if(children != '' && children.length > 0){
+    			href = 'javascript:changeModel(\''+id+'\');';
+    			menuMap[id] = children;
+    		}else
+    			href = menu['url'];
+    		html.push('<li id="'+id+'"><a href="'+href+'" target="iframe" class="'+(i == 0 ? 'selected' : '')+'"><img src="${(rc.contextPath)!}/'+menu['img']+'" title="'+menu['name']+'">');
+    		html.push('<h2>'+menu['name']+'</h2></a></li>');
+    	}
+    	var $nav = $('#nav');
+    	$nav.html(html.join(''));
+    }
+    //切换一级菜单
+    function changeModel(id){
+    	alert(id);
+    }
 </script>
 
 </html>

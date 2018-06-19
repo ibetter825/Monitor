@@ -26,7 +26,7 @@ import com.monitor.core.bean.enums.ResultMessageEnum;
  */
 public class ExceptionHandler implements HandlerExceptionResolver {
 	private final Logger logger = LoggerFactory.getLogger(ExceptionHandler.class);
-	public static final String DEFAULT_ERROR_PATH = "/error/error";
+	public static final String DEFAULT_ERROR_PATH = "/error";
 	
 	public ModelAndView resolveException(HttpServletRequest req,
 			HttpServletResponse resp, Object obj, Exception e) {

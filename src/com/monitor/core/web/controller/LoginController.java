@@ -25,6 +25,6 @@ public class LoginController extends BaseController {
 	@RequestMapping(value = "/dologin", method = RequestMethod.POST)
 	@Validator
 	public ModelAndView dologin(@Valid LoginForm loginForm, BindingResult bindingResult){
-		return new ModelAndView("index");
+		return new ModelAndView("redirect:/u/index");
 	}
 }
