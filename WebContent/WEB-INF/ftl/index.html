@@ -61,8 +61,8 @@
     </div>
     <div data-options="region:'west',split:true" title="通讯录" style="width:192px; border: none;">
         <!-- 菜单信息 -->
-        <dl class="leftmenu">
-            <dd>
+        <dl id="leftmenu" class="leftmenu">
+            <!-- <dd>
                 <div class="title">
                     <span><img src="${(rc.contextPath)!}/images/leftico01.png"></span>管理信息
                 </div>
@@ -132,7 +132,7 @@
                     <li><cite></cite><a href="#">信息列表</a><i></i></li>
                     <li><cite></cite><a href="#">其他</a><i></i></li>
                 </ul>
-            </dd>
+            </dd> -->
         </dl>
     </div>
     <div data-options="region:'center'">
@@ -165,7 +165,7 @@
 <script>
     $(function() {
     	//设置一级菜单
-    	setMenus();
+    	setNav();
         //导航切换
         $(".menuson .header").click(function() {
             var $parent = $(this).parent();
@@ -228,27 +228,53 @@
     }
     var menuMap = {};///存储菜单
     //设置菜单html
-    function setMenus(){
+    function setNav(){
     	var menus = getMenus();
     	var menu, html = [], id, children, href;
     	for(var i = 0; i < menus.length; i++){
     		menu = menus[i];
     		id = menu['id'];
     		children = menu['children'];
-    		if(children != '' && children.length > 0){
-    			href = 'javascript:changeModel(\''+id+'\');';
+    		if(children !== '' && children.length > 0)
     			menuMap[id] = children;
-    		}else
-    			href = menu['url'];
-    		html.push('<li id="'+id+'"><a href="'+href+'" target="iframe" class="'+(i == 0 ? 'selected' : '')+'"><img src="${(rc.contextPath)!}/'+menu['img']+'" title="'+menu['name']+'">');
+    		html.push('<li id="'+id+'"><a href="javascript:void(0);" onclick="changeNav(this, \''+id+'\')" url="'+menu['url']+'" class="'+(i == 0 ? 'selected' : '')+'"><img src="${(rc.contextPath)!}/'+menu['img']+'" title="'+menu['name']+'">');
     		html.push('<h2>'+menu['name']+'</h2></a></li>');
     	}
     	var $nav = $('#nav');
     	$nav.html(html.join(''));
     }
+    var isHide = false;
     //切换一级菜单
-    function changeModel(id){
-    	alert(id);
+    function changeNav(_this, id){
+    	var $this = $(_this);
+    	var url = $this.attr('url');
+    	if(url !== ''){
+    		$('#iframe').attr('src', '${(rc.contextPath)!}/' + url);
+    		if(!isHide)
+    			$('body').layout('collapse', 'west')
+    		isHide = true;
+    		return;
+    	}
+    	if(isHide){
+    		$('body').layout('expand', 'west')
+    		isHide = false;
+    	}
+    	var menus = menuMap[id];
+    	var menu, html = [], id, children, href;
+    	//二级目录
+    	for(var i = 0; i < menus.length; i++){
+    		menu = menus[i];
+    		id = menu['id'];
+    		children = menu['children'];
+    		html.push('<dd>');
+    		html.push('<div class="title">');
+    		html.push('<span><img src="${(rc.contextPath)!}/images/leftico01.png"></span>管理信息</div>');
+    		html.push('</dd>');
+    	}
+    	var $leftmenu = $('#leftmenu');
+    	$leftmenu.html(html.join(''));
+    	var $panel = $('body').layout('panel', 'west');
+    	$panel.panel('setTitle', $(_this).find('h2').text());
     }
 </script>
 
