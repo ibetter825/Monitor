@@ -704,9 +704,9 @@ h2 {
 .tools {
     clear: both;
     height: 35px;
-    margin-bottom: 8px;
+    position: absolute; bottom: 5px;
 }
-
+.toolsline {height: 35px; margin-top: 20px;}
 .toolbar {
     float: left;
 }
@@ -1924,19 +1924,18 @@ h2 {
 }
 
 .prosearch {
-    margin-top: 20px;
+    margin-top: 10px;
     clear: both;
-    padding-left: 3px;
     margin-bottom: 8px;
     overflow: hidden;
-    height: 35px;
+    /* height: 35px; */
 }
 
 .prosearch li {
     float: left;
-    margin-right: 30px;
     height: 35px;
     line-height: 35px;
+    margin-top: 10px;
 }
 
 .prosearch label {
@@ -2140,3 +2139,7 @@ h2 {
     background: url(../images/fjt.png) no-repeat right;
     padding-right: 12px;
 }
+
+/*easyui*/
+.layout-split-west {border-right-color: #fff;}
+.layout-split-north {border-bottom-color: #fff;}

@@ -1,15 +1,104 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>用户列表</title> <#include "./../public/static/header.html"/>
+<title>用户列表</title>
+<#include "./../public/static/header.html"/>
 </head>
 <body class="easyui-layout" data-options="fit:true">
-	<div data-options="region:'north'" style="border: none; height: 50px;">
-		s
+	<div data-options="region:'north', split:true, height:'auto', minHeight:110"
+		style="border: none; padding: 0 10px; overflow: hidden;">
+		<form id="searchForm" method="post">
+			<ul class="prosearch">
+				<li><i>项目名称</i> <a><input name="" type="text"
+						class="scinput"></a></li>
+				<li><i>项目编号</i><a><input name="" type="text"
+						class="scinput"></a></li>
+				<li><a><input name="" type="button" class="sure" value="查询"></a></li>
+			</ul>
+		</form>
+		<div class="toolsline"></div>
+		<div class="tools">
+			<ul class="toolbar">
+				<li class="click"><span><img
+						src="${(rc.contextPath)!}/images/t01.png"></span>添加</li>
+				<li class="click"><span><img
+						src="${(rc.contextPath)!}/images/t02.png"></span>修改</li>
+				<li><span><img src="${(rc.contextPath)!}/images/t03.png"></span>删除</li>
+				<li><span><img src="${(rc.contextPath)!}/images/t04.png"></span>统计</li>
+			</ul>
+			<ul class="toolbar1">
+				<li><span><img src="${(rc.contextPath)!}/images/t05.png"></span>设置</li>
+			</ul>
+		</div>
 	</div>
 	<!-- 内容区域 -->
 	<div data-options="region:'center'"
-		style="border: none;">sss</div>
+		style="border: none; padding: 0 10px 10px 10px;">
+		<table id="grid"></table>
+	</div>
 </body>
 <#include "./../public/static/javascript.html"/>
+<script>
+	var $grid;
+	$(function() {
+		initGrid();
+	});
+	function initGrid() {
+		$grid = $('#grid').datagrid({
+			//url : 'datagrid_data.json',
+			striped : true,
+			autoRowHeight : false,
+			fitColumns : true,
+			rownumbers : true,
+			height : 'auto',
+			height: '100%',
+			columns : [ [ {
+				field : 'code',
+				title : 'Code',
+				width : 100
+			}, {
+				field : 'name',
+				title : 'Name',
+				width : 100
+			}, {
+				field : 'price',
+				title : 'Price',
+				width : 100,
+				align : 'right'
+			} ] ],
+			data : [ {
+				code : 'value11',
+				name : 'value12',
+				price : 10
+			}, {
+				code : 'value11',
+				name : 'value12',
+				price : 10
+			}, {
+				code : 'value11',
+				name : 'value12',
+				price : 10
+			}, {
+				code : 'value11',
+				name : 'value12',
+				price : 10
+			}, {
+				code : 'value11',
+				name : 'value12',
+				price : 10
+			}, {
+				code : 'value11',
+				name : 'value12',
+				price : 10
+			}, {
+				code : 'value11',
+				name : 'value12',
+				price : 10
+			} ],
+			pagination : true,
+			pageSize : 50,
+			pageList : [ 50, 100, 200, 500 ]
+		});
+	}
+</script>
 </html>
