@@ -1,12 +1,10 @@
 package com.monitor.core.web.controller;
 
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.google.common.collect.Maps;
 import com.monitor.core.bean.entity.User;
 import com.monitor.core.service.UserService;
@@ -21,6 +19,6 @@ public class IndexController extends BaseController {
 		User user =	userService.getUser(10000);
 		System.err.println(user.getUserName()+"--------------");
 		model.put("user", user);
-		return new ModelAndView("index", model);
+		return new ModelAndView(VIEW_CORE_PATH + "index", model);
 	}
 }

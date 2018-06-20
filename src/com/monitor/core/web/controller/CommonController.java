@@ -13,8 +13,8 @@ public class CommonController extends BaseController {
 	 * @param view
 	 * @return
 	 */
-	@RequestMapping("/comm/{view}.html")
-	public ModelAndView index(@PathVariable(value = "view") String view) {
-		return new ModelAndView(view);
+	@RequestMapping("/comm/{path}/{view}.html")
+	public ModelAndView index(@PathVariable(value = "path") String path, @PathVariable(value = "view") String view) {
+		return new ModelAndView(path+"/"+view);
 	}
 }

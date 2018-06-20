@@ -16,11 +16,15 @@ import com.monitor.core.bean.constant.WebConstant;
 @RestController
 @RequestMapping("/u")
 public class BaseController {
+	/**
+	 * 视图根路径
+	 */
+	public final static String VIEW_CORE_PATH = "core/";
+	public final static String VIEW_DATA_PATH = "data/";
 	@Autowired  
 	protected HttpServletRequest request;
 	@Autowired
 	protected HttpServletResponse response;
-	
 	/**
 	 * 添加request请求属性
 	 * @param key
