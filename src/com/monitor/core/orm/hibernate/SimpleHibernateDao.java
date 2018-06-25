@@ -3,10 +3,11 @@ package com.monitor.core.orm.hibernate;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Criterion;
+
+import com.monitor.core.orm.Page;
 
 /**
  * 封装Hibernate原生API的DAO泛型基类. <br>
@@ -300,5 +301,50 @@ public interface SimpleHibernateDao<T> {
 	 * 取得对象的主键名.
 	 */
 	public String getIdName();
+	
+	/****************** 分页查询函数 START ******************/
+	/**
+	 * 分页获取全部对象.
+	 */
+	public Page<T> getAll(final Page<T> page);
+	/**
+	 * 按HQL分页查询.
+	 * 
+	 * @param page
+	 *            分页参数.不支持其中的orderBy参数.
+	 * @param hql
+	 *            hql语句.
+	 * @param values
+	 *            数量可变的查询参数,按顺序绑定.
+	 * 
+	 * @return 分页查询结果, 附带结果列表及所有查询时的参数.
+	 */
+	public Page<T> findPage(final Page<T> page, final String hql, final Object... values);
 
+	/**
+	 * 按HQL分页查询.
+	 * 
+	 * @param page
+	 *            分页参数.
+	 * @param hql
+	 *            hql语句.
+	 * @param values
+	 *            命名参数,按名称绑定.
+	 * 
+	 * @return 分页查询结果, 附带结果列表及所有查询时的参数.
+	 */
+	public Page<T> findPage(final Page<T> page, final String hql, final Map<String, ?> values);
+	/**
+	 * 按Criteria分页查询.
+	 * 
+	 * @param page
+	 *            分页参数.
+	 * @param criterions
+	 *            数量可变的Criterion.
+	 * 
+	 * @return 分页查询结果.附带结果列表及所有查询时的参数.
+	 */
+	@SuppressWarnings("rawtypes")
+	public Page<T> findPage(final Page<T> page, final Set refNames, Map<String, String> orderMap, final Criterion... criterions);
+	/****************** 分页查询函数 END ******************/
 }

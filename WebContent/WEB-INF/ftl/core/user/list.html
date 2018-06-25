@@ -26,9 +26,6 @@
 				<li><span><img src="${(rc.contextPath)!}/images/t03.png"></span>删除</li>
 				<li><span><img src="${(rc.contextPath)!}/images/t04.png"></span>统计</li>
 			</ul>
-			<ul class="toolbar1">
-				<li><span><img src="${(rc.contextPath)!}/images/t05.png"></span>设置</li>
-			</ul>
 		</div>
 	</div>
 	<!-- 内容区域 -->
@@ -41,6 +38,7 @@
 <script>
 	var $grid;
 	$(function() {
+		$('body').resize();//IE下内容会撑不开
 		initGrid();
 	});
 	function initGrid() {
