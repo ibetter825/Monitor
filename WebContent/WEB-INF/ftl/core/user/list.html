@@ -43,7 +43,7 @@
 	});
 	function initGrid() {
 		$grid = $('#grid').datagrid({
-			//url : 'datagrid_data.json',
+			url : '${(rc.contextPath)!}/u/user/list',
 			striped : true,
 			autoRowHeight : false,
 			fitColumns : true,
@@ -51,48 +51,27 @@
 			height : 'auto',
 			height: '100%',
 			columns : [ [ {
-				field : 'code',
-				title : 'Code',
+				field : 'userNo',
+				title : '用户编号',
 				width : 100
 			}, {
-				field : 'name',
-				title : 'Name',
+				field : 'userName',
+				title : '用户登录名',
 				width : 100
 			}, {
-				field : 'price',
-				title : 'Price',
+				field : 'nickName',
+				title : '用户昵称',
+				width : 100
+			} , {
+				field : 'userPhone',
+				title : '用户电话',
 				width : 100,
 				align : 'right'
-			} ] ],
-			data : [ {
-				code : 'value11',
-				name : 'value12',
-				price : 10
 			}, {
-				code : 'value11',
-				name : 'value12',
-				price : 10
-			}, {
-				code : 'value11',
-				name : 'value12',
-				price : 10
-			}, {
-				code : 'value11',
-				name : 'value12',
-				price : 10
-			}, {
-				code : 'value11',
-				name : 'value12',
-				price : 10
-			}, {
-				code : 'value11',
-				name : 'value12',
-				price : 10
-			}, {
-				code : 'value11',
-				name : 'value12',
-				price : 10
-			} ],
+				field : 'userEmail',
+				title : '用户邮箱',
+				width : 100
+			}] ],
 			pagination : true,
 			pageSize : 50,
 			pageList : [ 50, 100, 200, 500 ]

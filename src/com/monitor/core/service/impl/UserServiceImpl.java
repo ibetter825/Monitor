@@ -18,9 +18,8 @@ public class UserServiceImpl implements UserService {
 		return userDao.get(id, false);
 	}
 	@Override
-	public List<User> getPageList(Page<User> page, Map<String, ?> values) {
-		userDao.findPage(page, "select u from User", values);
-		
+	public List<User> getPageList(Page<User> page, String hql, Map<String, ?> values) {
+		userDao.findPage(page, hql, values);
 		return page.getResult();
 	}
 }

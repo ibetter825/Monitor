@@ -17,7 +17,7 @@ public class PagerRQ {
 	/**
 	 * 显示数据量, 默认
 	 */
-	private Integer size = Integer.valueOf(QueryConstant.DEFAULT_PAGESIZE);
+	private Integer rows = Integer.valueOf(QueryConstant.DEFAULT_PAGESIZE);
 	/**
 	 * 排序字段，单个字段的排序，使用此对象中的方法
 	 */
@@ -38,11 +38,11 @@ public class PagerRQ {
 		this.page = page;
 		return this;
 	}
-	public Integer getSize() {
-		return size;
+	public Integer getRows() {
+		return rows;
 	}
-	public PagerRQ setSize(Integer size) {
-		this.size = size;
+	public PagerRQ setRows(Integer rows) {
+		this.rows = rows;
 		return this;
 	}
 	public String getSort() {
@@ -63,7 +63,7 @@ public class PagerRQ {
 		return this;
 	}
 	public Integer getStart() {
-		if(start == null) return (page - 1) * size;
+		if(start == null) return (page - 1) * rows;
 		return start;
 	}
 }

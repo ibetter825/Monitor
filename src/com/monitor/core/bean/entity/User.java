@@ -2,6 +2,7 @@ package com.monitor.core.bean.entity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,9 +24,11 @@ public class User extends BaseEntity {
 	private String userPhone;
 	private String userEmail;
 	private Short userStatus;
+	@JsonIgnore
 	private String userPwd;
+	@JsonIgnore
 	private String userSalt;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
 	@JsonIgnore
 	private UserInfo userInfo;

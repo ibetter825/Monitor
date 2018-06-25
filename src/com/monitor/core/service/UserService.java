@@ -7,5 +7,11 @@ import com.monitor.core.orm.Page;
 
 public interface UserService {
 	public User getUser(Integer id);
-	public List<User> getPageList(Page<User> page, Map<String, ?> values);
+	/**
+	 * 分页查询用户信息
+	 * @param page
+	 * @param values
+	 * @return
+	 */
+	public List<User> getPageList(Page<User> page, String hql, Map<String, ?> values);
 }

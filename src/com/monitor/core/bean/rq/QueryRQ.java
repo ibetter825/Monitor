@@ -16,11 +16,6 @@ public class QueryRQ {
 	 */
 	private Map<String, Object> qrq = Maps.newHashMap();
 	/**
-	 * 排序对象
-	 * 使用时需要将or转成为字符串的order以供Pagerhelper使用
-	 */
-	private Map<String, String> or;
-	/**
 	 * 排序
 	 * eg: menu_id desc, menu_seq desc
 	 */
@@ -32,29 +27,36 @@ public class QueryRQ {
 	public void setQrq(Map<String, Object> qrq) {
 		this.qrq = qrq;
 	}
-	public Map<String, String> getOr() {
-		return or;
-	}
-	public void setOr(Map<String, String> or) {
-		this.or = or;
-	}
 	public String getOrder() {
-		if(this.or != null){
-			Iterator<String> it = or.keySet().iterator();
-			StringBuffer buffer = null;
-			String key = null, val = null;
-			while (it.hasNext()) {
-				key = it.next();
-				val = or.get(key);
-				if(buffer == null) buffer = new StringBuffer();
-				buffer.append(key + " " + val + ",");
-			}
-			if(buffer != null)
-				this.order = buffer.substring(0, buffer.length() - 1).toString();
-		}
 		return order;
 	}
 	public void setOrder(String order) {
 		this.order = order;
+	}
+	
+	/**
+	 * 获取带占位符的参数
+	 * @param hql
+	 * @param isNeedWhere
+	 * 		       是否需要拼接where
+	 * @return
+	 */
+	public String getHqlWithParam(String hql, boolean isNeedWhere) {
+		String res = hql;
+		StringBuffer buffer = new StringBuffer(hql);
+		if(this.qrq != null){
+			Iterator<String> it = qrq.keySet().iterator();
+			if(isNeedWhere) {
+				buffer.append(" where");
+			}else
+				buffer.append(" ");
+			String key = null;
+			while (it.hasNext()) {
+				key = it.next();
+				buffer.append(" ").append(key).append("=:").append(key).append(" and");
+			}
+			res = buffer.substring(0, buffer.lastIndexOf("and")).toString();
+		}
+		return res;
 	}
 }
