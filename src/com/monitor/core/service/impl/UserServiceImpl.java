@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> getPageList(Page<User> page, Map<String, ?> values) {
 		userDao.findPage(page, "select u from User", values);
+		
 		return page.getResult();
 	}
 }
