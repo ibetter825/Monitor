@@ -20,7 +20,7 @@ public class Page<T> {
 
 	// -- 分页参数 --//
 	protected int pageNo = 1;
-	protected int pageSize = 1;
+	protected int pageSize = 10;
 	protected String orderBy = null;
 	protected String order = null;
 	protected boolean autoCount = true;

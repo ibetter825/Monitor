@@ -12,5 +12,5 @@ public class QueryConstant {
 	/**
 	 * 默认页面数据行数
 	 */
-	public final static String DEFAULT_PAGESIZE = "20";
+	public final static String DEFAULT_PAGESIZE = "50";
 }

@@ -67,7 +67,9 @@ h2 {
     font-weight: normal;
 }
 
-
+.hide {
+	display: none;
+}
 /*cloud*/
 
 #mainBody {

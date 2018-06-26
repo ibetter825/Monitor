@@ -18,7 +18,7 @@ public class UserInfo extends BaseEntity {
 	@GenericGenerator(name = "pkGenerator", strategy = "foreign", parameters = {@Parameter(name = "property", value = "user")})
 	@GeneratedValue(generator = "pkGenerator")
 	private Integer userNo;
-	private String userName;
+	private String nickName;
 	private String userPhone;
 	private String userEmail;
 	private Short userStatus;
@@ -32,11 +32,11 @@ public class UserInfo extends BaseEntity {
 	public void setUserNo(Integer userNo) {
 		this.userNo = userNo;
 	}
-	public String getUserName() {
-		return userName;
+	public String getNickName() {
+		return nickName;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 	public String getUserPhone() {
 		return userPhone;

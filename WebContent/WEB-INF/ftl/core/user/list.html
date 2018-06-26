@@ -19,7 +19,7 @@
 		<div class="toolsline"></div>
 		<div class="tools">
 			<ul class="toolbar">
-				<li class="click"><span><img
+				<li class="click" onclick="form();"><span><img
 						src="${(rc.contextPath)!}/images/t01.png"></span>添加</li>
 				<li class="click"><span><img
 						src="${(rc.contextPath)!}/images/t02.png"></span>修改</li>
@@ -33,12 +33,17 @@
 		style="border: none; padding: 0 10px 10px 10px;">
 		<table id="grid"></table>
 	</div>
+	
+	<div id="dialogForm" class="hide">
+		<form id="form">
+			表单
+		</form>
+	</div>
 </body>
 <#include "./../public/static/javascript.html"/>
 <script>
-	var $grid;
+	var $grid, $dialogForm;
 	$(function() {
-		$('body').resize();//IE下内容会撑不开
 		initGrid();
 	});
 	function initGrid() {
@@ -76,6 +81,20 @@
 			pageSize : 50,
 			pageList : [ 50, 100, 200, 500 ]
 		});
+	}
+	//表单
+	function form(){
+		if(!$dialogForm){
+			$('#dialogForm').show();
+			$dialogForm = $('#dialogForm').dialog({
+				title: '表单',
+				model: true,
+				width: 400,
+				height: 300
+			});
+		}else{
+			$dialogForm.dialog('open');
+		}
 	}
 </script>
 </html>

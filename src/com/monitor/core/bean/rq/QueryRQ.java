@@ -49,11 +49,16 @@ public class QueryRQ {
 			if(isNeedWhere) {
 				buffer.append(" where");
 			}else
-				buffer.append(" ");
+				buffer.append(" and ");
 			String key = null;
+			String[] arr = null;
 			while (it.hasNext()) {
 				key = it.next();
-				buffer.append(" ").append(key).append("=:").append(key).append(" and");
+				if(key.startsWith("_")){//_u_userStatus
+					arr = key.split("_");
+					buffer.append(" ").append(arr[1]).append(".").append(arr[2]).append("=:").append(key).append(" and");
+				}else
+					buffer.append(" ").append(key).append("=:").append(key).append(" and");
 			}
 			res = buffer.substring(0, buffer.lastIndexOf("and")).toString();
 		}
