@@ -9,9 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.Valid;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.monitor.core.bean.entity.BaseEntity;
 
@@ -25,6 +26,7 @@ public class User extends BaseEntity {
 	@NotEmpty
 	private String userName;
 	private String userPhone;
+	@Email
 	private String userEmail;
 	private Short userStatus;
 	@JsonIgnore
@@ -34,6 +36,7 @@ public class User extends BaseEntity {
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
 	@JsonIgnore
+	@Valid
 	private UserInfo userInfo;
 	
 	public Integer getUserNo() {

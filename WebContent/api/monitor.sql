@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50715
 File Encoding         : 65001
 
-Date: 2018-06-13 16:31:13
+Date: 2018-06-27 16:11:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -95,12 +95,13 @@ CREATE TABLE `c_user` (
   `user_pwd` varchar(100) NOT NULL DEFAULT '' COMMENT '加密后的密码',
   `user_salt` varchar(10) NOT NULL DEFAULT '',
   PRIMARY KEY (`user_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=10001 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10002 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of c_user
 -- ----------------------------
 INSERT INTO `c_user` VALUES ('10000', 'admin', '1340888888', '', '1', '', '');
+INSERT INTO `c_user` VALUES ('10001', 'test', '1450999999', '', '1', '', '');
 
 -- ----------------------------
 -- Table structure for c_user_info
@@ -108,23 +109,18 @@ INSERT INTO `c_user` VALUES ('10000', 'admin', '1340888888', '', '1', '', '');
 DROP TABLE IF EXISTS `c_user_info`;
 CREATE TABLE `c_user_info` (
   `user_no` int(11) NOT NULL,
+  `nick_name` varchar(200) DEFAULT '',
   `user_avatar` varchar(1000) DEFAULT NULL,
   `add_time` bigint(20) DEFAULT NULL,
   `update_time` bigint(20) DEFAULT NULL,
-  `nick_name` varchar(200) DEFAULT '',
-  `user_email` varchar(255) DEFAULT NULL,
-  `user_name` varchar(255) DEFAULT NULL,
-  `user_phone` varchar(255) DEFAULT NULL,
-  `user_pwd` varchar(255) DEFAULT NULL,
-  `user_salt` varchar(255) DEFAULT NULL,
-  `user_status` smallint(6) DEFAULT NULL,
   PRIMARY KEY (`user_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of c_user_info
 -- ----------------------------
-INSERT INTO `c_user_info` VALUES ('10000', null, null, null, '系统管理员', null, null, null, null, null, null);
+INSERT INTO `c_user_info` VALUES ('10000', '系统管理员', null, null, null);
+INSERT INTO `c_user_info` VALUES ('10001', '测试用户', null, null, null);
 
 -- ----------------------------
 -- Table structure for d_grid

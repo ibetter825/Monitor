@@ -32,7 +32,7 @@ public class Md5Util {
             return null;  
         } 
 	}
-	/*public static void main(String[] args) {
-		System.err.println("000000+yang:" + md5("000000yang"));
-	}*/
+	public static void main(String[] args) {
+		//System.err.println("000000+monitor:" + md5("000000monitor"));
+	}
 }

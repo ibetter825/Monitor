@@ -38,10 +38,10 @@
 		<form id="form" method="post">
 			<div class="formbody">
 				<ul class="forminfo">
-					<li><label>用户登录名</label><input name="userName" type="text"
+					<li><label>用户登录名</label><input id="userName" name="userName" type="text"
 						class="dfinput easyui-validatebox" data-options="required:true"></li>
-					<li><label>用户昵称</label><input name="" type="text"
-						class="dfinput"></li>
+					<li><label>用户昵称</label><input id="nickName" name="nickName" type="text"
+						class="dfinput easyui-validatebox" data-options="validType:'length[1,10]'"></li>
 					<li><label>用户电话</label><input name="" type="text"
 						class="dfinput"></li>
 					<li><label>用户邮箱</label><input name="" type="text"
@@ -109,23 +109,34 @@
 					text:'保存',
 					iconCls:'icon-save',
 					handler:function(){
-						//if(!$('#form').form('validate'))
-							//return;
+						if(!$('#form').form('validate'))
+							return;
 						var params = $('#form').serializeArray();
+						//提交表单
 						$.ajax({
 							url: jui.uri + '/u/user/form',
 							type: 'post',
 							dataType: 'json',
 							data: params,
 							success: function(data){
-								$.messager.alert('信息',data.msg,'info');
 								if(!data.success){
 									var errors = data.data.errors;
 									if(errors){
 										for(var k in errors){
-											
+											var id = k;
+											if(k.indexOf('.'))
+												id = k.split('.')[1];
+											var $id = $('#'+id);
+											$id.tooltip({
+												position: 'right',
+												content: errors[k]
+											});
+											$id.tooltip('show');
 										}
 									}
+								}else{
+									$formDialog.dialog('close');
+									$.messager.alert('信息',data.msg,'info');
 								}
 							},
 							error: jQuery.ER

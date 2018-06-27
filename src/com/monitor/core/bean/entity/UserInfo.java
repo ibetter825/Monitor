@@ -8,6 +8,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.hibernate.validator.constraints.Length;
 import com.monitor.core.bean.entity.BaseEntity;
 
 @Entity
@@ -18,12 +19,11 @@ public class UserInfo extends BaseEntity {
 	@GenericGenerator(name = "pkGenerator", strategy = "foreign", parameters = {@Parameter(name = "property", value = "user")})
 	@GeneratedValue(generator = "pkGenerator")
 	private Integer userNo;
+	@Length(max = 10, min = 1)
 	private String nickName;
-	private String userPhone;
-	private String userEmail;
-	private Short userStatus;
-	private String userPwd;
-	private String userSalt;
+	private String userAvatar;
+	private Long addTime;
+	private Long updateTime;
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "userInfo")
 	private User user;
 	public Integer getUserNo() {
@@ -38,35 +38,23 @@ public class UserInfo extends BaseEntity {
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
-	public String getUserPhone() {
-		return userPhone;
+	public String getUserAvatar() {
+		return userAvatar;
 	}
-	public void setUserPhone(String userPhone) {
-		this.userPhone = userPhone;
+	public void setUserAvatar(String userAvatar) {
+		this.userAvatar = userAvatar;
 	}
-	public String getUserEmail() {
-		return userEmail;
+	public Long getAddTime() {
+		return addTime;
 	}
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+	public void setAddTime(Long addTime) {
+		this.addTime = addTime;
 	}
-	public Short getUserStatus() {
-		return userStatus;
+	public Long getUpdateTime() {
+		return updateTime;
 	}
-	public void setUserStatus(Short userStatus) {
-		this.userStatus = userStatus;
-	}
-	public String getUserPwd() {
-		return userPwd;
-	}
-	public void setUserPwd(String userPwd) {
-		this.userPwd = userPwd;
-	}
-	public String getUserSalt() {
-		return userSalt;
-	}
-	public void setUserSalt(String userSalt) {
-		this.userSalt = userSalt;
+	public void setUpdateTime(Long updateTime) {
+		this.updateTime = updateTime;
 	}
 	public User getUser() {
 		return user;

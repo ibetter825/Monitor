@@ -86,4 +86,12 @@ public class AuthConstant {
 	 * 登录账号出错
 	 */
 	public final static String WRONG_USER_ACCOUNT_MSG = "只能使用手机或者邮箱登录";
+	/**
+	 * 默认登录密码
+	 */
+	public final static String DEFAULT_USER_PWD = "000000";
+	/**
+	 * 默认登录盐
+	 */
+	public final static String DEFAULT_USER_SALT = "MONITOR";
 }
