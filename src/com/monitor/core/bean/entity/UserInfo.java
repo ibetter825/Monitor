@@ -1,13 +1,12 @@
 package com.monitor.core.bean.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 import org.hibernate.validator.constraints.Length;
 import com.monitor.core.bean.entity.BaseEntity;
 
@@ -16,21 +15,22 @@ import com.monitor.core.bean.entity.BaseEntity;
 public class UserInfo extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GenericGenerator(name = "pkGenerator", strategy = "foreign", parameters = {@Parameter(name = "property", value = "user")})
-	@GeneratedValue(generator = "pkGenerator")
-	private Integer userNo;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
 	@Length(max = 10, min = 1)
 	private String nickName;
 	private String userAvatar;
 	private Long addTime;
 	private Long updateTime;
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "userInfo")
+	@OneToOne
+	@JoinColumn(name = "user_id")
 	private User user;
-	public Integer getUserNo() {
-		return userNo;
+	
+	public Integer getId() {
+		return id;
 	}
-	public void setUserNo(Integer userNo) {
-		this.userNo = userNo;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getNickName() {
 		return nickName;

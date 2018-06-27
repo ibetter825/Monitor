@@ -2,7 +2,6 @@ package com.monitor.core.bean.entity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,7 +9,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.Valid;
-
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -22,7 +20,7 @@ public class User extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer userNo;
+	private Integer id;
 	@NotEmpty
 	private String userName;
 	private String userPhone;
@@ -33,17 +31,17 @@ public class User extends BaseEntity {
 	private String userPwd;
 	@JsonIgnore
 	private String userSalt;
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
 	@PrimaryKeyJoinColumn
 	@JsonIgnore
 	@Valid
 	private UserInfo userInfo;
 	
-	public Integer getUserNo() {
-		return userNo;
+	public Integer getId() {
+		return id;
 	}
-	public void setUserNo(Integer userNo) {
-		this.userNo = userNo;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getUserName() {
 		return userName;

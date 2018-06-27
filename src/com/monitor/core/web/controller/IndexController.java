@@ -17,7 +17,8 @@ public class IndexController extends BaseController {
 	public ModelAndView index() {
 		Map<String, Object> model = Maps.newHashMap();
 		User user =	userService.getUser(10000);
-		System.err.println(user.getUserName()+"--------------");
+		if(user != null)
+			System.err.println(user.getUserName()+"--------------");
 		model.put("user", user);
 		return new ModelAndView(VIEW_CORE_PATH + "index", model);
 	}

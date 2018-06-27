@@ -1,9 +1,11 @@
 package com.monitor.core.web.controller;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,16 +50,22 @@ public class UserController extends BaseController {
 		Map<String, Object> values = rq.getQrq();
 		values.put("_u_userStatus", Short.valueOf((String) values.getOrDefault("_u_userStatus", "1")));
 		
-		String hql = rq.getHqlWithParam("select new map(u.userNo as userNo, u.userName as userName, i.nickName as nickName, u.userPhone as userPhone, u.userEmail as userEmail) from User u left join u.userInfo i ", true);
+		String hql = rq.getHqlWithParam("select new map(u.id as id, u.userName as userName, i.nickName as nickName, u.userPhone as userPhone, u.userEmail as userEmail) from User u left join u.userInfo i ", true);
 		mapService.getPageList(page, hql, values);
 		PageModel pageModel = new PageModel(page);
 		return pageModel;
 	}
-	
+	/**
+	 * 新增，修改
+	 * @param user
+	 * @param info
+	 * @param bindingResult
+	 * @return
+	 */
 	@RequestMapping("/user/form")
 	@Validator
 	public ResultModel form(@Valid User user, @Valid UserInfo info, BindingResult bindingResult){
-		if(user.getUserNo() == null){
+		if(user.getId() == null){
 			info.setAddTime(DateUtil.getDateByTime());
 			user.setUserStatus((short)1);
 			user.setUserSalt(AuthConstant.DEFAULT_USER_SALT);
@@ -66,5 +74,21 @@ public class UserController extends BaseController {
 		ResultModel result = new ResultModel();
 		userService.saveOrUpdate(user, info);
 		return result;
+	}
+	/**
+	 * 删除
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping("/user/del")
+	public ResultModel del(String ids) {
+		if(StringUtils.isEmpty(ids))
+			return new ResultModel("参数不能为空");
+		String[] arr_ = ids.split(",");
+		Integer[] arr = new Integer[arr_.length];
+		for (int i = 0; i < arr_.length; i++)
+			arr[i] = Integer.valueOf(arr_[i]);
+		userService.delete(arr);
+		return new ResultModel();
 	}
 }
