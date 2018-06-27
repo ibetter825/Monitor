@@ -10,6 +10,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.monitor.core.bean.entity.BaseEntity;
 
@@ -20,6 +22,7 @@ public class User extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer userNo;
+	@NotEmpty
 	private String userName;
 	private String userPhone;
 	private String userEmail;

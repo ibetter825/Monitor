@@ -1,11 +1,19 @@
 package com.monitor.core.web.controller;
 
 import java.util.Map;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.monitor.core.aop.annotation.Validator;
+import com.monitor.core.bean.entity.User;
 import com.monitor.core.bean.model.PageModel;
+import com.monitor.core.bean.model.ResultModel;
 import com.monitor.core.bean.rq.PagerRQ;
 import com.monitor.core.bean.rq.QueryRQ;
 import com.monitor.core.orm.Page;
@@ -40,5 +48,12 @@ public class UserController extends BaseController {
 		mapService.getPageList(page, hql, values);
 		PageModel pageModel = new PageModel(page);
 		return pageModel;
+	}
+	
+	@RequestMapping("/user/form")
+	@Validator
+	public ResultModel form(@Valid User user, BindingResult bindingResult){
+		ResultModel result = new ResultModel();
+		return result;
 	}
 }

@@ -55,12 +55,12 @@ public class ExceptionHandler implements HandlerExceptionResolver {
 	}
 	 public void exceptionHandle(HttpServletResponse resp, Exception e) throws IOException{
 	    	ServletOutputStream outer = null;
-	    	boolean isTkValiEx = e instanceof ValidateException;//是否是表单验证错误
+	    	boolean isValiEx = e instanceof ValidateException;//是否是表单验证错误
 			try {
 				ResultModel model = null;
 				resp.reset();
 				outer = resp.getOutputStream();
-				if(isTkValiEx){
+				if(isValiEx){
 					resp.setStatus(HttpStatus.OK.value());
 					model = new ResultModel(e.getMessage());
 					model.getData().put(AuthConstant.FORM_VALI_FAIL_NAME, ((ValidateException) e).getError());

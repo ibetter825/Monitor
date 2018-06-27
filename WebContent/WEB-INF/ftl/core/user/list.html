@@ -34,21 +34,32 @@
 		<table id="grid"></table>
 	</div>
 	
-	<div id="dialogForm" class="hide">
-		<form id="form">
-			表单
+	<div id="formDialog" class="hide">
+		<form id="form" method="post">
+			<div class="formbody">
+				<ul class="forminfo">
+					<li><label>用户登录名</label><input name="userName" type="text"
+						class="dfinput easyui-validatebox" data-options="required:true"></li>
+					<li><label>用户昵称</label><input name="" type="text"
+						class="dfinput"></li>
+					<li><label>用户电话</label><input name="" type="text"
+						class="dfinput"></li>
+					<li><label>用户邮箱</label><input name="" type="text"
+						class="dfinput easyui-validatebox" data-options="validType:'email'"></li>
+				</ul>
+			</div>
 		</form>
 	</div>
 </body>
 <#include "./../public/static/javascript.html"/>
 <script>
-	var $grid, $dialogForm;
+	var $grid, $formDialog;
 	$(function() {
 		initGrid();
 	});
 	function initGrid() {
 		$grid = $('#grid').datagrid({
-			url : '${(rc.contextPath)!}/u/user/list',
+			url : jui.uri + '/u/user/list',
 			striped : true,
 			autoRowHeight : false,
 			fitColumns : true,
@@ -84,16 +95,52 @@
 	}
 	//表单
 	function form(){
-		if(!$dialogForm){
-			$('#dialogForm').show();
-			$dialogForm = $('#dialogForm').dialog({
+		if(!$formDialog){
+			$('#formDialog').show();
+			$formDialog = $('#formDialog').dialog({
 				title: '表单',
 				model: true,
-				width: 400,
-				height: 300
+				width: 380,
+				height: 300,
+				onClose: function(){
+					$('#form').form('reset');
+				},
+				buttons:[{
+					text:'保存',
+					iconCls:'icon-save',
+					handler:function(){
+						//if(!$('#form').form('validate'))
+							//return;
+						var params = $('#form').serializeArray();
+						$.ajax({
+							url: jui.uri + '/u/user/form',
+							type: 'post',
+							dataType: 'json',
+							data: params,
+							success: function(data){
+								$.messager.alert('信息',data.msg,'info');
+								if(!data.success){
+									var errors = data.data.errors;
+									if(errors){
+										for(var k in errors){
+											
+										}
+									}
+								}
+							},
+							error: jQuery.ER
+						});
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-cancel',
+					handler:function(){
+						$formDialog.dialog('close');
+					}
+				}]
 			});
 		}else{
-			$dialogForm.dialog('open');
+			$formDialog.dialog('open');
 		}
 	}
 </script>
