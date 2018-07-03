@@ -77,8 +77,6 @@
 		它会对进入DispatcherServlet的请求进行帅选，如果发现是没有经过映射的请求，就将该请求交由WEB应用服务器默认的 Servlet处理。如果不是静态资源的请求，才由DispatcherServlet继续处理。 -->
 	<mvc:default-servlet-handler />
 
-	<!-- 开启事务 -->
-	<tx:annotation-driven />
 	<!-- 配置拦截器 -->
 	<mvc:interceptors>  
     	<mvc:interceptor>  

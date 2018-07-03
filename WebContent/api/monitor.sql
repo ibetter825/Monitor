@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50711
 File Encoding         : 65001
 
-Date: 2018-06-28 00:59:25
+Date: 2018-07-03 22:15:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -87,15 +87,15 @@ CREATE TABLE `c_organ` (
 -- ----------------------------
 DROP TABLE IF EXISTS `c_user`;
 CREATE TABLE `c_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户编号自增',
+  `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户编号自增',
   `user_name` varchar(100) DEFAULT '' COMMENT '用户登录名',
-  `user_phone` int(11) DEFAULT '0' COMMENT '用户手机号码',
+  `user_phone` char(11) DEFAULT '' COMMENT '用户手机号码',
   `user_email` varchar(200) DEFAULT '' COMMENT '用户邮箱',
   `user_status` tinyint(4) DEFAULT '1' COMMENT '状态 1正常 0 失效,禁用 -1软删除',
   `user_pwd` varchar(100) NOT NULL DEFAULT '' COMMENT '加密后的密码',
   `user_salt` varchar(10) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10003 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10004 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of c_user
@@ -103,23 +103,24 @@ CREATE TABLE `c_user` (
 INSERT INTO `c_user` VALUES ('10000', 'admin', '1340845888', '', '1', '', '');
 INSERT INTO `c_user` VALUES ('10001', 'w', null, null, '1', 'A0B08BA9515935411312353D8EA43E58', 'MONITOR');
 INSERT INTO `c_user` VALUES ('10002', 'ds', null, null, '-1', 'A0B08BA9515935411312353D8EA43E58', 'MONITOR');
+INSERT INTO `c_user` VALUES ('10003', 'dd', '1340845879', '', '1', 'A0B08BA9515935411312353D8EA43E58', 'MONITOR');
 
 -- ----------------------------
 -- Table structure for c_user_info
 -- ----------------------------
 DROP TABLE IF EXISTS `c_user_info`;
 CREATE TABLE `c_user_info` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `info_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `nick_name` varchar(200) DEFAULT '',
   `user_avatar` varchar(1000) DEFAULT NULL,
   `add_time` bigint(20) DEFAULT NULL,
   `update_time` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`info_id`),
   KEY `FK_86eps06tvhl88fpbqy7jx6hml` (`user_id`),
   KEY `FK_kyk8tri3xh2c4sgcqw4m88cyu` (`user_id`),
-  CONSTRAINT `FK_kyk8tri3xh2c4sgcqw4m88cyu` FOREIGN KEY (`user_id`) REFERENCES `c_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10008 DEFAULT CHARSET=utf8;
+  CONSTRAINT `FK_kyk8tri3xh2c4sgcqw4m88cyu` FOREIGN KEY (`user_id`) REFERENCES `c_user` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10011 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of c_user_info
@@ -127,6 +128,9 @@ CREATE TABLE `c_user_info` (
 INSERT INTO `c_user_info` VALUES ('10005', '10000', '超级管理员', null, null, null);
 INSERT INTO `c_user_info` VALUES ('10006', '10001', 'www', null, '1530118090259', null);
 INSERT INTO `c_user_info` VALUES ('10007', '10002', 'dsd', null, '1530118094790', null);
+INSERT INTO `c_user_info` VALUES ('10008', '10001', '测试01', null, null, '1530622948662');
+INSERT INTO `c_user_info` VALUES ('10009', '10001', '测试02', null, null, '1530623026062');
+INSERT INTO `c_user_info` VALUES ('10010', '10003', 'ddddd', null, '1530627115564', null);
 
 -- ----------------------------
 -- Table structure for d_grid

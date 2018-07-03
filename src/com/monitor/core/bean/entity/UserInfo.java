@@ -1,5 +1,6 @@
 package com.monitor.core.bean.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,21 +17,22 @@ public class UserInfo extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private Integer infoId;
 	@Length(max = 10, min = 1)
 	private String nickName;
 	private String userAvatar;
+	@Column(updatable = false)
 	private Long addTime;
 	private Long updateTime;
 	@OneToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-	public Integer getId() {
-		return id;
+	public Integer getInfoId() {
+		return infoId;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+	public void setInfoId(Integer infoId) {
+		this.infoId = infoId;
 	}
 	public String getNickName() {
 		return nickName;

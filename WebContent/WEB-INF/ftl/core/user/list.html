@@ -19,9 +19,9 @@
 		<div class="toolsline"></div>
 		<div class="tools">
 			<ul class="toolbar">
-				<li class="click" onclick="form();"><span><img
+				<li class="click" onclick="form(0);"><span><img
 						src="${(rc.contextPath)!}/images/t01.png"></span>添加</li>
-				<li class="click"><span><img
+				<li class="click" onclick="form(1);"><span><img
 						src="${(rc.contextPath)!}/images/t02.png"></span>修改</li>
 				<li class="click" onclick="del();"><span><img src="${(rc.contextPath)!}/images/t03.png"></span>删除</li>
 				<li><span><img src="${(rc.contextPath)!}/images/t04.png"></span>统计</li>
@@ -37,14 +37,16 @@
 	<div id="formDialog" class="hide">
 		<form id="form" method="post">
 			<div class="formbody">
+				<input type="hidden" name="userId" value=""/>
+				<input type="hidden" name="infoId" value=""/>
 				<ul class="forminfo">
 					<li><label>用户登录名</label><input id="userName" name="userName" type="text"
 						class="dfinput easyui-validatebox" data-options="required:true"></li>
 					<li><label>用户昵称</label><input id="nickName" name="nickName" type="text"
 						class="dfinput easyui-validatebox" data-options="validType:'length[1,10]'"></li>
-					<li><label>用户电话</label><input name="" type="text"
+					<li><label>用户电话</label><input name="userPhone" type="text"
 						class="dfinput"></li>
-					<li><label>用户邮箱</label><input name="" type="text"
+					<li><label>用户邮箱</label><input name="userEmail" type="text"
 						class="dfinput easyui-validatebox" data-options="validType:'email'"></li>
 				</ul>
 			</div>
@@ -67,7 +69,7 @@
 			height : 'auto',
 			height: '100%',
 			columns : [ [ {
-				field : 'id',
+				field : 'userId',
 				title : '用户编号',
 				width : 100
 			}, {
@@ -93,8 +95,16 @@
 			pageList : [ 50, 100, 200, 500 ]
 		});
 	}
-	//表单
-	function form(){
+	//表单 0 添加   1 编辑
+	function form(flg){
+		if(flg == 1){//编辑，初始化数据
+			var rows = $grid.datagrid('getSelections');
+			if(rows.length != 1){
+				$.messager.alert('警告','请选择一条需要修改的记录','info');
+				return;
+			}
+			$('#form').form('load', rows[0]);
+		}
 		if(!$formDialog){
 			$('#formDialog').show();
 			$formDialog = $('#formDialog').dialog({
@@ -104,7 +114,7 @@
 				height: 300,
 				resizable: true,
 				onClose: function(){
-					$('#form').form('reset');
+					$('#form').form('clear');
 				},
 				buttons:[{
 					text:'保存',

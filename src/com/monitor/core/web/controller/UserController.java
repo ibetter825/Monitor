@@ -50,7 +50,7 @@ public class UserController extends BaseController {
 		Map<String, Object> values = rq.getQrq();
 		values.put("_u_userStatus", Short.valueOf((String) values.getOrDefault("_u_userStatus", "1")));
 		
-		String hql = rq.getHqlWithParam("select new map(u.id as id, u.userName as userName, i.nickName as nickName, u.userPhone as userPhone, u.userEmail as userEmail) from User u left join u.userInfo i ", true);
+		String hql = rq.getHqlWithParam("select new map(u.userId as userId, i.infoId as infoId, u.userName as userName, i.nickName as nickName, u.userPhone as userPhone, u.userEmail as userEmail) from User u left join u.userInfo i ", true);
 		mapService.getPageList(page, hql, values);
 		PageModel pageModel = new PageModel(page);
 		return pageModel;
@@ -65,11 +65,13 @@ public class UserController extends BaseController {
 	@RequestMapping("/user/form")
 	@Validator
 	public ResultModel form(@Valid User user, @Valid UserInfo info, BindingResult bindingResult){
-		if(user.getId() == null){
+		if(user.getUserId() == null){
 			info.setAddTime(DateUtil.getDateByTime());
 			user.setUserStatus((short)1);
 			user.setUserSalt(AuthConstant.DEFAULT_USER_SALT);
 			user.setUserPwd(Md5Util.md5(AuthConstant.DEFAULT_USER_PWD + AuthConstant.DEFAULT_USER_SALT));
+		}else {
+			info.setUpdateTime(DateUtil.getDateByTime());
 		}
 		ResultModel result = new ResultModel();
 		userService.saveOrUpdate(user, info);

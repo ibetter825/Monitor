@@ -1,6 +1,7 @@
 package com.monitor.core.bean.entity;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,16 +21,19 @@ public class User extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private Integer userId;
 	@NotEmpty
 	private String userName;
 	private String userPhone;
 	@Email
 	private String userEmail;
+	@Column(updatable = false)
 	private Short userStatus;
 	@JsonIgnore
+	@Column(updatable = false)
 	private String userPwd;
 	@JsonIgnore
+	@Column(updatable = false)
 	private String userSalt;
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
 	@PrimaryKeyJoinColumn
@@ -37,11 +41,11 @@ public class User extends BaseEntity {
 	@Valid
 	private UserInfo userInfo;
 	
-	public Integer getId() {
-		return id;
+	public Integer getUserId() {
+		return userId;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 	public String getUserName() {
 		return userName;
