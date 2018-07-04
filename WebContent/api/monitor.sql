@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 127.0.0.1
-Source Server Version : 50711
+Source Server Version : 50715
 Source Host           : 127.0.0.1:3306
 Source Database       : monitor
 
 Target Server Type    : MYSQL
-Target Server Version : 50711
+Target Server Version : 50715
 File Encoding         : 65001
 
-Date: 2018-07-03 22:15:35
+Date: 2018-07-04 17:07:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -67,20 +67,24 @@ INSERT INTO `c_dict` VALUES ('D00202', 'D002', '美元', 'USD', '', '1', '1', '1
 -- ----------------------------
 DROP TABLE IF EXISTS `c_organ`;
 CREATE TABLE `c_organ` (
-  `org_no` varchar(50) NOT NULL COMMENT '机构编号',
-  `org_pno` varchar(50) DEFAULT '' COMMENT '机构父编号',
+  `org_id` varchar(50) NOT NULL COMMENT '机构编号',
+  `org_pid` varchar(50) DEFAULT '' COMMENT '机构父编号',
   `org_name` varchar(100) NOT NULL DEFAULT '' COMMENT '机构名称',
-  `org_desc` varchar(200) DEFAULT NULL,
+  `org_desc` varchar(200) DEFAULT '',
   `org_status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态: 0 失效，1 正常，-1 删除',
   `org_seq` int(11) DEFAULT '0' COMMENT '排序',
   `org_level` tinyint(4) DEFAULT '0' COMMENT '机构级别',
-  `org_pnos` varchar(255) DEFAULT '' COMMENT '所有父级机构编号，逗号隔开',
-  PRIMARY KEY (`org_no`)
+  `org_pids` varchar(500) DEFAULT '' COMMENT '所有父级机构编号/隔开',
+  PRIMARY KEY (`org_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of c_organ
 -- ----------------------------
+INSERT INTO `c_organ` VALUES ('1', '', '总', null, '1', '0', '0', '/1/');
+INSERT INTO `c_organ` VALUES ('1001', '1', '二级1', null, '1', '0', '1', '/1/1001/');
+INSERT INTO `c_organ` VALUES ('1001001', '1001', '三级1', null, '1', '0', '2', '/1/1001/1001001/');
+INSERT INTO `c_organ` VALUES ('1002', '1', '二级2', null, '1', '1', '1', '/1/1002/');
 
 -- ----------------------------
 -- Table structure for c_user
@@ -95,15 +99,14 @@ CREATE TABLE `c_user` (
   `user_pwd` varchar(100) NOT NULL DEFAULT '' COMMENT '加密后的密码',
   `user_salt` varchar(10) NOT NULL DEFAULT '',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10004 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10006 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of c_user
 -- ----------------------------
 INSERT INTO `c_user` VALUES ('10000', 'admin', '1340845888', '', '1', '', '');
-INSERT INTO `c_user` VALUES ('10001', 'w', null, null, '1', 'A0B08BA9515935411312353D8EA43E58', 'MONITOR');
-INSERT INTO `c_user` VALUES ('10002', 'ds', null, null, '-1', 'A0B08BA9515935411312353D8EA43E58', 'MONITOR');
-INSERT INTO `c_user` VALUES ('10003', 'dd', '1340845879', '', '1', 'A0B08BA9515935411312353D8EA43E58', 'MONITOR');
+INSERT INTO `c_user` VALUES ('10004', 'test01', '13408888888', 'test_01@gmail.com', '1', 'A0B08BA9515935411312353D8EA43E58', 'MONITOR');
+INSERT INTO `c_user` VALUES ('10005', 'test02', '17676777777', '66s7@qq.com', '-1', 'A0B08BA9515935411312353D8EA43E58', 'MONITOR');
 
 -- ----------------------------
 -- Table structure for c_user_info
@@ -120,17 +123,34 @@ CREATE TABLE `c_user_info` (
   KEY `FK_86eps06tvhl88fpbqy7jx6hml` (`user_id`),
   KEY `FK_kyk8tri3xh2c4sgcqw4m88cyu` (`user_id`),
   CONSTRAINT `FK_kyk8tri3xh2c4sgcqw4m88cyu` FOREIGN KEY (`user_id`) REFERENCES `c_user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10011 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10013 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of c_user_info
 -- ----------------------------
 INSERT INTO `c_user_info` VALUES ('10005', '10000', '超级管理员', null, null, null);
-INSERT INTO `c_user_info` VALUES ('10006', '10001', 'www', null, '1530118090259', null);
-INSERT INTO `c_user_info` VALUES ('10007', '10002', 'dsd', null, '1530118094790', null);
-INSERT INTO `c_user_info` VALUES ('10008', '10001', '测试01', null, null, '1530622948662');
-INSERT INTO `c_user_info` VALUES ('10009', '10001', '测试02', null, null, '1530623026062');
-INSERT INTO `c_user_info` VALUES ('10010', '10003', 'ddddd', null, '1530627115564', null);
+INSERT INTO `c_user_info` VALUES ('10011', '10004', '测试01', null, '1530673803293', '1530673811798');
+INSERT INTO `c_user_info` VALUES ('10012', '10005', '测试01', null, '1530674112754', null);
+
+-- ----------------------------
+-- Table structure for c_user_organ
+-- ----------------------------
+DROP TABLE IF EXISTS `c_user_organ`;
+CREATE TABLE `c_user_organ` (
+  `user_id` int(11) NOT NULL COMMENT '用户id',
+  `org_id` varchar(50) NOT NULL COMMENT '机构id',
+  PRIMARY KEY (`user_id`,`org_id`),
+  KEY `FK_aoganjnf6bftucyb2ucu4ei4x` (`org_id`),
+  KEY `FK_ffibanc50dibw1syn7i8phlj0` (`user_id`),
+  CONSTRAINT `FK_aoganjnf6bftucyb2ucu4ei4x` FOREIGN KEY (`org_id`) REFERENCES `c_organ` (`org_id`),
+  CONSTRAINT `FK_ffibanc50dibw1syn7i8phlj0` FOREIGN KEY (`user_id`) REFERENCES `c_user` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户机构关系表';
+
+-- ----------------------------
+-- Records of c_user_organ
+-- ----------------------------
+INSERT INTO `c_user_organ` VALUES ('10000', '1');
+INSERT INTO `c_user_organ` VALUES ('10000', '1001');
 
 -- ----------------------------
 -- Table structure for d_grid

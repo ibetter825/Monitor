@@ -72,7 +72,8 @@ public abstract class SimpleHibernateDaoImpl<T> implements SimpleHibernateDao<T>
 	 * @return
 	 */
 	protected Session getSession() {
-		return sessionFactory.openSession();
+		//return sessionFactory.openSession();
+		return sessionFactory.getCurrentSession();
 	}
 
 	/**

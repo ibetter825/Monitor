@@ -32,7 +32,7 @@
 		<property name="checkoutTimeout" value="${core.c3p0.checkoutTimeout}" />
 	</bean>
 	<!-- 配置SessionFactory -->
-	<bean id="core_sessionFactory"
+	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<!-- 配置数据源属性 -->
 		<property name="dataSource" ref="core_dataSource"></property>
@@ -50,7 +50,7 @@
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</prop>
 				<!-- Oracle方言 -->
 				<!-- <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop> -->
-				<prop key="hibernate.connection.release_mode">after_statement</prop><!-- 如果使用sessionFactory.openSession()不会自动关闭链接，会造成连接池溢出，数据库阻止连接从而报错 -->
+				<!-- <prop key="hibernate.connection.release_mode">after_statement</prop> --><!-- 如果使用sessionFactory.openSession()不会自动关闭链接，会造成连接池溢出，数据库阻止连接从而报错 -->
 				<prop key="hibernate.autoReconnect">true</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">true</prop>
@@ -61,7 +61,7 @@
     
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<property name="sessionFactory" ref="core_sessionFactory"></property>
+		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
 </beans>

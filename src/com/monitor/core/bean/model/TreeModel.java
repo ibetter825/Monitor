@@ -14,7 +14,7 @@ public class TreeModel implements Serializable{
 	private String id;
 	private String text;
 	private String icon;
-	private String par;//参数
+	private String param;//参数
 	private List<TreeModel> children;
 	public String getId() {
 		return id;
@@ -34,11 +34,11 @@ public class TreeModel implements Serializable{
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
-	public String getPar() {
-		return par;
+	public String getParam() {
+		return param;
 	}
-	public void setPar(String par) {
-		this.par = par;
+	public void setParam(String param) {
+		this.param = param;
 	}
 	public List<TreeModel> getChildren() {
 		return children;

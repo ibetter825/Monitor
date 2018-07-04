@@ -1,11 +1,16 @@
 package com.monitor.core.bean.entity;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -40,6 +45,14 @@ public class User extends BaseEntity {
 	@JsonIgnore
 	@Valid
 	private UserInfo userInfo;
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "c_user_organ",
+            joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name="org_id")
+	)
+	private List<Organ> organs;
+	
 	
 	public Integer getUserId() {
 		return userId;
@@ -88,5 +101,11 @@ public class User extends BaseEntity {
 	}
 	public void setUserInfo(UserInfo userInfo) {
 		this.userInfo = userInfo;
+	}
+	public List<Organ> getOrgans() {
+		return organs;
+	}
+	public void setOrgans(List<Organ> organs) {
+		this.organs = organs;
 	}
 }

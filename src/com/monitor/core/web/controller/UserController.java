@@ -1,17 +1,13 @@
 package com.monitor.core.web.controller;
 
-import java.util.Arrays;
 import java.util.Map;
-
 import javax.validation.Valid;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.monitor.core.aop.annotation.Validator;
 import com.monitor.core.bean.constant.AuthConstant;
 import com.monitor.core.bean.entity.User;
@@ -50,10 +46,20 @@ public class UserController extends BaseController {
 		Map<String, Object> values = rq.getQrq();
 		values.put("_u_userStatus", Short.valueOf((String) values.getOrDefault("_u_userStatus", "1")));
 		
-		String hql = rq.getHqlWithParam("select new map(u.userId as userId, i.infoId as infoId, u.userName as userName, i.nickName as nickName, u.userPhone as userPhone, u.userEmail as userEmail) from User u left join u.userInfo i ", true);
+		String hql = rq.getHqlWithParam("select new map(u.userId as userId, i.infoId as infoId, u.userName as userName, i.nickName as nickName, u.userPhone as userPhone, u.userEmail as userEmail) from User u left join u.userInfo i", true);
 		mapService.getPageList(page, hql, values);
 		PageModel pageModel = new PageModel(page);
 		return pageModel;
+	}
+	/**
+	 * 获取用户
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/user/get")
+	public User get(Integer id){
+		User user = userService.getUser(id);
+		return user;
 	}
 	/**
 	 * 新增，修改
