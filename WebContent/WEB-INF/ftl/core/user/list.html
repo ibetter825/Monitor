@@ -44,6 +44,8 @@
 						class="dfinput easyui-validatebox" data-options="required:true"></li>
 					<li><label>用户昵称</label><input id="nickName" name="nickName" type="text"
 						class="dfinput easyui-validatebox" data-options="validType:'length[1,10]'"></li>
+					<li><label>用户机构</label><input id="orgIds" name="orgIds" type="text"
+						class="dfinput easyui-combotree" data-options="required:true"></li>
 					<li><label>用户电话</label><input name="userPhone" type="text"
 						class="dfinput"></li>
 					<li><label>用户邮箱</label><input name="userEmail" type="text"
@@ -198,6 +200,11 @@
 						$formDialog.dialog('close');
 					}
 				}]
+			});
+			$('#orgIds').combotree({    
+			    url: jui.uri + '/u/org/tree',    
+			    required: true,
+			    height: 'auto'
 			});
 		}else{
 			$formDialog.dialog({title: flg?'修改':'添加'});
