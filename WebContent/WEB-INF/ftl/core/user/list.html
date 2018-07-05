@@ -9,11 +9,14 @@
 		style="border: none; padding: 0 10px; overflow: hidden;">
 		<form id="searchForm" method="post">
 			<ul class="prosearch">
-				<li><i>用户编号</i> <a><input name="rq._u_userId" type="text"
+				<li><i>用户编号</i> <a><input name="qrq[_u_userId]" type="text"
 						class="scinput"></a></li>
-				<li><i>用户名</i><a><input name="rq._u_userName" type="text"
+				<li><i>用户名</i><a><input name="qrq[_u_userName]" type="text"
 						class="scinput"></a></li>
-				<li><a href="javascript:search();"><input name="" type="button" class="sure" value="查询"></a></li>
+				<li>
+					<a href="javascript:search();"><input name="" type="button" class="sure" value="查询"></a>
+					<a href="javascript:reset();"><input name="" type="button" class="scbtn2" value="重置"></a>
+				</li>
 			</ul>
 		</form>
 		<div class="toolsline"></div>
@@ -63,6 +66,10 @@
 	});
 	function search(){
 		$grid.datagrid('load', app.serializeForm('#searchForm', true));
+	}
+	function reset(){
+		$('#searchForm')[0].reset();
+		search();
 	}
 	function initGrid() {
 		$grid = $('#grid').datagrid({

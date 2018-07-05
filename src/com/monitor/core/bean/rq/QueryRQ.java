@@ -3,6 +3,8 @@ package com.monitor.core.bean.rq;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.google.common.collect.Maps;
 
 /**
@@ -52,8 +54,13 @@ public class QueryRQ {
 				buffer.append(" and ");
 			String key = null;
 			String[] arr = null;
+			String val = null;
 			while (it.hasNext()) {
 				key = it.next();
+				val = qrq.get(key).toString();
+				if(StringUtils.isEmpty(val)) {
+					continue;
+				}
 				if(key.startsWith("_")){//_u_userStatus
 					arr = key.split("_");
 					buffer.append(" ").append(arr[1]).append(".").append(arr[2]).append("=:").append(key).append(" and");
