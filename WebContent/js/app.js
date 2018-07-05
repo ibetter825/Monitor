@@ -1,5 +1,5 @@
 var app = {};
-!(function(app, jQuery){
+!(function(me, jQuery){
 	jQuery.cookie = function(name, value, options) {
 	    if (typeof value != 'undefined') { // name and value given, set cookie
 	        options = options || {};
@@ -126,4 +126,22 @@ var app = {};
 	    	jQuery.cookie(key, undefined);
 	    }
 	}
+	/**
+	 * 序列化表单
+	 */
+	me.serializeForm = function(formId, isEncode) {
+		var obj = {};
+		if(formId.indexOf('#') < 0){
+			formId = '#' + formId;
+		}
+		var arr = $(formId).serializeArray();
+		$.each(arr, function(index) {
+			if(isEncode){
+				obj[this['name']] = encodeURIComponent(this['value']);
+			}else{
+				obj[this['name']] = this['value'];
+			}
+		});
+		return obj;
+	};
 })(app, $);

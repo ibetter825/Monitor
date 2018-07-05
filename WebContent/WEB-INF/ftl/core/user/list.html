@@ -9,11 +9,11 @@
 		style="border: none; padding: 0 10px; overflow: hidden;">
 		<form id="searchForm" method="post">
 			<ul class="prosearch">
-				<li><i>项目名称</i> <a><input name="" type="text"
+				<li><i>用户编号</i> <a><input name="rq._u_userId" type="text"
 						class="scinput"></a></li>
-				<li><i>项目编号</i><a><input name="" type="text"
+				<li><i>用户名</i><a><input name="rq._u_userName" type="text"
 						class="scinput"></a></li>
-				<li><a><input name="" type="button" class="sure" value="查询"></a></li>
+				<li><a href="javascript:search();"><input name="" type="button" class="sure" value="查询"></a></li>
 			</ul>
 		</form>
 		<div class="toolsline"></div>
@@ -61,6 +61,9 @@
 	$(function() {
 		initGrid();
 	});
+	function search(){
+		$grid.datagrid('load', app.serializeForm('#searchForm', true));
+	}
 	function initGrid() {
 		$grid = $('#grid').datagrid({
 			url : jui.uri + '/u/user/list',
@@ -123,6 +126,17 @@
 				field : 'userEmail',
 				title : '用户邮箱',
 				width : 100
+			}, {
+				field : 'addTime',
+				title : '添加时间',
+				width : 100,
+				formatter: function(value,row,index){
+					if(row.userInfo){
+						return row.userInfo['addTime'];
+					}else{
+						return '';
+					}
+				}
 			}] ],
 			pagination : true,
 			pageSize : 50,
