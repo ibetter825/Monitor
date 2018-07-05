@@ -89,6 +89,7 @@
 				formatter: function(value,row,index){
 					if(row.userInfo){
 						row['nickName'] = row.userInfo.nickName;
+						row['infoId'] = row.userInfo.infoId;
 						return row['nickName'];
 					}else{
 						return '';
@@ -149,8 +150,8 @@
 			$formDialog = $('#formDialog').dialog({
 				title: flg?'修改':'添加',
 				model: true,
-				width: 380,
-				height: 300,
+				width: 400,
+				height: 340,
 				resizable: true,
 				onClose: function(){
 					$('#form').form('clear');
@@ -201,10 +202,13 @@
 					}
 				}]
 			});
-			$('#orgIds').combotree({    
-			    url: jui.uri + '/u/org/tree',    
+			$('#orgIds').combotree({
+			    url: jui.uri + '/u/org/tree',
 			    required: true,
-			    height: 'auto'
+			    multiple: true,
+			    cascadeCheck: false,
+			    panelHeight: 'auto',
+			    panelMaxHeight: 400
 			});
 		}else{
 			$formDialog.dialog({title: flg?'修改':'添加'});
