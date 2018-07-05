@@ -11,10 +11,17 @@ import com.monitor.core.orm.Page;
  */
 public interface MapService {
 	/**
-	 * 分页查询
+	 * HQL分页查询
 	 * @param page
 	 * @param values
 	 * @return
 	 */
 	public List<Map<?,?>> getPageList(Page<Map<?,?>> page, String hql, Map<String, ?> values);
+	/**
+	 * SQL分页查询
+	 * @param page
+	 * @param values
+	 * @return
+	 */
+	public List<Map<?,?>> getPageListBySql(Page<Map<?,?>> page, String sql, Map<String, ?> values);
 }

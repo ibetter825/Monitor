@@ -17,4 +17,9 @@ public class MapServiceImpl implements MapService {
 		mapDao.findPage(page, hql, values);
 		return page.getResult();
 	}
+	@Override
+	public List<Map<?, ?>> getPageListBySql(Page<Map<?, ?>> page, String sql, Map<String, ?> values) {
+		mapDao.findPageBySql(page, sql, values);
+		return page.getResult();
+	}
 }

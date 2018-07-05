@@ -83,8 +83,35 @@
 			}, {
 				field : 'nickName',
 				title : '用户昵称',
-				width : 100
-			} , {
+				width : 100,
+				formatter: function(value,row,index){
+					if(row.userInfo){
+						row['nickName'] = row.userInfo.nickName;
+						return row['nickName'];
+					}else{
+						return '';
+					}
+				}
+			}, {
+				field : 'orgNames',
+				title : '所属机构',
+				width : 100,
+				formatter: function(value,row,index){
+					var organs = row['organs'];
+					var lth = organs.length;
+					var orgIds = [], orgNames = [];
+					if(lth > 0){
+						var org;
+						for(var i = 0; i < lth; i++){
+							org = organs[i];
+							orgIds.push(org.orgId);
+							orgNames.push(org.orgName);
+						}
+					}
+					row['orgIds'] = orgIds.join(',')
+					return orgNames.join(',');
+				}
+			}, {
 				field : 'userPhone',
 				title : '用户电话',
 				width : 100,

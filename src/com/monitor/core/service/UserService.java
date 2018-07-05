@@ -1,7 +1,11 @@
 package com.monitor.core.service;
 
+import java.util.List;
+import java.util.Map;
+
 import com.monitor.core.bean.entity.User;
 import com.monitor.core.bean.entity.UserInfo;
+import com.monitor.core.orm.Page;
 
 public interface UserService {
 	public User getUser(Integer id);
@@ -11,4 +15,5 @@ public interface UserService {
 	 * @param ids
 	 */
 	public int delete(Integer[] arr);
+	public List<User> getPageList(Page<User> page, String hql, Map<String, ?> values);
 }

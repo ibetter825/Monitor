@@ -1,5 +1,6 @@
 package com.monitor.core.service.impl;
 
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import com.google.common.collect.Maps;
 import com.monitor.core.bean.entity.User;
 import com.monitor.core.bean.entity.UserInfo;
 import com.monitor.core.dao.UserDao;
+import com.monitor.core.orm.Page;
 import com.monitor.core.service.UserService;
 
 @Service
@@ -35,5 +37,10 @@ public class UserServiceImpl implements UserService {
 		Map<String, Integer[]> map = Maps.newHashMap();
 		map.put("arr", arr);
 		return userDao.batchExecute("update User u set u.userStatus = -1 where u.userId in (:arr)", map);
+	}
+	@Override
+	public List<User> getPageList(Page<User> page, String hql, Map<String, ?> values) {
+		userDao.findPage(page, hql, values);
+		return page.getResult();
 	}
 }

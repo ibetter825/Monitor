@@ -42,12 +42,14 @@ public class UserController extends BaseController {
 	 */
 	@RequestMapping("/user/list")
 	public PageModel list(PagerRQ pager, QueryRQ rq) {
-		Page<Map<?,?>> page = new Page<>();
+		Page<User> page = new Page<>();
 		Map<String, Object> values = rq.getQrq();
 		values.put("_u_userStatus", Short.valueOf((String) values.getOrDefault("_u_userStatus", "1")));
 		
-		String hql = rq.getHqlWithParam("select new map(u.userId as userId, i.infoId as infoId, u.userName as userName, i.nickName as nickName, u.userPhone as userPhone, u.userEmail as userEmail) from User u left join u.userInfo i", true);
-		mapService.getPageList(page, hql, values);
+		//String hql = rq.getHqlWithParam("select new map(u.userId as userId, i.infoId as infoId, u.userName as userName, i.nickName as nickName, u.userPhone as userPhone, u.userEmail as userEmail) from User u left join u.userInfo i", true);
+		//mapService.getPageList(page, hql, values);
+		String hql = rq.getHqlWithParam("from User u", true);
+		userService.getPageList(page, hql, values);
 		PageModel pageModel = new PageModel(page);
 		return pageModel;
 	}

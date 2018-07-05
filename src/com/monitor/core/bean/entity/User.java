@@ -42,7 +42,6 @@ public class User extends BaseEntity {
 	private String userSalt;
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
 	@PrimaryKeyJoinColumn
-	@JsonIgnore
 	@Valid
 	private UserInfo userInfo;
 	@ManyToMany(cascade = CascadeType.ALL)

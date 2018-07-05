@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
@@ -217,7 +218,14 @@ public abstract class SimpleHibernateDaoImpl<T> implements SimpleHibernateDao<T>
 	public <X> X findUnique(final String hql, final Map<String, ?> values) {
 		return (X) createQuery(hql, values).uniqueResult();
 	}
+	
+	public <X> X findSqlUnique(String sql, Object... values) {
+		return (X) createSQLQuery(sql, values).uniqueResult();
+	}
 
+	public <X> X findSqlUnique(final String sql, final Map<String, ?> values) {
+		return (X) createSQLQuery(sql, values).uniqueResult();
+	}
 	public int batchExecute(final String hql, final Object... values) {
 		return createQuery(hql, values).executeUpdate();
 	}
@@ -236,7 +244,18 @@ public abstract class SimpleHibernateDaoImpl<T> implements SimpleHibernateDao<T>
 		}
 		return query;
 	}
-
+	
+	public SQLQuery createSQLQuery(final String queryString, final Object... values) {
+		Assert.hasText(queryString, "queryString不能为空");
+		SQLQuery query = getSession().createSQLQuery(queryString);
+		if (values != null) {
+			for (int i = 0; i < values.length; i++) {
+				query.setParameter(i, values[i]);
+			}
+		}
+		return query;
+	}
+	
 	public Query createQuery(final String queryString, final Map<String, ?> values) {
 		Assert.hasText(queryString, "queryString不能为空");
 		Query query = getSession().createQuery(queryString);
@@ -245,7 +264,14 @@ public abstract class SimpleHibernateDaoImpl<T> implements SimpleHibernateDao<T>
 		}
 		return query;
 	}
-
+	public SQLQuery createSQLQuery(final String queryString, final Map<String, ?> values) {
+		Assert.hasText(queryString, "queryString不能为空");
+		SQLQuery query = getSession().createSQLQuery(queryString);
+		if (values != null) {
+			query.setProperties(values);
+		}
+		return query;
+	}
 	/**
 	 * 按Criteria查询对象列表.
 	 * 

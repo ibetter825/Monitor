@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.validator.constraints.Length;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.monitor.core.bean.entity.BaseEntity;
 
 @Entity
@@ -26,6 +28,7 @@ public class UserInfo extends BaseEntity {
 	private Long updateTime;
 	@OneToOne
 	@JoinColumn(name = "user_id")
+	@JsonIgnore
 	private User user;
 	
 	public Integer getInfoId() {

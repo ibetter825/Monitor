@@ -1,5 +1,6 @@
 package com.monitor.core.orm.hibernate;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Criterion;
@@ -87,7 +89,20 @@ public class HibernateDao<T> extends SimpleHibernateDaoImpl<T> {
 		page.setResult(result);
 		return page;
 	}
+	public Page<T> findPageBySql(final Page<T> page, final String sql, final Object... values) {
+		Assert.notNull(page, "page不能为空");
+		SQLQuery q = createSQLQuery(sql, values);
 
+		if (page.isAutoCount()) {
+			long totalCount = countSqlResult(sql, values);
+			page.setTotalCount(totalCount);
+		}
+
+		setPageParameter(q, page);
+		List result = q.list();
+		page.setResult(result);
+		return page;
+	}
 	/**
 	 * 按HQL分页查询.
 	 * 
@@ -116,7 +131,34 @@ public class HibernateDao<T> extends SimpleHibernateDaoImpl<T> {
 		page.setResult(result);
 		return page;
 	}
+	/**
+	 * 按HQL分页查询.
+	 * 
+	 * @param page
+	 *            分页参数.
+	 * @param sql
+	 *            hql语句.
+	 * @param values
+	 *            命名参数,按名称绑定.
+	 * 
+	 * @return 分页查询结果, 附带结果列表及所有查询时的参数.
+	 */
+	public Page<T> findPageBySql(final Page<T> page, final String sql, final Map<String, ?> values) {
+		Assert.notNull(page, "page不能为空");
 
+		SQLQuery q = createSQLQuery(sql, values);
+
+		if (page.isAutoCount()) {
+			long totalCount = countSqlResult(sql, values);
+			page.setTotalCount(totalCount);
+		}
+
+		setPageParameter(q, page);
+
+		List result = q.list();
+		page.setResult(result);
+		return page;
+	}
 	/**
 	 * 按Criteria分页查询.
 	 * 
@@ -199,7 +241,22 @@ public class HibernateDao<T> extends SimpleHibernateDaoImpl<T> {
 			throw new RuntimeException("hql can't be auto count, hql is:" + countHql, e);
 		}
 	}
+	protected long countSqlResult(final String sql, final Object... values) {
+		String fromSql = sql;
+		// select子句与order by子句会影响count查询,进行简单的排除.
+		fromSql = "from " + StringUtils.substringAfter(fromSql, "from");
+		fromSql = StringUtils.substringBefore(fromSql, "order by");
 
+		String countSql = "select count(*) " + fromSql;
+
+		try {
+			BigInteger count = findSqlUnique(countSql, values);
+			return count.longValue();
+		} catch (Exception e) {
+			throw new RuntimeException("sql can't be auto count, sql is:" + countSql, e);
+		}
+	}
+	
 	/**
 	 * 执行count查询获得本次Hql查询所能获得的对象总数.
 	 * 
@@ -217,10 +274,24 @@ public class HibernateDao<T> extends SimpleHibernateDaoImpl<T> {
 			Long count = findUnique(countHql, values);
 			return count;
 		} catch (Exception e) {
-			throw new RuntimeException("hql can't be auto count, hql is:" + countHql, e);
+			throw new RuntimeException("sql can't be auto count, hql is:" + countHql, e);
 		}
 	}
+	protected long countSqlResult(final String sql, final Map<String, ?> values) {
+		String fromSql = sql;
+		// select子句与order by子句会影响count查询,进行简单的排除.
+		fromSql = "from " + StringUtils.substringAfter(fromSql, "from");
+		fromSql = StringUtils.substringBefore(fromSql, "order by");
 
+		String countSql = "select count(*) " + fromSql;
+
+		try {
+			BigInteger count = findUnique(countSql, values);
+			return count.longValue();
+		} catch (Exception e) {
+			throw new RuntimeException("sql can't be auto count, sql is:" + countSql, e);
+		}
+	}
 	/**
 	 * 执行count查询获得本次Criteria查询所能获得的对象总数.
 	 */

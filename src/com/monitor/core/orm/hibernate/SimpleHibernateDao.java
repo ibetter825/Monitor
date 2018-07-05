@@ -192,7 +192,8 @@ public interface SimpleHibernateDao<T> {
 	 *            命名参数,按名称绑定.
 	 */
 	public <X> X findUnique(final String hql, final Map<String, ?> values);
-
+	public <X> X findSqlUnique(final String sql, final Object... values);
+	public <X> X findSqlUnique(final String sql, final Map<String, ?> values);
 	/**
 	 * 执行HQL进行批量修改/删除操作.
 	 * 
@@ -320,7 +321,19 @@ public interface SimpleHibernateDao<T> {
 	 * @return 分页查询结果, 附带结果列表及所有查询时的参数.
 	 */
 	public Page<T> findPage(final Page<T> page, final String hql, final Object... values);
-
+	/**
+	 * 按SQL分页查询.
+	 * 
+	 * @param page
+	 *            分页参数.不支持其中的orderBy参数.
+	 * @param sql
+	 *            sql语句.
+	 * @param values
+	 *            数量可变的查询参数,按顺序绑定.
+	 * 
+	 * @return 分页查询结果, 附带结果列表及所有查询时的参数.
+	 */
+	public Page<T> findPageBySql(final Page<T> page, final String sql, final Object... values);
 	/**
 	 * 按HQL分页查询.
 	 * 
