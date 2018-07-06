@@ -1,7 +1,7 @@
 package com.monitor.core.bean.entity;
 
-import java.util.List;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -50,8 +50,7 @@ public class User extends BaseEntity {
             joinColumns = @JoinColumn(name="user_id"),
             inverseJoinColumns = @JoinColumn(name="org_id")
 	)
-	private List<Organ> organs;
-	
+	private Set<Organ> organs = new HashSet<>();
 	
 	public Integer getUserId() {
 		return userId;
@@ -101,10 +100,10 @@ public class User extends BaseEntity {
 	public void setUserInfo(UserInfo userInfo) {
 		this.userInfo = userInfo;
 	}
-	public List<Organ> getOrgans() {
+	public Set<Organ> getOrgans() {
 		return organs;
 	}
-	public void setOrgans(List<Organ> organs) {
+	public void setOrgans(Set<Organ> organs) {
 		this.organs = organs;
 	}
 }

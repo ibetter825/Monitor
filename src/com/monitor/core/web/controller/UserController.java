@@ -1,6 +1,8 @@
 package com.monitor.core.web.controller;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import javax.validation.Valid;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import com.monitor.core.aop.annotation.Validator;
 import com.monitor.core.bean.constant.AuthConstant;
+import com.monitor.core.bean.entity.Organ;
 import com.monitor.core.bean.entity.User;
 import com.monitor.core.bean.entity.UserInfo;
 import com.monitor.core.bean.model.PageModel;
@@ -72,7 +75,17 @@ public class UserController extends BaseController {
 	 */
 	@RequestMapping("/user/form")
 	@Validator
-	public ResultModel form(@Valid User user, @Valid UserInfo info, BindingResult bindingResult){
+	public ResultModel form(@Valid User user, @Valid UserInfo info, String[] orgIds, BindingResult bindingResult){
+		//Set<Organ> organs = new HashSet<>();
+		Organ organ = null;
+		for (String id : orgIds) {
+			if(StringUtils.isNotEmpty(id)){
+				organ = new Organ();
+				organ.setOrgId(id);
+				//organs.add(organ);
+				user.getOrgans().add(organ);
+			}
+		}
 		if(user.getUserId() == null){
 			info.setAddTime(DateUtil.getDateByTime());
 			user.setUserStatus((short)1);
@@ -81,6 +94,7 @@ public class UserController extends BaseController {
 		}else {
 			info.setUpdateTime(DateUtil.getDateByTime());
 		}
+		//user.setOrgans(organs);
 		ResultModel result = new ResultModel();
 		userService.saveOrUpdate(user, info);
 		return result;

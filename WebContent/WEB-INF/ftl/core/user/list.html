@@ -152,6 +152,14 @@
 				form(1, row);
 			}
 		});
+		$('#orgIds').combotree({
+		    url: jui.uri + '/u/org/tree',
+		    required: true,
+		    multiple: true,
+		    cascadeCheck: false,
+		    panelHeight: 'auto',
+		    panelMaxHeight: 400
+		});
 	}
 	//表单 0 添加   1 编辑
 	function form(flg, row){
@@ -222,14 +230,6 @@
 						$formDialog.dialog('close');
 					}
 				}]
-			});
-			$('#orgIds').combotree({
-			    url: jui.uri + '/u/org/tree',
-			    required: true,
-			    multiple: true,
-			    cascadeCheck: false,
-			    panelHeight: 'auto',
-			    panelMaxHeight: 400
 			});
 		}else{
 			$formDialog.dialog({title: flg?'修改':'添加'});

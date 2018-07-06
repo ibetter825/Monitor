@@ -1,16 +1,22 @@
 package com.monitor.core.bean.entity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.monitor.core.bean.entity.BaseEntity;
 import com.monitor.core.bean.model.TreeModel;
 
@@ -28,6 +34,9 @@ public class Organ extends BaseEntity {
 	private Integer orgSeq;
 	private Short orgLevel;
 	private String orgPids;
+	@JsonIgnore
+	@ManyToMany(mappedBy = "organs", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<User> users = new HashSet<>();
 	
 	public String getOrgId() {
 		return orgId;
@@ -77,6 +86,12 @@ public class Organ extends BaseEntity {
 	}
 	public void setOrgPids(String orgPids) {
 		this.orgPids = orgPids;
+	}
+	public Set<User> getUsers() {
+		return users;
+	}
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
 	/**
 	 * 获取机构的树形结构
