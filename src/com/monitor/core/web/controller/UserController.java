@@ -1,8 +1,8 @@
 package com.monitor.core.web.controller;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import javax.validation.Valid;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +21,7 @@ import com.monitor.core.bean.rq.PagerRQ;
 import com.monitor.core.bean.rq.QueryRQ;
 import com.monitor.core.orm.Page;
 import com.monitor.core.service.MapService;
+import com.monitor.core.service.OrganService;
 import com.monitor.core.service.UserService;
 import com.monitor.core.utils.DateUtil;
 import com.monitor.core.utils.Md5Util;
@@ -29,6 +30,8 @@ import com.monitor.core.utils.Md5Util;
 public class UserController extends BaseController {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private OrganService organService;
 	@Autowired
 	private MapService mapService;
 	
@@ -76,16 +79,7 @@ public class UserController extends BaseController {
 	@RequestMapping("/user/form")
 	@Validator
 	public ResultModel form(@Valid User user, @Valid UserInfo info, String[] orgIds, BindingResult bindingResult){
-		//Set<Organ> organs = new HashSet<>();
-		Organ organ = null;
-		for (String id : orgIds) {
-			if(StringUtils.isNotEmpty(id)){
-				organ = new Organ();
-				organ.setOrgId(id);
-				//organs.add(organ);
-				user.getOrgans().add(organ);
-			}
-		}
+		List<Organ> organs = organService.getOrgans(orgIds);
 		if(user.getUserId() == null){
 			info.setAddTime(DateUtil.getDateByTime());
 			user.setUserStatus((short)1);
@@ -94,7 +88,7 @@ public class UserController extends BaseController {
 		}else {
 			info.setUpdateTime(DateUtil.getDateByTime());
 		}
-		//user.setOrgans(organs);
+		user.setOrgans(new HashSet<>(organs));
 		ResultModel result = new ResultModel();
 		userService.saveOrUpdate(user, info);
 		return result;

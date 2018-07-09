@@ -12,4 +12,10 @@ public interface OrganService {
 	 * @return
 	 */
 	public List<Organ> getSubOrgans(String rootId);
+	/**
+	 * 查询机构集合
+	 * @param organIds
+	 * @return
+	 */
+	public List<Organ> getOrgans(String[] organIds);
 }

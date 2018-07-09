@@ -31,5 +31,12 @@ public class OrganServiceImpl implements OrganService {
 		else
 			return null;
 	}
+
+	@Override
+	public List<Organ> getOrgans(String[] organIds) {
+		Map<String, String[]> values = Maps.newHashMap();
+		values.put("organIds", organIds);
+		return organDao.find("from Organ where orgId in (:organIds)", values);
+	}
 	
 }
