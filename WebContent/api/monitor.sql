@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50715
 File Encoding         : 65001
 
-Date: 2018-07-04 17:07:47
+Date: 2018-07-09 17:53:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -87,6 +87,26 @@ INSERT INTO `c_organ` VALUES ('1001001', '1001', '三级1', null, '1', '0', '2',
 INSERT INTO `c_organ` VALUES ('1002', '1', '二级2', null, '1', '1', '1', '/1/1002/');
 
 -- ----------------------------
+-- Table structure for c_role
+-- ----------------------------
+DROP TABLE IF EXISTS `c_role`;
+CREATE TABLE `c_role` (
+  `role_id` varchar(20) NOT NULL COMMENT '角色主键，自定义',
+  `role_name` varchar(100) NOT NULL DEFAULT '' COMMENT '角色名称',
+  `role_desc` varchar(200) DEFAULT '' COMMENT '角色描述',
+  `dep_id` varchar(50) DEFAULT '' COMMENT '部门编号',
+  `role_status` tinyint(4) DEFAULT '1' COMMENT '状态 1 正常，0 失效，-1 删除',
+  `role_seq` int(11) DEFAULT '0' COMMENT '排序',
+  PRIMARY KEY (`role_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色表';
+
+-- ----------------------------
+-- Records of c_role
+-- ----------------------------
+INSERT INTO `c_role` VALUES ('super', '超级管理员', '', '', '1', '0');
+INSERT INTO `c_role` VALUES ('test', '测试角色', '', '', '1', '1');
+
+-- ----------------------------
 -- Table structure for c_user
 -- ----------------------------
 DROP TABLE IF EXISTS `c_user`;
@@ -99,7 +119,7 @@ CREATE TABLE `c_user` (
   `user_pwd` varchar(100) NOT NULL DEFAULT '' COMMENT '加密后的密码',
   `user_salt` varchar(10) NOT NULL DEFAULT '',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10006 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10008 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of c_user
@@ -107,6 +127,7 @@ CREATE TABLE `c_user` (
 INSERT INTO `c_user` VALUES ('10000', 'admin', '1340845888', '', '1', '', '');
 INSERT INTO `c_user` VALUES ('10004', 'test01', '13408888888', 'test_01@gmail.com', '1', 'A0B08BA9515935411312353D8EA43E58', 'MONITOR');
 INSERT INTO `c_user` VALUES ('10005', 'test02', '17676777777', '66s7@qq.com', '-1', 'A0B08BA9515935411312353D8EA43E58', 'MONITOR');
+INSERT INTO `c_user` VALUES ('10006', 'tsoft', 'ddd', 'ddd@qq.com', '1', 'A0B08BA9515935411312353D8EA43E58', 'MONITOR');
 
 -- ----------------------------
 -- Table structure for c_user_info
@@ -123,14 +144,15 @@ CREATE TABLE `c_user_info` (
   KEY `FK_86eps06tvhl88fpbqy7jx6hml` (`user_id`),
   KEY `FK_kyk8tri3xh2c4sgcqw4m88cyu` (`user_id`),
   CONSTRAINT `FK_kyk8tri3xh2c4sgcqw4m88cyu` FOREIGN KEY (`user_id`) REFERENCES `c_user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10013 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10018 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of c_user_info
 -- ----------------------------
-INSERT INTO `c_user_info` VALUES ('10005', '10000', '超级管理员', null, null, null);
-INSERT INTO `c_user_info` VALUES ('10011', '10004', '测试01', null, '1530673803293', '1530673811798');
+INSERT INTO `c_user_info` VALUES ('10005', '10000', '超级管理员', null, null, '1531126014570');
+INSERT INTO `c_user_info` VALUES ('10011', '10004', '测试01', null, '1530673803293', '1531126030330');
 INSERT INTO `c_user_info` VALUES ('10012', '10005', '测试01', null, '1530674112754', null);
+INSERT INTO `c_user_info` VALUES ('10015', '10006', 'dddd', null, '1530771191856', '1531126222814');
 
 -- ----------------------------
 -- Table structure for c_user_organ
@@ -150,7 +172,26 @@ CREATE TABLE `c_user_organ` (
 -- Records of c_user_organ
 -- ----------------------------
 INSERT INTO `c_user_organ` VALUES ('10000', '1');
-INSERT INTO `c_user_organ` VALUES ('10000', '1001');
+INSERT INTO `c_user_organ` VALUES ('10004', '1002');
+INSERT INTO `c_user_organ` VALUES ('10006', '1001001');
+
+-- ----------------------------
+-- Table structure for c_user_role
+-- ----------------------------
+DROP TABLE IF EXISTS `c_user_role`;
+CREATE TABLE `c_user_role` (
+  `user_id` int(11) NOT NULL,
+  `role_id` varchar(50) NOT NULL,
+  PRIMARY KEY (`user_id`,`role_id`),
+  KEY `FK_ryx81a2lxs8gia9b88uqx16y6` (`role_id`),
+  KEY `FK_pnmkqxfhkfoup945qhjst4k4r` (`user_id`),
+  CONSTRAINT `FK_pnmkqxfhkfoup945qhjst4k4r` FOREIGN KEY (`user_id`) REFERENCES `c_user` (`user_id`),
+  CONSTRAINT `FK_ryx81a2lxs8gia9b88uqx16y6` FOREIGN KEY (`role_id`) REFERENCES `c_role` (`role_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of c_user_role
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for d_grid

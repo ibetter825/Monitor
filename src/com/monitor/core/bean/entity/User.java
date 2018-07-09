@@ -51,6 +51,13 @@ public class User extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name="org_id")
 	)
 	private Set<Organ> organs = new HashSet<>();
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "c_user_role",
+            joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name="role_id")
+	)
+	private Set<Role> roles = new HashSet<>();
 	
 	public Integer getUserId() {
 		return userId;
