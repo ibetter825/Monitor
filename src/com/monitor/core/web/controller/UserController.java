@@ -88,7 +88,7 @@ public class UserController extends BaseController {
 		}else {
 			info.setUpdateTime(DateUtil.getDateByTime());
 		}
-		user.setOrgans(new HashSet<>(organs));
+		user.setOrgans(new HashSet<>(organs));//设置机构
 		ResultModel result = new ResultModel();
 		userService.saveOrUpdate(user, info);
 		return result;
