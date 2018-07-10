@@ -9,5 +9,5 @@ public interface RoleService {
 	 * @param orgId
 	 * @return
 	 */
-	public List<Role> getRoles(String depId);
+	public List<Role> getRolesByDep(String depId);
 }

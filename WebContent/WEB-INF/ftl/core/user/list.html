@@ -22,12 +22,12 @@
 		<div class="toolsline"></div>
 		<div class="tools">
 			<ul class="toolbar">
-				<li class="click" onclick="form(0);"><span><img
+				<li class="click" onclick="openFormDialog(0);"><span><img
 						src="${(rc.contextPath)!}/images/t01.png"></span>添加</li>
-				<li class="click" onclick="form(1);"><span><img
+				<li class="click" onclick="openFormDialog(1);"><span><img
 						src="${(rc.contextPath)!}/images/t02.png"></span>修改</li>
 				<li class="click" onclick="del();"><span><img src="${(rc.contextPath)!}/images/t03.png"></span>删除</li>
-				<li><span><img src="${(rc.contextPath)!}/images/t04.png"></span>分配角色</li>
+				<li onclick="openRoleDialog();"><span><img src="${(rc.contextPath)!}/images/t04.png"></span>分配角色</li>
 			</ul>
 		</div>
 	</div>
@@ -37,7 +37,7 @@
 		<table id="grid"></table>
 	</div>
 	
-	<div id="formDialog" class="hide">
+	<div id="formDialog" class="dialog-size hide">
 		<form id="form" method="post">
 			<div class="formbody">
 				<input type="hidden" name="userId" value=""/>
@@ -57,13 +57,13 @@
 			</div>
 		</form>
 	</div>
-	<div id="roleDialog" class="hide">
+	<div id="roleDialog" class="dialog-size hide">
 		<form id="formRole" method="post">
 			<div class="formbody">
-				<input type="hidden" name="userId" value=""/>
-				<input type="hidden" name="infoId" value=""/>
-				<ul class="forminfo">
-					
+				<ul>
+					<li></li>
+					<li></li>
+					<li></li>
 				</ul>
 			</div>
 		</form>
@@ -71,7 +71,7 @@
 </body>
 <#include "./../public/static/javascript.html"/>
 <script>
-	var $grid, $formDialog;
+	var $grid, $formDialog, $roleDialog, roles/*当前登录用户的角色列表*/;
 	$(function() {
 		initGrid();
 	});
@@ -89,7 +89,7 @@
 			autoRowHeight : false,
 			fitColumns : true,
 			rownumbers : true,
-			height : 'auto',
+			width : 'auto',
 			height: '100%',
 			columns : [ [ {
 				field : '',
@@ -173,7 +173,7 @@
 		});
 	}
 	//表单 0 添加   1 编辑
-	function form(flg, row){
+	function openFormDialog(flg, row){
 		if(flg == 1){//编辑，初始化数据
 			if(!row){
 				var rows = $grid.datagrid('getSelections');
@@ -190,8 +190,6 @@
 			$formDialog = $('#formDialog').dialog({
 				title: flg?'修改':'添加',
 				model: true,
-				width: 400,
-				height: 340,
 				resizable: true,
 				onClose: function(){
 					$('#form').form('clear');
@@ -274,6 +272,44 @@
 				});
 		    }
 		});
+	}
+	//分配角色
+	function openRoleDialog(){
+		if(roles){
+			$.get(jui.uri + '/u/user/roles', function(data){
+				if(data.success){
+					var roles = data.data.roles;
+				}
+			});
+		}else{
+			
+		}
+		if(!$roleDialog){
+			$('#roleDialog').show();
+			$roleDialog = $('#roleDialog').dialog({
+				title: '分配角色',
+				model: true,
+				resizable: true,
+				onClose: function(){
+					
+				},
+				buttons:[{
+					text:'保存',
+					iconCls:'icon-save',
+					handler:function(){
+						
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-cancel',
+					handler:function(){
+						$roleDialog.dialog('close');
+					}
+				}]
+			});
+		}else{
+			$roleDialog.dialog('open');
+		}
 	}
 </script>
 </html>

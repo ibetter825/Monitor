@@ -16,7 +16,7 @@ public class RoleServiceImpl implements RoleService {
 	@Autowired
 	private RoleDao roleDao;
 	@Override
-	public List<Role> getRoles(String depId) {
+	public List<Role> getRolesByDep(String depId) {
 		Map<String, String> values = Maps.newHashMap();
 		values.put("depId", depId);
 		return roleDao.find("from Organ o where o.status = 1 and o.depId = :depId", values);

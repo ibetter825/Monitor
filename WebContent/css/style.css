@@ -2145,3 +2145,6 @@ h2 {
 /*easyui*/
 .layout-split-west {border-right-color: #fff;}
 .layout-split-north {border-bottom-color: #fff;}
+
+/*custom*/
+.dialog-size {width:380px; height:280px;}

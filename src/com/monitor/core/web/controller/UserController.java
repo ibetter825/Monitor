@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.google.common.collect.Maps;
 import com.monitor.core.aop.annotation.Validator;
 import com.monitor.core.bean.constant.AuthConstant;
 import com.monitor.core.bean.entity.Organ;
+import com.monitor.core.bean.entity.Role;
 import com.monitor.core.bean.entity.User;
 import com.monitor.core.bean.entity.UserInfo;
 import com.monitor.core.bean.model.PageModel;
@@ -23,6 +26,7 @@ import com.monitor.core.bean.rq.QueryRQ;
 import com.monitor.core.orm.Page;
 import com.monitor.core.service.MapService;
 import com.monitor.core.service.OrganService;
+import com.monitor.core.service.RoleService;
 import com.monitor.core.service.UserService;
 import com.monitor.core.utils.DateUtil;
 import com.monitor.core.utils.Md5Util;
@@ -33,6 +37,8 @@ public class UserController extends BaseController {
 	private UserService userService;
 	@Autowired
 	private OrganService organService;
+	@Autowired
+	private RoleService roleService;
 	@Autowired
 	private MapService mapService;
 	
@@ -109,5 +115,23 @@ public class UserController extends BaseController {
 			arr[i] = Integer.valueOf(arr_[i]);
 		userService.delete(arr);
 		return new ResultModel();
+	}
+	/**
+	 * 获取当前用户或者目标用户的角色
+	 * 以及当前用户的所有角色
+	 * @return
+	 */
+	@RequestMapping("/user/roles")
+	public ResultModel roles(Integer userId){
+		//userId如果为空，则查询用户自己的角色
+		//如果userId与当前登录用户相同，则。。。
+		
+		//获取当前用户所在部门的角色集合
+		List<Role> roles = roleService.getRolesByDep("1");
+		ResultModel result = new ResultModel();
+		Map<String, Object> map = Maps.newHashMap();
+		map.put("roles", roles);
+		result.setData(map);
+		return result;
 	}
 }
