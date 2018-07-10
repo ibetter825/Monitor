@@ -164,7 +164,7 @@ public class DateUtil {
 	 * @return
 	 */
 	public static int getDateDaySpace(Date start, Date end) {
-		int day = (int) (getDateHourSpace(start, end) / 24);
+		int day = getDateHourSpace(start, end) / 24;
 		return day;
 	}
 	
@@ -178,7 +178,7 @@ public class DateUtil {
 		String[] weekDays = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
-		int dayIndex = calendar.get(calendar.DAY_OF_WEEK) - calendar.SUNDAY;
+		int dayIndex = calendar.get(Calendar.DAY_OF_WEEK) - Calendar.SUNDAY;
 		if (dayIndex < 0){
 			dayIndex = 0;
 		}

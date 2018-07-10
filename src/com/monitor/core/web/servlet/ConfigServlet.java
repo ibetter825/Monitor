@@ -12,6 +12,7 @@ public class ConfigServlet extends HttpServlet {
 	/**
 	 * 初始化servlet
 	 */
+	@Override
 	public void init() {
 		System.err.println("-----------初始化完成---------------");
 	}

@@ -84,41 +84,48 @@ public abstract class SimpleHibernateDaoImpl<T> implements SimpleHibernateDao<T>
 		return sessionFactory;
 	}
 
+	@Override
 	public Object save(Object entity) {
 		Assert.notNull(entity, "entity不能为空");
 		logger.debug("save entity: {}", entity);
 		return getSession().save(entity);
 	}
 
+	@Override
 	public void saveOrUpdate(Object entity) {
 		Assert.notNull(entity, "entity不能为空");
 		getSession().saveOrUpdate(entity);
 		logger.debug("save entity: {}", entity);
 	}
 
+	@Override
 	public void update(Object entity) {
 		Assert.notNull(entity, "entity不能为空");
 		getSession().update(entity);
 		logger.debug("save entity: {}", entity);
 	}
 
+	@Override
 	public void delete(Object entity) {
 		Assert.notNull(entity, "entity不能为空");
 		getSession().delete(entity);
 		logger.debug("delete entity: {}", entity);
 	}
 
+	@Override
 	public void deleteById(Object id) {
 		Assert.notNull(id, "id不能为空");
 		delete(get(id));
 		logger.debug("delete entity {},id is {}", entityClass.getSimpleName(), id);
 	}
 
+	@Override
 	public T get(Object id) {
 		Assert.notNull(id, "id不能为空");
 		return (T) getSession().load(entityClass, (Serializable) id);
 	}
 
+	@Override
 	public T get(Object id, Boolean isUsedGet) {
 		Assert.notNull(id, "id不能为空");
 		if (isUsedGet) {
@@ -127,10 +134,12 @@ public abstract class SimpleHibernateDaoImpl<T> implements SimpleHibernateDao<T>
 		return (T) getSession().load(entityClass, (Serializable) id);
 	}
 
+	@Override
 	public List<T> getAll() {
 		return find();
 	}
 
+	@Override
 	public List<T> getAll(String orderBy, boolean isAsc) {
 		Criteria c = createCriteria();
 		if (isAsc) {
@@ -141,12 +150,14 @@ public abstract class SimpleHibernateDaoImpl<T> implements SimpleHibernateDao<T>
 		return c.list();
 	}
 
+	@Override
 	public List<T> findBy(String propertyName, Object value) {
 		Assert.hasText(propertyName, "propertyName不能为空");
 		Criterion criterion = Restrictions.eq(propertyName, value);
 		return find(criterion);
 	}
 
+	@Override
 	public List<T> findBy(String propertyName, Object value, String propertyName1, Object value1) {
 		Assert.hasText(propertyName, "propertyName不能为空");
 		Criterion criterion = Restrictions.eq(propertyName, value);
@@ -154,6 +165,7 @@ public abstract class SimpleHibernateDaoImpl<T> implements SimpleHibernateDao<T>
 		return find(new Criterion[] { criterion, criterion1 });
 	}
 
+	@Override
 	public List<T> findByAndOrder(String propertyName, Object value, String orderBy, boolean isAsc) {
 		Assert.hasText(propertyName, "propertyName不能为空");
 		Criteria criteria = getSession().createCriteria(entityClass);
@@ -169,6 +181,7 @@ public abstract class SimpleHibernateDaoImpl<T> implements SimpleHibernateDao<T>
 		return criteria.list();
 	}
 
+	@Override
 	public List<T> findByAndOrder(String propertyName, Object value, String propertyName1, Object value1, String orderBy, boolean isAsc) {
 		Assert.hasText(propertyName, "propertyName不能为空");
 		Criteria criteria = getSession().createCriteria(entityClass);
@@ -185,12 +198,14 @@ public abstract class SimpleHibernateDaoImpl<T> implements SimpleHibernateDao<T>
 		return criteria.list();
 	}
 
+	@Override
 	public T findUniqueBy(String propertyName, Object value) {
 		Assert.hasText(propertyName, "propertyName不能为空");
 		Criterion criterion = Restrictions.eq(propertyName, value);
 		return (T) createCriteria(criterion).uniqueResult();
 	}
 
+	@Override
 	public T findUniqueBy(String propertyName, Object value, String propertyName1, Object value1) {
 		Assert.hasText(propertyName, "propertyName不能为空");
 		Assert.hasText(propertyName1, "propertyName1不能为空");
@@ -199,41 +214,51 @@ public abstract class SimpleHibernateDaoImpl<T> implements SimpleHibernateDao<T>
 		return (T) createCriteria(criterion, criterion1).uniqueResult();
 	}
 
+	@Override
 	public List<T> findByIds(List<Object> ids) {
 		return find(Restrictions.in(getIdName(), ids));
 	}
 
+	@Override
 	public List<T> find(String hql, Object... values) {
 		return createQuery(hql, values).list();
 	}
 
+	@Override
 	public <X> List<X> find(final String hql, final Map<String, ?> values) {
 		return createQuery(hql, values).list();
 	}
 
+	@Override
 	public <X> X findUnique(String hql, Object... values) {
 		return (X) createQuery(hql, values).uniqueResult();
 	}
 
+	@Override
 	public <X> X findUnique(final String hql, final Map<String, ?> values) {
 		return (X) createQuery(hql, values).uniqueResult();
 	}
 	
+	@Override
 	public <X> X findSqlUnique(String sql, Object... values) {
 		return (X) createSQLQuery(sql, values).uniqueResult();
 	}
 
+	@Override
 	public <X> X findSqlUnique(final String sql, final Map<String, ?> values) {
 		return (X) createSQLQuery(sql, values).uniqueResult();
 	}
+	@Override
 	public int batchExecute(final String hql, final Object... values) {
 		return createQuery(hql, values).executeUpdate();
 	}
 
+	@Override
 	public int batchExecute(final String hql, final Map<String, ?> values) {
 		return createQuery(hql, values).executeUpdate();
 	}
 
+	@Override
 	public Query createQuery(final String queryString, final Object... values) {
 		Assert.hasText(queryString, "queryString不能为空");
 		Query query = getSession().createQuery(queryString);
@@ -256,6 +281,7 @@ public abstract class SimpleHibernateDaoImpl<T> implements SimpleHibernateDao<T>
 		return query;
 	}
 	
+	@Override
 	public Query createQuery(final String queryString, final Map<String, ?> values) {
 		Assert.hasText(queryString, "queryString不能为空");
 		Query query = getSession().createQuery(queryString);
@@ -282,14 +308,17 @@ public abstract class SimpleHibernateDaoImpl<T> implements SimpleHibernateDao<T>
 		return createCriteria(criterions).list();
 	}
 
+	@Override
 	public List<T> find(final Set<String> refNames, final Map<String, String> orderMap, final Criterion... criterions) {
 		return createCriteria(refNames, orderMap, criterions).list();
 	}
 
+	@Override
 	public T findUnique(final Criterion... criterions) {
 		return (T) createCriteria(criterions).uniqueResult();
 	}
 
+	@Override
 	public Criteria createCriteria(final Set<String> refNames, Map<String, String> orderMap, final Criterion... criterions) {
 		Criteria criteria = getSession().createCriteria(entityClass);
 		// 设置引用类
@@ -312,6 +341,7 @@ public abstract class SimpleHibernateDaoImpl<T> implements SimpleHibernateDao<T>
 		return criteria;
 	}
 
+	@Override
 	public Criteria createCriteria(final Criterion... criterions) {
 		Criteria criteria = getSession().createCriteria(entityClass);
 		for (Criterion c : criterions) {
@@ -320,30 +350,36 @@ public abstract class SimpleHibernateDaoImpl<T> implements SimpleHibernateDao<T>
 		return criteria;
 	}
 
+	@Override
 	public void initEntity(T entity) {
 		Hibernate.initialize(entity);
 	}
 
+	@Override
 	public void initEntity(List<T> entityList) {
 		for (T entity : entityList) {
 			Hibernate.initialize(entity);
 		}
 	}
 
+	@Override
 	public void flush() {
 		getSession().flush();
 	}
 
+	@Override
 	public Query distinct(Query query) {
 		query.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 		return query;
 	}
 
+	@Override
 	public Criteria distinct(Criteria criteria) {
 		criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 		return criteria;
 	}
 
+	@Override
 	public String getIdName() {
 		ClassMetadata meta = getSessionFactory().getClassMetadata(entityClass);
 		return meta.getIdentifierPropertyName();

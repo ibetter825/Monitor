@@ -28,6 +28,7 @@ public class ExceptionHandler implements HandlerExceptionResolver {
 	private final Logger logger = LoggerFactory.getLogger(ExceptionHandler.class);
 	public static final String DEFAULT_ERROR_PATH = "/error";
 	
+	@Override
 	public ModelAndView resolveException(HttpServletRequest req,
 			HttpServletResponse resp, Object obj, Exception e) {
 		try {

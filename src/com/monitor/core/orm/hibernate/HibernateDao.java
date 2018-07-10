@@ -58,6 +58,7 @@ public class HibernateDao<T> extends SimpleHibernateDaoImpl<T> {
 	/**
 	 * 分页获取全部对象.
 	 */
+	@Override
 	public Page<T> getAll(final Page<T> page) {
 		return findPage(page, null);
 	}
@@ -74,6 +75,7 @@ public class HibernateDao<T> extends SimpleHibernateDaoImpl<T> {
 	 * 
 	 * @return 分页查询结果, 附带结果列表及所有查询时的参数.
 	 */
+	@Override
 	public Page<T> findPage(final Page<T> page, final String hql, final Object... values) {
 		Assert.notNull(page, "page不能为空");
 
@@ -89,6 +91,7 @@ public class HibernateDao<T> extends SimpleHibernateDaoImpl<T> {
 		page.setResult(result);
 		return page;
 	}
+	@Override
 	public Page<T> findPageBySql(final Page<T> page, final String sql, final Object... values) {
 		Assert.notNull(page, "page不能为空");
 		SQLQuery q = createSQLQuery(sql, values);
@@ -115,6 +118,7 @@ public class HibernateDao<T> extends SimpleHibernateDaoImpl<T> {
 	 * 
 	 * @return 分页查询结果, 附带结果列表及所有查询时的参数.
 	 */
+	@Override
 	public Page<T> findPage(final Page<T> page, final String hql, final Map<String, ?> values) {
 		Assert.notNull(page, "page不能为空");
 
@@ -169,6 +173,7 @@ public class HibernateDao<T> extends SimpleHibernateDaoImpl<T> {
 	 * 
 	 * @return 分页查询结果.附带结果列表及所有查询时的参数.
 	 */
+	@Override
 	public Page<T> findPage(final Page<T> page, final Set refNames, Map<String, String> orderMap, final Criterion... criterions) {
 		Assert.notNull(page, "page不能为空");
 		Criteria c = createCriteria(refNames, orderMap, criterions);
