@@ -1,12 +1,16 @@
 package com.monitor.core.service.impl;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Maps;
+import com.monitor.core.bean.entity.Role;
 import com.monitor.core.bean.entity.User;
 import com.monitor.core.bean.entity.UserInfo;
 import com.monitor.core.dao.UserDao;
@@ -42,5 +46,10 @@ public class UserServiceImpl implements UserService {
 	public List<User> getPageList(Page<User> page, String hql, Map<String, ?> values) {
 		userDao.findPage(page, hql, values);
 		return page.getResult();
+	}
+	@Override
+	public Set<Role> getRoles(Integer userId) {
+		List<Role> roles = userDao.find("select u.roles from User u where u.userId = ?", userId);
+		return new HashSet<>(roles);
 	}
 }

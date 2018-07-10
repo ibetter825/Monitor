@@ -87,15 +87,18 @@ public class UserController extends BaseController {
 	@Validator
 	public ResultModel form(@Valid User user, @Valid UserInfo info, String[] orgIds, BindingResult bindingResult){
 		List<Organ> organs = organService.getOrgans(orgIds);
+		
 		if(user.getUserId() == null){
 			info.setAddTime(DateUtil.getDateByTime());
 			user.setUserStatus((short)1);
 			user.setUserSalt(AuthConstant.DEFAULT_USER_SALT);
 			user.setUserPwd(Md5Util.md5(AuthConstant.DEFAULT_USER_PWD + AuthConstant.DEFAULT_USER_SALT));
 		}else {
+			user.setRoles(userService.getRoles(user.getUserId()));
 			info.setUpdateTime(DateUtil.getDateByTime());
 		}
 		user.setOrgans(new HashSet<>(organs));//设置机构
+		user.createUpdateHql();
 		ResultModel result = new ResultModel();
 		userService.saveOrUpdate(user, info);
 		return result;
