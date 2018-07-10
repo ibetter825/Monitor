@@ -61,7 +61,7 @@ public class UserController extends BaseController {
 		
 		//String hql = rq.getHqlWithParam("select new map(u.userId as userId, i.infoId as infoId, u.userName as userName, i.nickName as nickName, u.userPhone as userPhone, u.userEmail as userEmail) from User u left join u.userInfo i", true);
 		//mapService.getPageList(page, hql, values);
-		String hql = rq.getHqlWithParam("from User u", true);
+		String hql = rq.getHqlWithParam("select u from User u left join fetch u.userInfo left join fetch u.roles as roles left join fetch u.organs as organs", true);
 		userService.getPageList(page, hql, values);
 		PageModel pageModel = new PageModel(page);
 		return pageModel;

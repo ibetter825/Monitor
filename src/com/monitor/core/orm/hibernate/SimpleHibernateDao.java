@@ -348,6 +348,19 @@ public interface SimpleHibernateDao<T> {
 	 */
 	public Page<T> findPage(final Page<T> page, final String hql, final Map<String, ?> values);
 	/**
+	 * 按SQL分页查询.
+	 * 
+	 * @param page
+	 *            分页参数.
+	 * @param sql
+	 *            sql语句.
+	 * @param values
+	 *            命名参数,按名称绑定.
+	 * 
+	 * @return 分页查询结果, 附带结果列表及所有查询时的参数.
+	 */
+	public Page<T> findPageBySql(final Page<T> page, final String sql, final Map<String, ?> values);
+	/**
 	 * 按Criteria分页查询.
 	 * 
 	 * @param page

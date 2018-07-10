@@ -240,7 +240,7 @@ public class HibernateDao<T> extends SimpleHibernateDaoImpl<T> {
 		String countHql = "select count(*) " + fromHql;
 
 		try {
-			Long count = findUnique(countHql, values);
+			Long count = findUnique(countHql.replace("fetch", ""), values);
 			return count;
 		} catch (Exception e) {
 			throw new RuntimeException("hql can't be auto count, hql is:" + countHql, e);
@@ -276,7 +276,7 @@ public class HibernateDao<T> extends SimpleHibernateDaoImpl<T> {
 		String countHql = "select count(*) " + fromHql;
 
 		try {
-			Long count = findUnique(countHql, values);
+			Long count = findUnique(countHql.replace("fetch", ""), values);
 			return count;
 		} catch (Exception e) {
 			throw new RuntimeException("sql can't be auto count, hql is:" + countHql, e);
