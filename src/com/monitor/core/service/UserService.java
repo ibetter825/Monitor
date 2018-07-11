@@ -2,8 +2,6 @@ package com.monitor.core.service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 import com.monitor.core.bean.entity.Role;
 import com.monitor.core.bean.entity.User;
 import com.monitor.core.bean.entity.UserInfo;
@@ -25,6 +23,6 @@ public interface UserService {
 	 * @return
 	 */
 	public List<User> getPageList(Page<User> page, String hql, Map<String, ?> values);
-	public Set<Role> getRoles(Integer userId);
+	public List<Role> getRoles(Integer userId);
 	
 }

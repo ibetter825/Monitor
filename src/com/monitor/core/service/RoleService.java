@@ -2,6 +2,7 @@ package com.monitor.core.service;
 
 import java.util.List;
 import com.monitor.core.bean.entity.Role;
+import com.monitor.core.bean.rq.QueryRQ;
 
 public interface RoleService {
 	/**
@@ -9,5 +10,5 @@ public interface RoleService {
 	 * @param orgId
 	 * @return
 	 */
-	public List<Role> getRolesByDep(String depId);
+	public List<Role> getRoles(QueryRQ rq);
 }

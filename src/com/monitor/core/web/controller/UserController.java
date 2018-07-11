@@ -94,11 +94,10 @@ public class UserController extends BaseController {
 			user.setUserSalt(AuthConstant.DEFAULT_USER_SALT);
 			user.setUserPwd(Md5Util.md5(AuthConstant.DEFAULT_USER_PWD + AuthConstant.DEFAULT_USER_SALT));
 		}else {
-			user.setRoles(userService.getRoles(user.getUserId()));
+			user.setRoles(new HashSet<>(userService.getRoles(user.getUserId())));
 			info.setUpdateTime(DateUtil.getDateByTime());
 		}
 		user.setOrgans(new HashSet<>(organs));//设置机构
-		user.createUpdateHql();
 		ResultModel result = new ResultModel();
 		userService.saveOrUpdate(user, info);
 		return result;
@@ -130,10 +129,17 @@ public class UserController extends BaseController {
 		//如果userId与当前登录用户相同，则。。。
 		
 		//获取当前用户所在部门的角色集合
-		List<Role> roles = roleService.getRolesByDep("1");
-		ResultModel result = new ResultModel();
+		QueryRQ rq = new QueryRQ();
 		Map<String, Object> map = Maps.newHashMap();
-		map.put("roles", roles);
+		map.put("_r_depId", "1");
+		rq.setQrq(map);
+		List<Role> allRoles = roleService.getRoles(rq);//根据部门查询当前用户的所有角色
+		//再查询被分配角色的用户已经存在的角色
+		//List<Role> userRoles = userService.getRoles(userId);
+		ResultModel result = new ResultModel();
+		map = Maps.newHashMap();
+		map.put("allRoles", allRoles);
+		//map.put("userRoles", userRoles);
 		result.setData(map);
 		return result;
 	}

@@ -48,8 +48,8 @@ public class UserServiceImpl implements UserService {
 		return page.getResult();
 	}
 	@Override
-	public Set<Role> getRoles(Integer userId) {
+	public List<Role> getRoles(Integer userId) {
 		List<Role> roles = userDao.find("select u.roles from User u where u.userId = ?", userId);
-		return new HashSet<>(roles);
+		return roles;
 	}
 }
