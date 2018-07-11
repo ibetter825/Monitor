@@ -10,6 +10,7 @@ import com.monitor.core.orm.Page;
 public interface UserService {
 	public User getUser(Integer id);
 	public void saveOrUpdate(User user, UserInfo info);
+	public void saveOrUpdate(User user);
 	/**
 	 * 删除
 	 * @param ids

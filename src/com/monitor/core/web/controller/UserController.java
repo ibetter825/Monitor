@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.google.common.collect.Maps;
 import com.monitor.core.aop.annotation.Validator;
 import com.monitor.core.bean.constant.AuthConstant;
@@ -19,6 +19,7 @@ import com.monitor.core.bean.entity.Organ;
 import com.monitor.core.bean.entity.Role;
 import com.monitor.core.bean.entity.User;
 import com.monitor.core.bean.entity.UserInfo;
+import com.monitor.core.bean.enums.ResultMessageEnum;
 import com.monitor.core.bean.model.PageModel;
 import com.monitor.core.bean.model.ResultModel;
 import com.monitor.core.bean.rq.PagerRQ;
@@ -87,7 +88,6 @@ public class UserController extends BaseController {
 	@Validator
 	public ResultModel form(@Valid User user, @Valid UserInfo info, String[] orgIds, BindingResult bindingResult){
 		List<Organ> organs = organService.getOrgans(orgIds);
-		
 		if(user.getUserId() == null){
 			info.setAddTime(DateUtil.getDateByTime());
 			user.setUserStatus((short)1);
@@ -119,28 +119,37 @@ public class UserController extends BaseController {
 		return new ResultModel();
 	}
 	/**
-	 * 获取当前用户或者目标用户的角色
-	 * 以及当前用户的所有角色
+	 * 查询当前用户的所有角色
+	 * 给用户分配角色 
+	 * @param userId
+	 * @param ids
 	 * @return
 	 */
 	@RequestMapping("/user/roles")
-	public ResultModel roles(Integer userId){
-		//userId如果为空，则查询用户自己的角色
-		//如果userId与当前登录用户相同，则。。。
-		
-		//获取当前用户所在部门的角色集合
-		QueryRQ rq = new QueryRQ();
-		Map<String, Object> map = Maps.newHashMap();
-		map.put("_r_depId", "1");
-		rq.setQrq(map);
-		List<Role> allRoles = roleService.getRoles(rq);//根据部门查询当前用户的所有角色
-		//再查询被分配角色的用户已经存在的角色
-		//List<Role> userRoles = userService.getRoles(userId);
-		ResultModel result = new ResultModel();
-		map = Maps.newHashMap();
-		map.put("allRoles", allRoles);
-		//map.put("userRoles", userRoles);
-		result.setData(map);
+	public ResultModel roles(Integer userId, @RequestParam(defaultValue = "") String ids){
+		ResultModel result = null;
+		if(userId != null) {//给该用户分配角色
+			User user = userService.getUser(userId);
+			if(user != null) {
+				//查询角色集合
+				List<Role> roles = roleService.getRoles(ids.split(","));
+				user.setRoles(new HashSet<>(roles));
+				userService.saveOrUpdate(user);
+				result = new ResultModel();
+			}else {
+				result = new ResultModel(ResultMessageEnum.DATA_NOT_EXISTS.getMsg());
+			}
+		} else {//查询当前用户的所有角色列表
+			QueryRQ rq = new QueryRQ();
+			Map<String, Object> map = Maps.newHashMap();
+			map.put("_r_depId", "1");
+			rq.setQrq(map);
+			List<Role> allRoles = roleService.getRoles(rq);//根据部门查询当前用户的所有角色
+			result = new ResultModel();
+			map = Maps.newHashMap();
+			map.put("allRoles", allRoles);
+			result.setData(map);
+		}
 		return result;
 	}
 }

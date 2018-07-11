@@ -11,4 +11,10 @@ public interface RoleService {
 	 * @return
 	 */
 	public List<Role> getRoles(QueryRQ rq);
+	/**
+	 * 根据roleId数组查询角色
+	 * @param ids
+	 * @return
+	 */
+	public List<Role> getRoles(String[] ids);
 }

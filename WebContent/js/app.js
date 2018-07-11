@@ -61,7 +61,7 @@ var app = {};
 	    			$.messager.alert('警告','网络异常','warning');
 	    			break;
 	    		default:
-	    			$.messager.alert('警告','错误代码['+status+']','warning');
+	    			$.messager.alert('警告','出现错误['+status+']','warning');
 	    			break;
     		}
     	}

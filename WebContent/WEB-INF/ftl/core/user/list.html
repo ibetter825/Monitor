@@ -188,7 +188,7 @@
 			$('#formDialog').show();
 			$formDialog = $('#formDialog').dialog({
 				title: flg?'修改':'添加',
-				model: true,
+				modal: true,
 				resizable: true,
 				onClose: function(){
 					$('#form').form('clear');
@@ -284,8 +284,8 @@
 			$('#roleDialog').show();
 			$roleDialog = $('#roleDialog').dialog({
 				title: '分配角色',
-				model: true,
 				resizable: true,
+				modal: true,
 				onClose: function(){
 					
 				},
@@ -293,7 +293,28 @@
 					text:'保存',
 					iconCls:'icon-save',
 					handler:function(){
-						
+						var rows = $grid.datagrid('getSelections');
+						var row = rows[0];
+						var rrows = $roleGrid.datagrid('getSelections');
+						var ids = [];
+						for(var i = 0; i < rrows.length; i++){
+							ids.push(rrows[i]['roleId']);
+						}
+						//保存分配的角色
+						$.ajax({
+							url: jui.uri + '/u/user/roles',
+							type: 'post',
+							dataType: 'json',
+							data: {'userId': row.userId, "ids": ids.join(',')},
+							success: function(data){
+								if(data.success){
+									$roleDialog.dialog('close');
+									$grid.datagrid('reload');
+								}
+								$.messager.alert('信息',data.msg,'info');
+							},
+							error: jQuery.ER
+						});
 					}
 				},{
 					text:'取消',
@@ -316,7 +337,9 @@
 					}
 					initRoleGrid(row);
 				}
-			},'json');
+			},'json').error(function(xhr, textStatus, exception){
+				jQuery.ER(xhr, textStatus, exception);
+			});
 		}else{
 			initRoleGrid(row);
 		}
