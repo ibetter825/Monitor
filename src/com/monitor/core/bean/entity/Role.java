@@ -22,6 +22,7 @@ public class Role extends BaseEntity {
 	private String roleId;
 	private String roleName;
 	private String roleDesc;
+	private String orgId;
 	private String depId;
 	private Short roleStatus;
 	private Integer roleSeq;
@@ -46,6 +47,12 @@ public class Role extends BaseEntity {
 	}
 	public void setRoleDesc(String roleDesc) {
 		this.roleDesc = roleDesc;
+	}
+	public String getOrgId() {
+		return orgId;
+	}
+	public void setOrgId(String orgId) {
+		this.orgId = orgId;
 	}
 	public String getDepId() {
 		return depId;
