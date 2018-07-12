@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 127.0.0.1
-Source Server Version : 50715
+Source Server Version : 50711
 Source Host           : 127.0.0.1:3306
 Source Database       : monitor
 
 Target Server Type    : MYSQL
-Target Server Version : 50715
+Target Server Version : 50711
 File Encoding         : 65001
 
-Date: 2018-07-09 17:53:30
+Date: 2018-07-12 22:47:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -94,6 +94,7 @@ CREATE TABLE `c_role` (
   `role_id` varchar(20) NOT NULL COMMENT '角色主键，自定义',
   `role_name` varchar(100) NOT NULL DEFAULT '' COMMENT '角色名称',
   `role_desc` varchar(200) DEFAULT '' COMMENT '角色描述',
+  `org_id` varchar(50) DEFAULT '' COMMENT '机构编号',
   `dep_id` varchar(50) DEFAULT '' COMMENT '部门编号',
   `role_status` tinyint(4) DEFAULT '1' COMMENT '状态 1 正常，0 失效，-1 删除',
   `role_seq` int(11) DEFAULT '0' COMMENT '排序',
@@ -103,8 +104,9 @@ CREATE TABLE `c_role` (
 -- ----------------------------
 -- Records of c_role
 -- ----------------------------
-INSERT INTO `c_role` VALUES ('super', '超级管理员', '', '', '1', '0');
-INSERT INTO `c_role` VALUES ('test', '测试角色', '', '', '1', '1');
+INSERT INTO `c_role` VALUES ('super', '超级管理员', '', '', '1', '1', '0');
+INSERT INTO `c_role` VALUES ('test', '测试角色', '', '', '1', '1', '1');
+INSERT INTO `c_role` VALUES ('test02', '测试角色02', '', '', '1', '1', '2');
 
 -- ----------------------------
 -- Table structure for c_user
@@ -119,7 +121,7 @@ CREATE TABLE `c_user` (
   `user_pwd` varchar(100) NOT NULL DEFAULT '' COMMENT '加密后的密码',
   `user_salt` varchar(10) NOT NULL DEFAULT '',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10008 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10013 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of c_user
@@ -128,6 +130,11 @@ INSERT INTO `c_user` VALUES ('10000', 'admin', '1340845888', '', '1', '', '');
 INSERT INTO `c_user` VALUES ('10004', 'test01', '13408888888', 'test_01@gmail.com', '1', 'A0B08BA9515935411312353D8EA43E58', 'MONITOR');
 INSERT INTO `c_user` VALUES ('10005', 'test02', '17676777777', '66s7@qq.com', '-1', 'A0B08BA9515935411312353D8EA43E58', 'MONITOR');
 INSERT INTO `c_user` VALUES ('10006', 'tsoft', 'ddd', 'ddd@qq.com', '1', 'A0B08BA9515935411312353D8EA43E58', 'MONITOR');
+INSERT INTO `c_user` VALUES ('10008', 'test02', '', '', '1', 'A0B08BA9515935411312353D8EA43E58', 'MONITOR');
+INSERT INTO `c_user` VALUES ('10009', 'test03', '', '', '1', 'A0B08BA9515935411312353D8EA43E58', 'MONITOR');
+INSERT INTO `c_user` VALUES ('10010', 'test04', '', '', '1', 'A0B08BA9515935411312353D8EA43E58', 'MONITOR');
+INSERT INTO `c_user` VALUES ('10011', 'test05', '', '', '1', 'A0B08BA9515935411312353D8EA43E58', 'MONITOR');
+INSERT INTO `c_user` VALUES ('10012', 'test06', '', '', '-1', 'A0B08BA9515935411312353D8EA43E58', 'MONITOR');
 
 -- ----------------------------
 -- Table structure for c_user_info
@@ -144,15 +151,20 @@ CREATE TABLE `c_user_info` (
   KEY `FK_86eps06tvhl88fpbqy7jx6hml` (`user_id`),
   KEY `FK_kyk8tri3xh2c4sgcqw4m88cyu` (`user_id`),
   CONSTRAINT `FK_kyk8tri3xh2c4sgcqw4m88cyu` FOREIGN KEY (`user_id`) REFERENCES `c_user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10018 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10023 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of c_user_info
 -- ----------------------------
-INSERT INTO `c_user_info` VALUES ('10005', '10000', '超级管理员', null, null, '1531126014570');
-INSERT INTO `c_user_info` VALUES ('10011', '10004', '测试01', null, '1530673803293', '1531126030330');
+INSERT INTO `c_user_info` VALUES ('10005', '10000', '超级管理员', null, null, '1531323719479');
+INSERT INTO `c_user_info` VALUES ('10011', '10004', '测试01', null, '1530673803293', '1531243206593');
 INSERT INTO `c_user_info` VALUES ('10012', '10005', '测试01', null, '1530674112754', null);
-INSERT INTO `c_user_info` VALUES ('10015', '10006', 'dddd', null, '1530771191856', '1531126222814');
+INSERT INTO `c_user_info` VALUES ('10015', '10006', 'dddd', null, '1530771191856', '1531320244143');
+INSERT INTO `c_user_info` VALUES ('10018', '10008', '测试02', null, '1531228562226', null);
+INSERT INTO `c_user_info` VALUES ('10019', '10009', 'test03', null, '1531228574853', '1531228588361');
+INSERT INTO `c_user_info` VALUES ('10020', '10010', 'test04', null, '1531228597748', null);
+INSERT INTO `c_user_info` VALUES ('10021', '10011', 'test05', null, '1531228608934', null);
+INSERT INTO `c_user_info` VALUES ('10022', '10012', 'test06', null, '1531228619686', null);
 
 -- ----------------------------
 -- Table structure for c_user_organ
@@ -173,7 +185,13 @@ CREATE TABLE `c_user_organ` (
 -- ----------------------------
 INSERT INTO `c_user_organ` VALUES ('10000', '1');
 INSERT INTO `c_user_organ` VALUES ('10004', '1002');
+INSERT INTO `c_user_organ` VALUES ('10006', '1001');
 INSERT INTO `c_user_organ` VALUES ('10006', '1001001');
+INSERT INTO `c_user_organ` VALUES ('10008', '1001001');
+INSERT INTO `c_user_organ` VALUES ('10009', '1');
+INSERT INTO `c_user_organ` VALUES ('10010', '1001');
+INSERT INTO `c_user_organ` VALUES ('10011', '1001001');
+INSERT INTO `c_user_organ` VALUES ('10012', '1001');
 
 -- ----------------------------
 -- Table structure for c_user_role
@@ -192,6 +210,12 @@ CREATE TABLE `c_user_role` (
 -- ----------------------------
 -- Records of c_user_role
 -- ----------------------------
+INSERT INTO `c_user_role` VALUES ('10000', 'super');
+INSERT INTO `c_user_role` VALUES ('10004', 'test');
+INSERT INTO `c_user_role` VALUES ('10004', 'test02');
+INSERT INTO `c_user_role` VALUES ('10006', 'test02');
+INSERT INTO `c_user_role` VALUES ('10010', 'test');
+INSERT INTO `c_user_role` VALUES ('10012', 'test02');
 
 -- ----------------------------
 -- Table structure for d_grid
