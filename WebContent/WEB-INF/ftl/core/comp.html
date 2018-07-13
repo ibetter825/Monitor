@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>组件</title>
+    <#include "./public/static/header.html"/>
+</head>
+</head>
+<body>
+<div id="container">
+	仪表盘：
+	<div id="gauge" style="width:400px; height:400px; border:1px solid red;"></div>
+</div>
+</body>
+<#include "./public/static/javascript.html"/>
+<script type="text/javascript" src="${(rc.contextPath)!}/js/echarts/echarts.min.js"></script>
+<script type="text/javascript">
+
+var option = {
+	    tooltip : {
+	        formatter: "{a} <br/>{b} : {c}%"
+	    },
+	    toolbox: {
+	        feature: {
+	            restore: {}
+	        }
+	    },
+	    series: [
+	        {
+	            name: '业务指标',
+	            type: 'gauge',
+	            detail: {formatter:'{value}%'},
+	            data: [{value: 50, name: '完成率'}]
+	        }
+	    ]
+	};
+var myChart = echarts.init(document.getElementById('gauge'));
+myChart.setOption(option, true);
+</script>
+</html>

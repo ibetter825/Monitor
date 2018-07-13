@@ -13,38 +13,7 @@
             <div class="topleft">
                 <a href="main.html" target="_parent"><img src="${(rc.contextPath)!}/images/logo.png" title="系统首页"></a>
             </div>
-            <ul class="nav" id="nav">
-                <!-- <li>
-                    <a href="default.html" target="rightFrame" class="selected"><img src="${(rc.contextPath)!}/images/icon01.png" title="工作台">
-                        <h2>工作台</h2>
-                    </a>
-                </li>
-                <li>
-                    <a href="imgtable.html" target="rightFrame"><img src="${(rc.contextPath)!}/images/icon02.png" title="模型管理">
-                        <h2>模型管理</h2>
-                    </a>
-                </li>
-                <li>
-                    <a href="imglist.html" target="rightFrame"><img src="${(rc.contextPath)!}/images/icon03.png" title="模块设计">
-                        <h2>模块设计</h2>
-                    </a>
-                </li>
-                <li>
-                    <a href="tools.html" target="rightFrame"><img src="${(rc.contextPath)!}/images/icon04.png" title="常用工具">
-                        <h2>常用工具</h2>
-                    </a>
-                </li>
-                <li>
-                    <a href="computer.html" target="rightFrame"><img src="${(rc.contextPath)!}/images/icon05.png" title="文件管理">
-                        <h2>文件管理</h2>
-                    </a>
-                </li>
-                <li>
-                    <a href="tab.html" target="rightFrame"><img src="${(rc.contextPath)!}/images/icon06.png" title="系统设置">
-                        <h2>系统设置</h2>
-                    </a>
-                </li> -->
-            </ul>
+            <ul class="nav" id="nav"></ul>
             <div class="topright">
                 <ul>
                     <li><span><img src="${(rc.contextPath)!}/images/help.png" title="帮助" class="helpimg"></span><a href="#">帮助</a></li>
@@ -148,7 +117,7 @@
             </div>
             <!-- 内容区域 -->
             <div data-options="region:'center'" style="border: none; overflow: hidden;">
-                <iframe id="iframe" src="${(rc.contextPath)!}/u/user" as="comm/core/desk.html" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+                <iframe id="iframe" name="iframe" src="${(rc.contextPath)!}/u/comm/core/desk.html" frameborder="0" style="width: 100%; height: 100%;"></iframe>
             </div>
             <!-- 版权信息 -->
             <div data-options="region:'south'" style="border: none;">
@@ -215,9 +184,16 @@
 					"icon": "",
 					"children": [
 						{
-							"id": "M99",
+							"id": "M9901",
 							"name": "用户管理",
-							"url": "u/comm/index.html",
+							"url": "u/user",
+							"img": "images/leftico01.png",
+							"icon": "",
+							"children": []
+						},{
+							"id": "M9902",
+							"name": "组件设置",
+							"url": "u/comm/core/comp.html",
 							"img": "images/leftico01.png",
 							"icon": "",
 							"children": []
@@ -260,7 +236,7 @@
     		children = menu['children'];
     		html.push('<dd>');
     		html.push('<div class="title">');
-    		html.push('<span><img src="${(rc.contextPath)!}/images/leftico01.png"></span>管理信息</div>');
+    		html.push('<a href="${(rc.contextPath)!}/'+menu['url']+'" target="iframe"><span><img src="${(rc.contextPath)!}/images/leftico01.png"></span>'+menu['name']+'</a></div>');
     		html.push('</dd>');
     	}
     	var $leftmenu = $('#leftmenu');
