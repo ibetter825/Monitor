@@ -1,4 +1,4 @@
-package com.monitor.core.bean.echarts;
+package com.monitor.core.bean.echarts.comp;
 
 import java.util.ArrayList;
 import java.util.List;

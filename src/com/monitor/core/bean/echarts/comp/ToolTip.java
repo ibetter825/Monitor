@@ -1,8 +1,8 @@
-package com.monitor.core.bean.echarts;
+package com.monitor.core.bean.echarts.comp;
 
 public class ToolTip {
 	private String show = "true";
-	private String trigger = "item";
+	/*private String trigger = "item";
 	private AxisPointer axisPointer = new AxisPointer();
 	private String showContent = "true";
 	private String alwaysShowContent = "false";
@@ -12,14 +12,14 @@ public class ToolTip {
 	private String enterable = "false";
 	private String confine = "false";
 	private String transitionDuration = "0.4";
-	private String position;
-	private String formatter;
-	private String backgroundColor = "rgba(50,50,50,0.7)";
+	private String position;*/
+	private String formatter = "{a} <br/>{b} : {c}%";
+	/*private String backgroundColor = "rgba(50,50,50,0.7)";
 	private String borderColor = "#333";
 	private String borderWidth = "0";
 	private String padding = "5";
 	private TextStyle textStyle = new TextStyle("#fff", "14");
-	private String extraCssText;
+	private String extraCssText;*/
 	
 	public String getShow() {
 		return show;
@@ -27,7 +27,7 @@ public class ToolTip {
 	public void setShow(String show) {
 		this.show = show;
 	}
-	public String getTrigger() {
+	/*public String getTrigger() {
 		return trigger;
 	}
 	public void setTrigger(String trigger) {
@@ -92,14 +92,14 @@ public class ToolTip {
 	}
 	public void setPosition(String position) {
 		this.position = position;
-	}
+	}*/
 	public String getFormatter() {
 		return formatter;
 	}
 	public void setFormatter(String formatter) {
 		this.formatter = formatter;
 	}
-	public String getBackgroundColor() {
+	/*public String getBackgroundColor() {
 		return backgroundColor;
 	}
 	public void setBackgroundColor(String backgroundColor) {
@@ -134,5 +134,5 @@ public class ToolTip {
 	}
 	public void setExtraCssText(String extraCssText) {
 		this.extraCssText = extraCssText;
-	}
+	}*/
 }

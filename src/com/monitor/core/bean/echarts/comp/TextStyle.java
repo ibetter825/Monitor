@@ -1,4 +1,4 @@
-package com.monitor.core.bean.echarts;
+package com.monitor.core.bean.echarts.comp;
 
 public class TextStyle {
 	private String color = "#333";

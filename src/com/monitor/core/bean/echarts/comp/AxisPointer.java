@@ -1,4 +1,4 @@
-package com.monitor.core.bean.echarts;
+package com.monitor.core.bean.echarts.comp;
 
 /**
  * 这是坐标轴指示器（axisPointer）的全局公用设置。

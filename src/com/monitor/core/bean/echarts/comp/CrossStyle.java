@@ -1,7 +1,9 @@
-package com.monitor.core.bean.echarts;
+package com.monitor.core.bean.echarts.comp;
 
-public class ShadowStyle {
-	private String color = "rgba(150,150,150,0.3)";
+public class CrossStyle {
+	private String color = "#555";
+	private String width = "1";
+	private String type = "dashed";
 	private String shadowBlur;
 	private String shadowColor;
 	private String shadowOffsetX = "0";
@@ -12,6 +14,18 @@ public class ShadowStyle {
 	}
 	public void setColor(String color) {
 		this.color = color;
+	}
+	public String getWidth() {
+		return width;
+	}
+	public void setWidth(String width) {
+		this.width = width;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	public String getShadowBlur() {
 		return shadowBlur;

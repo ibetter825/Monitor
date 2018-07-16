@@ -1,4 +1,4 @@
-package com.monitor.core.bean.echarts;
+package com.monitor.core.bean.echarts.comp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class Legend {
 	private String inactiveColor = "#ccc";
 	private TextStyle textStyle = new TextStyle();
 	private ToolTip toolTip = new ToolTip();
-	private List<Data> data = new ArrayList<>();
+	private List<DataLegend> data = new ArrayList<>();
 	private String backgroundColor = "transparent";
 	private String borderColor = "#ccc";
 	private String borderWidth = "1";
@@ -186,11 +186,11 @@ public class Legend {
 	public void setToolTip(ToolTip toolTip) {
 		this.toolTip = toolTip;
 	}
-	public List<Data> getData() {
+	public List<DataLegend> getData() {
 		return data;
 	}
-	public void setData(List<Data> data) {
-		this.data = data;
+	public void setData(List<DataLegend> dataLegend) {
+		this.data = dataLegend;
 	}
 	public String getBackgroundColor() {
 		return backgroundColor;

@@ -1,4 +1,4 @@
-package com.monitor.core.bean.echarts;
+package com.monitor.core.bean.echarts.comp;
 /**
  * 标题组件，包含主标题和副标题。
  * @author ibett

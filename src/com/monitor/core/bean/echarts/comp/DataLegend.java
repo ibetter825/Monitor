@@ -1,6 +1,6 @@
-package com.monitor.core.bean.echarts;
+package com.monitor.core.bean.echarts.comp;
 
-public class Data {
+public class DataLegend {
 	private String name;
 	private String icon;
 	private TextStyle textStyle = new TextStyle();

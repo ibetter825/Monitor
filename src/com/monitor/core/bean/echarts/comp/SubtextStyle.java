@@ -1,4 +1,4 @@
-package com.monitor.core.bean.echarts;
+package com.monitor.core.bean.echarts.comp;
 
 public class SubtextStyle extends TextStyle {
 	private String color = "#aaa";
