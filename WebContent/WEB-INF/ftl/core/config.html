@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>页面配置</title>
+    <#include "./public/static/header.html"/>
+    <style>
+    	.part {padding: 10px; height: 400px;}
+    	.part-title {height: 40px;}
+    	.part-cont {height: 359px; border: 1px solid #066BAB; border-top: 0;}
+    	.part-li {float: left; height: 339px; padding: 10px 0;}
+    	.part-li-1 {width: 8.33%;}
+    	.part-li-2 {width: 16.66%;}
+    	.part-li-3 {width: 24.99%;}
+    	.part-li-4 {width: 33.32%;}
+    	.part-li-5 {width: 41.65%;}
+    	.part-li-6 {width: 49.98%;}
+    	.part-li-7 {width: 58.31%;}
+    	.part-li-8 {width: 66.64%;}
+    	.part-li-9 {width: 74.97%;}
+    	.part-li-10 {width: 83.3%;}
+    	.part-li-11 {width: 91.63%;}
+    	.part-li-12 {width: 100%;}
+    	
+    	.part-li-cont {height: 100%; margin: 0 10px 0 0;}
+    </style>
+</head>
+<body>
+<div id="container">
+	<!-- 一个部分等比分成5块 -->
+	<div class="part">
+		<div class="part-title">
+		title
+		</div>
+		<ul class="part-cont">
+			<li class="part-li part-li-3">
+				<div class="part-li-cont">
+					<div id="gauge" style="width: 100%; height: 100%;"></div>
+				</div>
+			</li>
+			<li class="part-li part-li-9">
+				<div class="part-li-cont"></div>
+			</li>
+		</ul>
+	</div>
+	<div class="part">
+		<div class="part-title">
+		title
+		</div>
+		<ul class="part-cont">
+			<li class="part-li part-li-3">
+				<div class="part-li-cont"></div>
+			</li>
+			<li class="part-li part-li-9">
+				<div class="part-li-cont"></div>
+			</li>
+		</ul>
+	</div>
+</div>
+</body>
+<#include "./public/static/javascript.html"/>
+<script type="text/javascript" src="${(rc.contextPath)!}/js/echarts/echarts.min.js"></script>
+<script type="text/javascript">
+var option = {
+	    tooltip : {
+	        formatter: "{a} <br/>{b} : {c}%"
+	    },
+	    toolbox: {
+	        feature: {
+	            restore: {show: false}
+	        }
+	    },
+	    series: [
+	        {
+	            name: '业务指标',
+	            type: 'gauge',
+	            title: {
+	            	show: false
+	            },
+	            detail: {
+	            	formatter:'{value}%'
+	            },
+	            data: [{value: 50, name: '完成率'}]
+	        }
+	    ]
+	};
+var myChart = echarts.init(document.getElementById('gauge'));
+myChart.setOption(option, true);
+</script>
+</html>
