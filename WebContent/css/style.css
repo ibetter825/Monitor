@@ -2150,11 +2150,21 @@ h2 {
 .dialog-size {width:380px; height:280px;}
 
 /*menu part*/
-.part {padding: 10px 10px 0 10px;}
-.part-title {height: 39px; border: 1px solid #066BAB; border-bottom: 0;}
+.part {padding: 10px 10px 0 10px; position: relative;}
+.part-title {height: 39px; border: 1px solid #DCDCDC; border-bottom: 0;}
+.part-title li {height: 38px; line-height: 38px;}
+.part-title-cont {float: left;}
+.part-title-cont span {display: block; float: left; height: 100%; border-bottom: 1px solid #DCDCDC;}
+.part-title-cont span i {display: block; height: 18px; width: 3px; background: #066BAB; position: relative; top: 10px;}
+.p-t-c-left {padding-left: 10px;}
+.p-t-c-center {padding: 0 10px;}
+.part-title-cont .p-t-c-right {width: 15px; border-bottom: 0; height: 39px; background: url(../images/title.png);}
+
+.part-title-tip {float: right;}
+
 .part-no-title {padding-top: 0;}
 .part-no-title .part-title {display: none;}
-.part-cont {height: 309px; border: 1px solid #066BAB; border-top: 0;}
+.part-cont {height: 309px; border: 1px solid #DCDCDC; border-top: 0;}
 .part-li {float: left; height: 289px; padding: 10px 0;}
 .part-li-1 {width: 8.33%;}
 .part-li-2 {width: 16.66%;}
@@ -2170,3 +2180,7 @@ h2 {
 .part-li-12 {width: 100%;}
 
 .part-li-cont {height: 100%; margin: 0 10px 0 0;}
+
+.part .deco {position: absolute; right: 10px; bottom: 0; background: #066BAB;}
+.part .deco-l {width: 30px; height: 2px;}
+.part .deco-r {width: 2px; height: 30px;}
