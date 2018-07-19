@@ -2166,17 +2166,17 @@ h2 {
 .part-no-title .part-title {display: none;}
 .part-cont {height: 309px; border: 1px solid #DCDCDC; border-top: 0;}
 .part-li {float: left; height: 289px; padding: 10px 0;}
-.part-li-1 {width: 8.33%;}
-.part-li-2 {width: 16.66%;}
-.part-li-3 {width: 24.99%;}
-.part-li-4 {width: 33.32%;}
-.part-li-5 {width: 41.65%;}
-.part-li-6 {width: 49.98%;}
-.part-li-7 {width: 58.31%;}
-.part-li-8 {width: 66.64%;}
-.part-li-9 {width: 74.97%;}
-.part-li-10 {width: 83.3%;}
-.part-li-11 {width: 91.63%;}
+.part-li-1 {width: 8.33333333%;}
+.part-li-2 {width: 16.66666667%;}
+.part-li-3 {width: 25%;}
+.part-li-4 {width: 33.33333333%;}
+.part-li-5 {width: 41.66666667%;}
+.part-li-6 {width: 50%;}
+.part-li-7 {width: 58.33333333%;}
+.part-li-8 {width: 66.66666667%;}
+.part-li-9 {width: 75%;}
+.part-li-10 {width: 83.33333333%;}
+.part-li-11 {width: 91.66666667%;}
 .part-li-12 {width: 100%;}
 
 .part-li-cont {height: 100%; margin: 0 10px 0 0;}
