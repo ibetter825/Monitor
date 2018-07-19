@@ -2180,7 +2180,10 @@ h2 {
 .part-li-12 {width: 100%;}
 
 .part-li-cont {height: 100%; margin: 0 10px 0 0;}
-
-.part .deco {position: absolute; right: 10px; bottom: 0; background: #066BAB;}
+.part-li-cont .p-l-c-self {width: 100%; height: 100%;}
+.part .deco i {position: absolute; right: 10px; bottom: 0; background: #066BAB;}
 .part .deco-l {width: 30px; height: 2px;}
 .part .deco-r {width: 2px; height: 30px;}
+
+.part .datagrid-header td, .datagrid-body td, .datagrid-footer td {border-style: solid;}
+.part .datagrid-header, .datagrid-td-rownumber {background: #F2F2F2;}
