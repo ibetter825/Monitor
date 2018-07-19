@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 127.0.0.1
-Source Server Version : 50711
+Source Server Version : 50715
 Source Host           : 127.0.0.1:3306
 Source Database       : monitor
 
 Target Server Type    : MYSQL
-Target Server Version : 50711
+Target Server Version : 50715
 File Encoding         : 65001
 
-Date: 2018-07-12 22:47:24
+Date: 2018-07-19 15:04:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -87,6 +87,46 @@ INSERT INTO `c_organ` VALUES ('1001001', '1001', '三级1', null, '1', '0', '2',
 INSERT INTO `c_organ` VALUES ('1002', '1', '二级2', null, '1', '1', '1', '/1/1002/');
 
 -- ----------------------------
+-- Table structure for c_page_part
+-- ----------------------------
+DROP TABLE IF EXISTS `c_page_part`;
+CREATE TABLE `c_page_part` (
+  `part_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `part_no` int(11) NOT NULL DEFAULT '0' COMMENT '页面模块编号',
+  `menu_id` varchar(50) NOT NULL DEFAULT '' COMMENT '菜单编号',
+  `part_title` varchar(100) DEFAULT '' COMMENT '模块标题',
+  `part_seq` int(11) DEFAULT '0' COMMENT '模块排序',
+  `part_desc` varchar(200) DEFAULT '' COMMENT '模块描述',
+  `part_tip` varchar(100) DEFAULT '' COMMENT '例如: 币种：人民币 单位：万元',
+  `part_freq` varchar(20) NOT NULL COMMENT '模块查询数据频度',
+  `part_status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态 1 正常 0 不可用',
+  `part_style` varchar(200) DEFAULT '' COMMENT '样式',
+  PRIMARY KEY (`part_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='菜单页面模块配置';
+
+-- ----------------------------
+-- Records of c_page_part
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for c_page_part_element
+-- ----------------------------
+DROP TABLE IF EXISTS `c_page_part_element`;
+CREATE TABLE `c_page_part_element` (
+  `ele_id` int(11) NOT NULL AUTO_INCREMENT,
+  `part_id` int(11) DEFAULT NULL,
+  `ele_type` varchar(255) DEFAULT NULL,
+  `ele_style` varchar(255) DEFAULT NULL,
+  `ele_cont` varchar(255) DEFAULT '' COMMENT '内容，包括echarts,grid等',
+  `ele_seq` int(11) DEFAULT '0',
+  PRIMARY KEY (`ele_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of c_page_part_element
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for c_role
 -- ----------------------------
 DROP TABLE IF EXISTS `c_role`;
@@ -157,7 +197,7 @@ CREATE TABLE `c_user_info` (
 -- Records of c_user_info
 -- ----------------------------
 INSERT INTO `c_user_info` VALUES ('10005', '10000', '超级管理员', null, null, '1531323719479');
-INSERT INTO `c_user_info` VALUES ('10011', '10004', '测试01', null, '1530673803293', '1531243206593');
+INSERT INTO `c_user_info` VALUES ('10011', '10004', '测试01', null, '1530673803293', '1531451178915');
 INSERT INTO `c_user_info` VALUES ('10012', '10005', '测试01', null, '1530674112754', null);
 INSERT INTO `c_user_info` VALUES ('10015', '10006', 'dddd', null, '1530771191856', '1531320244143');
 INSERT INTO `c_user_info` VALUES ('10018', '10008', '测试02', null, '1531228562226', null);
@@ -184,7 +224,7 @@ CREATE TABLE `c_user_organ` (
 -- Records of c_user_organ
 -- ----------------------------
 INSERT INTO `c_user_organ` VALUES ('10000', '1');
-INSERT INTO `c_user_organ` VALUES ('10004', '1002');
+INSERT INTO `c_user_organ` VALUES ('10004', '1');
 INSERT INTO `c_user_organ` VALUES ('10006', '1001');
 INSERT INTO `c_user_organ` VALUES ('10006', '1001001');
 INSERT INTO `c_user_organ` VALUES ('10008', '1001001');
