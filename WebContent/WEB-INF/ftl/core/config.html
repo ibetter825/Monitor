@@ -3,14 +3,156 @@
 <head>
 	<title>页面配置</title>
     <#include "./public/static/header.html"/>
+    <style>
+    	.config-btn {width: 30px; height: 30px; border: 1px solid #DCDCDC; position: absolute; right: 50px; top: 50px;}
+    </style>
 </head>
 <body>
-	<div>
-		
+	<div class="config-cont">
+		<!-- 配置展示区域 -->
 	</div>
+	<!-- 操作框 -->
+	<div id="dialog" class="dialog-large-size hide">
+		<form id="form" method="post">
+			<div class="formbody">
+				<ul class="forminfo forminfo2">
+					<li><label>模块标题</label><input id="partTitle" name="partTitle" type="text"
+						class="dfinput easyui-validatebox" data-options="required:true"></li>
+					<li><label>模块提示</label><input id="partTip" name="partTip" type="text"
+						class="dfinput easyui-validatebox" data-options="validType:'length[1,10]'"></li>
+					<li><label>模块状态</label><input id="partTip2" name="partTip" type="text"
+						class="dfinput easyui-validatebox" data-options="validType:'length[1,10]'"></li>
+					<li><label>模块排序</label><input id="partTip3" name="partTip" type="text"
+						class="dfinput easyui-validatebox" data-options="validType:'length[1,10]'"></li>
+					<li><label>模块描述</label><input id="partTip4" name="partTip" type="text"
+						class="dfinput easyui-validatebox" data-options="validType:'length[1,10]'"></li>
+					<li><label>模块样式</label><input id="partTip5" name="partTip" type="text"
+						class="dfinput easyui-validatebox" data-options="validType:'length[1,10]'"></li>
+					<li><label>查询参数</label><input id="partTip6" name="partTip" type="text"
+						class="dfinput easyui-validatebox readonly" readonly="readonly" value="所有查询参数都放在一个字典表里面去" onclick="initParamDialog();"></li>
+					<div class="clear"></div>
+				</ul>
+			</div>
+		</form>
+	</div>
+	<!-- 查询参数 -->
+	<div id="paramDialog" class="dialog-wide-size hide">
+		<div id="grid"></div>
+	</div>
+	<!-- 按钮 -->
+	<div class="easyui-draggable config-btn config-add-btn" title="新增模块" data-options="cursor: 'pointer'" onclick="initDialog(this, 0);">+</div>
 </body>
 <#include "./public/static/javascript.html"/>
 <script type="text/javascript">
-
+	var $dialog, $paramDialog, $grid;
+	//打开操作框 0:新增, 1:编辑, -1:删除
+	function initDialog(_this, flg){
+		if(!$dialog){
+			$('#dialog').show();
+			$dialog = $('#dialog').dialog({
+				title: flg?'修改':'添加',
+				modal: true,
+				resizable: true,
+				onClose: function(){
+					
+				},
+				buttons:[{
+					text:'保存',
+					iconCls:'icon-save',
+					handler:function(){
+						
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-cancel',
+					handler:function(){
+						$dialog.dialog('close');
+					}
+				}]
+			});
+		}else{
+			$dialog.dialog({title: flg?'修改':'新增'});
+			$dialog.dialog('open');
+		}
+	}
+	//查询参数
+	function initParamDialog(){
+		if(!$paramDialog){
+			$('#paramDialog').show();
+			$paramDialog = $('#paramDialog').dialog({
+				title: '查询参数',
+				modal: true,
+				resizable: true,
+				onClose: function(){
+					
+				},
+				buttons:[{
+					text:'保存',
+					iconCls:'icon-save',
+					handler:function(){
+						
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-cancel',
+					handler:function(){
+						$paramDialog.dialog('close');
+					}
+				}]
+			});
+		}else{
+			$paramDialog.dialog('open');
+		}
+		initGrid();
+	}
+	//初始化查询参数列表
+	function initGrid(){
+		if(!$grid){
+			$grid = $('#grid').datagrid({
+				url : jui.uri + '/u/user/list',
+				striped : true,
+				autoRowHeight : false,
+				border: false,
+				fitColumns : true,
+				rownumbers : true,
+				width : 'auto',
+				height: '100%',
+				columns : [ [ {
+					field : '',
+					title : '',
+					checkbox: true
+				},{
+					field : 'userId',
+					title : '用户编号',
+					width : 100
+				}, {
+					field : 'userName',
+					title : '用户登录名',
+					width : 100
+				}, {
+					field : 'nickName',
+					title : '用户昵称',
+					width : 100
+				}, {
+					field : 'orgNames',
+					title : '所属机构',
+					width : 100
+				}] ],
+				pagination : true,
+				pageSize : 50,
+				pageList : [ 50, 100, 200, 500 ],
+				onDblClickRow: function(index, row){
+					openFormDialog(1, row);
+				},
+				onLoadError: function(){
+					$.messager.alert('警告','加载数据出错','warning');
+				}
+			});
+		}
+	}
+	
+	function initPart(){
+		
+	}
 </script>
 </html>
