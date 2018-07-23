@@ -8,7 +8,7 @@
     </style>
 </head>
 <body>
-	<div class="config-cont">
+	<div id="container">
 		<!-- 配置展示区域 -->
 	</div>
 	<!-- 操作框 -->
@@ -60,7 +60,8 @@
 					text:'保存',
 					iconCls:'icon-save',
 					handler:function(){
-						
+						initPart();
+						$dialog.dialog('close');
 					}
 				},{
 					text:'取消',
@@ -152,7 +153,35 @@
 	}
 	
 	function initPart(){
+		var html = [];
+		html.push('<div class="part">');
+		html.push('<ul class="part-title">');
+		html.push('<li class="part-title-cont">');
+		html.push('<span class="p-t-c-left"><i></i></span>');
+		html.push('<span class="p-t-c-center">核心一级资本充足率</span>');
+		html.push('<span class="p-t-c-right"></span>');
+		html.push('</li>');
+		html.push('<li class="part-title-tip">币种：人民币  单位：万元</li>');
+		html.push('</ul>');
+		html.push('<ul class="part-cont">');
+		html.push('<li class="part-li part-li-4">');
+		html.push('<div class="part-li-cont">');
+		html.push('<div class="p-l-c-self" id="gauge"></div>');
+		html.push('</div>');
+		html.push('</li>');
+		html.push('<li class="part-li part-li-8">');
+		html.push('<div class="part-li-cont">');
+		html.push('<div class="p-l-c-self" id="table"></div>');
+		html.push('</div>');
+		html.push('</li>');
+		html.push('</ul>');
+		html.push('<span class="deco">');
+		html.push('<i class="deco-l"></i>');
+		html.push('<i class="deco-r"></i>');
+		html.push('</span>');
+		html.push('</div>');
 		
+		$('#container').append(html.join(''));;
 	}
 </script>
 </html>
