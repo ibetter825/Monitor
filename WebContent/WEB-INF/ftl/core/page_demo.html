@@ -5,55 +5,57 @@
     <#include "./public/static/header.html"/>
 </head>
 <body>
-	<div class="part">
-		<ul class="part-title">
-			<li class="part-title-cont">
-				<span class="p-t-c-left"><i></i></span>
-				<span class="p-t-c-center">核心一级资本充足率</span>
-				<span class="p-t-c-right"></span>
-			</li>
-			<li class="part-title-tip">币种：人民币  单位：万元</li>
-		</ul>
-		<ul class="part-cont">
-			<li class="part-li part-li-4">
-				<div class="part-li-cont">
-					<div class="p-l-c-self" id="gauge"></div>
-				</div>
-			</li>
-			<li class="part-li part-li-8">
-				<div class="part-li-cont">
-					<div class="p-l-c-self" id="table"></div>
-				</div>
-			</li>
-		</ul>
-		<span class="deco">
-			<i class="deco-l"></i>
-			<i class="deco-r"></i>
-		</span>
-	</div>
-	<div class="part">
-		<ul class="part-title">
-			<li class="part-title-cont">
-				<span class="p-t-c-left"><i></i></span>
-				<span class="p-t-c-center">资本充足率</span>
-				<span class="p-t-c-right"></span>
-			</li>
-			<li class="part-title-tip">币种：人民币  单位：万元</li>
-		</ul>
-		<ul class="part-cont">
-			<li class="part-li part-li-4">
-				<div class="part-li-cont">
-					<div id="gauge2" style="width: 100%; height: 100%;"></div>
-				</div>
-			</li>
-			<li class="part-li part-li-8">
-				<div class="part-li-cont"></div>
-			</li>
-		</ul>
-		<span class="deco">
-			<i class="deco-l"></i>
-			<i class="deco-r"></i>
-		</span>
+	<div class="container">
+		<div class="part">
+			<ul class="part-title">
+				<li class="part-title-cont">
+					<span class="p-t-c-left"><i></i></span>
+					<span class="p-t-c-center">核心一级资本充足率</span>
+					<span class="p-t-c-right"></span>
+				</li>
+				<li class="part-title-tip">币种：人民币  单位：万元</li>
+			</ul>
+			<ul class="part-cont">
+				<li class="col col-4">
+					<div class="col-cont">
+						<div class="p-l-c-self" id="gauge"></div>
+					</div>
+				</li>
+				<li class="col col-8">
+					<div class="col-cont">
+						<div class="p-l-c-self" id="table"></div>
+					</div>
+				</li>
+			</ul>
+			<span class="deco">
+				<i class="deco-l"></i>
+				<i class="deco-r"></i>
+			</span>
+		</div>
+		<div class="part">
+			<ul class="part-title">
+				<li class="part-title-cont">
+					<span class="p-t-c-left"><i></i></span>
+					<span class="p-t-c-center">资本充足率</span>
+					<span class="p-t-c-right"></span>
+				</li>
+				<li class="part-title-tip">币种：人民币  单位：万元</li>
+			</ul>
+			<ul class="part-cont">
+				<li class="col col-4">
+					<div class="col-cont">
+						<div id="gauge2" style="width: 100%; height: 100%;"></div>
+					</div>
+				</li>
+				<li class="col col-8">
+					<div class="col-cont"></div>
+				</li>
+			</ul>
+			<span class="deco">
+				<i class="deco-l"></i>
+				<i class="deco-r"></i>
+			</span>
+		</div>
 	</div>
 </body>
 <#include "./public/static/javascript.html"/>

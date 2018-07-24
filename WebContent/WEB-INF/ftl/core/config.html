@@ -4,11 +4,14 @@
 	<title>页面配置</title>
     <#include "./public/static/header.html"/>
     <style>
-    	.config-btn {width: 30px; height: 30px; border: 1px solid #DCDCDC; position: absolute; right: 50px; top: 50px;}
+    	.control-panel p {height: 30px; color: #fff; line-height: 30px; text-align: center; cursor: pointer;}
+    	.control-panel p:HOVER {background: #D4D4D4;}
+    	.c-p-add {background: #0081C2;}
+    	.c-p-del {background: #C23531;}
     </style>
 </head>
 <body>
-	<div id="container">
+	<div id="container" class="container">
 		<!-- 配置展示区域 -->
 	</div>
 	<!-- 操作框 -->
@@ -18,19 +21,52 @@
 				<ul class="forminfo forminfo2">
 					<li><label>模块标题</label><input id="partTitle" name="partTitle" type="text"
 						class="dfinput easyui-validatebox" data-options="required:true"></li>
-					<li><label>模块提示</label><input id="partTip" name="partTip" type="text"
-						class="dfinput easyui-validatebox" data-options="validType:'length[1,10]'"></li>
-					<li><label>模块状态</label><input id="partTip2" name="partTip" type="text"
-						class="dfinput easyui-validatebox" data-options="validType:'length[1,10]'"></li>
-					<li><label>模块排序</label><input id="partTip3" name="partTip" type="text"
-						class="dfinput easyui-validatebox" data-options="validType:'length[1,10]'"></li>
-					<li><label>模块描述</label><input id="partTip4" name="partTip" type="text"
-						class="dfinput easyui-validatebox" data-options="validType:'length[1,10]'"></li>
-					<li><label>模块样式</label><input id="partTip5" name="partTip" type="text"
-						class="dfinput easyui-validatebox" data-options="validType:'length[1,10]'"></li>
-					<li><label>查询参数</label><input id="partTip6" name="partTip" type="text"
+					<li><label>模块提示</label><input id="partTip" name="partTip" type="text" value="币种：人民币  单位：万元"
+						class="dfinput easyui-validatebox" data-options="validType:'length[1,50]'"></li>
+					<li><label>模块状态</label>
+						<select id="partWidth" name="partStatus" class="dfinput easyui-combobox" data-options="panelHeight:'auto', panelMaxHeight:'200', editable: false">   
+						    <option value="1">有效</option>
+						    <option value="0">无效</option>
+						</select></li>
+					<li><label>模块描述</label><input id="partDesc" name="partDesc" type="text"
+						class="dfinput easyui-validatebox" data-options="validType:'length[1,200]'"></li>
+					<li><label>模块样式</label><input id="partStyle" name="partStyle" type="text"
+						class="dfinput easyui-validatebox" data-options="validType:'length[1,200]'"></li>
+					<li><label>模块高度</label><input id="partHeight" name="partHeight" type="text"
+						class="dfinput easyui-numberbox" value="360"><i style="position: relative; left: -20px; padding: 0;">px</i></li>
+					<li><label>模块宽度</label>
+						<select id="partWidth" name="partWidth" class="dfinput easyui-combobox" data-options="panelHeight:'auto', panelMaxHeight:'200', editable: false">   
+						    <option value="col-1">col-1</option>
+						    <option value="col-2">col-2</option>
+						    <option value="col-3">col-3</option>
+						    <option value="col-4">col-4</option>
+						    <option value="col-5">col-5</option>
+						    <option value="col-6">col-6</option>
+						    <option value="col-7">col-7</option>
+						    <option value="col-8">col-8</option>
+						    <option value="col-9">col-9</option>
+						    <option value="col-10">col-10</option>
+						    <option value="col-11">col-11</option>
+						    <option value="col-12" selected="selected">col-12</option>
+						</select>
+					</li>
+					<li><label>查询参数</label><input id="partTip8" name="partTip2" type="text"
 						class="dfinput easyui-validatebox readonly" readonly="readonly" value="所有查询参数都放在一个字典表里面去" onclick="initParamDialog();"></li>
 					<div class="clear"></div>
+				</ul>
+			</div>
+		</form>
+	</div>
+	<div id="compDialog" class="dialog-large-size hide">
+		<form id="eleForm" method="post">
+			<div class="formbody">
+				<ul class="forminfo forminfo2">
+					<li><label>组件类型</label>
+						<!-- 字典库里查询出来 -->
+						<select id="eleType" name="partStatus" class="dfinput easyui-combobox" data-options="panelHeight:'auto', panelMaxHeight:'200', editable: false">   
+						    <option value="echarts">图表</option>
+						    <option value="table">二维表</option>
+						</select></li>
 				</ul>
 			</div>
 		</form>
@@ -39,12 +75,50 @@
 	<div id="paramDialog" class="dialog-wide-size hide">
 		<div id="grid"></div>
 	</div>
-	<!-- 按钮 -->
-	<div class="easyui-draggable config-btn config-add-btn" title="新增模块" data-options="cursor: 'pointer'" onclick="initDialog(this, 0);">+</div>
+	<!-- 控制面板 -->
+	<div id="controlPanel" class="hide">
+		<!-- 模块 -->
+		<ul class="control-panel">
+			<li onclick="initDialog(this, 0);"><p class="c-p-add">添加模块</p></li>
+			<li onclick="initDialog(this, 0);"><p class="c-p-del">删除模块</p></li>
+		</ul>
+		<ul class="control-panel">
+			<li onclick="initDialog(this, 0);" style="height: auto;">
+				<p class="c-p-add" >添加组件</p>
+				<ol>
+					<li>二维表</li>
+					<li>仪表盘</li>
+					<li>柱状图</li>
+				</ol>
+			</li>
+			<li onclick="initDialog(this, 0);"><p class="c-p-del">删除组件</p></li>
+		</ul>
+	</div>
 </body>
 <#include "./public/static/javascript.html"/>
 <script type="text/javascript">
-	var $dialog, $paramDialog, $grid;
+	var winWidth = $(window).width();
+	var winHeight = $(window).height();
+	var $dialog/*模块添加框*/, $paramDialog/*查询参数选择框*/, $grid/*查询参数列表*/, $compDialog/*组件添加框*/, parts = []/*当前配置页面的所有模块集合*/;
+	$(function(){
+		initControlPanel();
+	});
+	//初始化控制面板
+	function initControlPanel(){
+		$('#controlPanel').show();
+		$('#controlPanel').window({
+			title: '控制面板',
+			collapsible: true,
+			width: 100,
+			height: 400,
+			top: winHeight / 2 - 200,
+			left: winWidth - 110,
+			resizable: false,
+			closable: false,
+			minimizable: false,
+			maximizable: false
+		});
+	}
 	//打开操作框 0:新增, 1:编辑, -1:删除
 	function initDialog(_this, flg){
 		if(!$dialog){
@@ -54,13 +128,16 @@
 				modal: true,
 				resizable: true,
 				onClose: function(){
-					
+					$('#form').form('reset');
 				},
 				buttons:[{
-					text:'保存',
+					text:'确定',
 					iconCls:'icon-save',
 					handler:function(){
-						initPart();
+						if(!$('#form').form('validate'))
+							return;
+						var part = app.serializeForm('#form', false);
+						initPart(part);
 						$dialog.dialog('close');
 					}
 				},{
@@ -74,6 +151,36 @@
 		}else{
 			$dialog.dialog({title: flg?'修改':'新增'});
 			$dialog.dialog('open');
+		}
+	}
+	//初始化组件框
+	function initCompDialog(_this, flg){
+		if(!$compDialog){
+			$('#compDialog').show();
+			$compDialog = $('#compDialog').dialog({
+				title: flg?'修改':'添加',
+				modal: true,
+				resizable: true,
+				onClose: function(){
+					$('#form').form('reset');
+				},
+				buttons:[{
+					text:'确定',
+					iconCls:'icon-save',
+					handler:function(){
+						$compDialog.dialog('close');
+					}
+				},{
+					text:'取消',
+					iconCls:'icon-cancel',
+					handler:function(){
+						$compDialog.dialog('close');
+					}
+				}]
+			});
+		}else{
+			$compDialog.dialog({title: flg?'修改':'新增'});
+			$compDialog.dialog('open');
 		}
 	}
 	//查询参数
@@ -152,25 +259,26 @@
 		}
 	}
 	
-	function initPart(){
+	//生成模块
+	function initPart(part){
 		var html = [];
-		html.push('<div class="part">');
-		html.push('<ul class="part-title">');
+		html.push('<div class="part" onclick="initCompDialog(this, 0);">');
+		html.push('<ul class="part-title" title="'+part.partDesc+'">');
 		html.push('<li class="part-title-cont">');
 		html.push('<span class="p-t-c-left"><i></i></span>');
-		html.push('<span class="p-t-c-center">核心一级资本充足率</span>');
+		html.push('<span class="p-t-c-center">'+part.partTitle+'</span>');
 		html.push('<span class="p-t-c-right"></span>');
 		html.push('</li>');
-		html.push('<li class="part-title-tip">币种：人民币  单位：万元</li>');
+		html.push('<li class="part-title-tip">'+part.partTip+'</li>');
 		html.push('</ul>');
 		html.push('<ul class="part-cont">');
-		html.push('<li class="part-li part-li-4">');
-		html.push('<div class="part-li-cont">');
+		html.push('<li class="col col-4">');
+		html.push('<div class="col-cont">');
 		html.push('<div class="p-l-c-self" id="gauge"></div>');
 		html.push('</div>');
 		html.push('</li>');
-		html.push('<li class="part-li part-li-8">');
-		html.push('<div class="part-li-cont">');
+		html.push('<li class="col col-8">');
+		html.push('<div class="col-cont">');
 		html.push('<div class="p-l-c-self" id="table"></div>');
 		html.push('</div>');
 		html.push('</li>');

@@ -2156,8 +2156,9 @@ h2 {
 .dialog-size {width:380px; height:280px;}
 .dialog-wide-size {width:760px; height:280px;}
 .dialog-large-size {width:760px; height: 360px;}
+.container {padding: 10px 10px 0 10px;}
 /*menu part*/
-.part {padding: 10px 10px 0 10px; position: relative;}
+.part {padding-bottom: 10px; position: relative;}
 .part-title {height: 39px; border: 1px solid #DCDCDC; border-bottom: 0;}
 .part-title li {height: 38px; line-height: 38px;}
 .part-title-cont {float: left;}
@@ -2172,23 +2173,23 @@ h2 {
 .part-no-title {padding-top: 0;}
 .part-no-title .part-title {display: none;}
 .part-cont {height: 309px; border: 1px solid #DCDCDC; border-top: 0;}
-.part-li {float: left; height: 289px; padding: 10px 0;}
-.part-li-1 {width: 8.33333333%;}
-.part-li-2 {width: 16.66666667%;}
-.part-li-3 {width: 25%;}
-.part-li-4 {width: 33.33333333%;}
-.part-li-5 {width: 41.66666667%;}
-.part-li-6 {width: 50%;}
-.part-li-7 {width: 58.33333333%;}
-.part-li-8 {width: 66.66666667%;}
-.part-li-9 {width: 75%;}
-.part-li-10 {width: 83.33333333%;}
-.part-li-11 {width: 91.66666667%;}
-.part-li-12 {width: 100%;}
+.col {float: left; height: 289px; padding: 10px 0;}
+.col-1 {width: 8.33333333%;}
+.col-2 {width: 16.66666667%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33333333%;}
+.col-5 {width: 41.66666667%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33333333%;}
+.col-8 {width: 66.66666667%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33333333%;}
+.col-11 {width: 91.66666667%;}
+.col-12 {width: 100%;}
 
-.part-li-cont {height: 100%; margin: 0 10px 0 0;}
-.part-li-cont .p-l-c-self {width: 100%; height: 100%;}
-.part .deco i {position: absolute; right: 10px; bottom: 0; background: #066BAB;}
+.col-cont {height: 100%; margin: 0 10px 0 0;}
+.col-cont .p-l-c-self {width: 100%; height: 100%;}
+.part .deco i {position: absolute; right: 0; bottom: 10px; background: #066BAB;}
 .part .deco-l {width: 30px; height: 2px;}
 .part .deco-r {width: 2px; height: 30px;}
 
