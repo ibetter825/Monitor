@@ -4,16 +4,22 @@
 	<title>组件</title>
     <#include "./public/static/header.html"/>
 </head>
-</head>
 <body>
-<div id="container">
-	仪表盘：
-	<div id="gauge" style="width:400px; height:400px; border:1px solid red;"></div>
-	仪表盘：
-	<div id="gauge2" style="width:400px; height:400px; border:1px solid red;"></div>
-</div>
+	<div id="container">
+		仪表盘：
+		<div id="gauge" style="width:400px; height:400px; border:1px solid red;"></div>
+		仪表盘：
+		<div id="gauge2" style="width:400px; height:400px; border:1px solid red;"></div>
+		日期框：
+		<div style="width:400px; height:400px; border:1px solid red;">
+			<input id="yearNum" class="Wdate"  onclick="WdatePicker({dateFmt:'yyyy-QM', isShowNav:false, errDealMode:2, isShowToday:false, disabledDates:['....-0[5-9]-..','....-1[0-2]-..'], startDate:'%y-01-01' })" type="text" />
+			<br/>
+			
+		</div>
+	</div>
 </body>
 <#include "./public/static/javascript.html"/>
+<script type="text/javascript" src="${(rc.contextPath)!}/js/calendar/WdatePicker.js"></script>
 <script type="text/javascript" src="${(rc.contextPath)!}/js/echarts/echarts.min.js"></script>
 <script type="text/javascript">
 var option = {
