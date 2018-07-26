@@ -16,6 +16,7 @@ function initControlPanel() {
 }
 // 打开操作框 0:新增, 1:编辑, -1:删除
 function initDialog(_this, flg) {
+	optFlg = flg;
 	if (flg == -1) {// 删除模块
 		$.messager.confirm('确认', '您确认想要删除改模块吗？', function(r) {
 			if (r) {
@@ -27,10 +28,16 @@ function initDialog(_this, flg) {
 			}
 		});
 	} else {
+		if(flg == 1){//编辑
+			var $part = $('.part-selected');
+			var no = $part.attr('no');
+			var part = globalParts[no];
+			$('#form').form('load', part);
+		}
 		if (!$dialog) {
 			$('#dialog').show();
 			$dialog = $('#dialog').dialog({
-				title : flg ? '修改' : '添加',
+				title : flg == 1 ? '修改' : '添加',
 				modal : true,
 				resizable : true,
 				onClose : function() {
@@ -43,7 +50,9 @@ function initDialog(_this, flg) {
 						if (!$('#form').form('validate'))
 							return;
 						var part = app.serializeForm('#form', false);
-						initPart(part);
+						var no = new Date().getTime();//有点问题
+						part['no'] = no;//
+						initPart(part, optFlg);
 						$dialog.dialog('close');
 					}
 				}, {
@@ -56,7 +65,7 @@ function initDialog(_this, flg) {
 			});
 		} else {
 			$dialog.dialog({
-				title : flg ? '修改' : '新增'
+				title : flg == 1 ? '修改' : '新增'
 			});
 			$dialog.dialog('open');
 		}
@@ -171,39 +180,41 @@ function initGrid() {
 }
 
 // 生成模块
-function initPart(part) {
-	var id = new Date().getTime();
-	var html = [];
-	html.push('<div id="' + id + '" class="part" onclick="choosePart(this);">');
-	html.push('<ul class="part-title" title="' + part.partDesc + '">');
-	html.push('<li class="part-title-cont">');
-	html.push('<span class="p-t-c-left"><i></i></span>');
-	html.push('<span class="p-t-c-center">' + part.partTitle + '</span>');
-	html.push('<span class="p-t-c-right"></span>');
-	html.push('</li>');
-	html.push('<li class="part-title-tip">' + part.partTip + '</li>');
-	html.push('</ul>');
-	html.push('<ul class="part-cont">');
-	html.push('<li class="col col-4">');
-	html.push('<div class="col-cont">');
-	html.push('<div class="p-l-c-self" id="gauge"></div>');
-	html.push('</div>');
-	html.push('</li>');
-	html.push('<li class="col col-8">');
-	html.push('<div class="col-cont">');
-	html.push('<div class="p-l-c-self" id="table"></div>');
-	html.push('</div>');
-	html.push('</li>');
-	html.push('</ul>');
-	html.push('<span class="deco">');
-	html.push('<i class="deco-l"></i>');
-	html.push('<i class="deco-r"></i>');
-	html.push('</span>');
-	html.push('</div>');
-
-	globalParts[id] = part;
-	$('#container').append(html.join(''));
-	;
+function initPart(part, flg) {
+	if(flg == 0){//添加
+		var html = [];
+		html.push('<div no="' + part.no + '" class="part" onclick="choosePart(this);">');
+		html.push('<ul class="part-title" title="' + part.partDesc + '">');
+		html.push('<li class="part-title-cont">');
+		html.push('<span class="p-t-c-left"><i></i></span>');
+		html.push('<span class="p-t-c-center">' + part.partTitle + '</span>');
+		html.push('<span class="p-t-c-right"></span>');
+		html.push('</li>');
+		html.push('<li class="part-title-tip">' + part.partTip + '</li>');
+		html.push('</ul>');
+		html.push('<ul class="part-cont">');
+		html.push('<li class="col col-4">');
+		html.push('<div class="col-cont">');
+		html.push('<div class="p-l-c-self" id="gauge"></div>');
+		html.push('</div>');
+		html.push('</li>');
+		html.push('<li class="col col-8">');
+		html.push('<div class="col-cont">');
+		html.push('<div class="p-l-c-self" id="table"></div>');
+		html.push('</div>');
+		html.push('</li>');
+		html.push('</ul>');
+		html.push('<span class="deco">');
+		html.push('<i class="deco-l"></i>');
+		html.push('<i class="deco-r"></i>');
+		html.push('</span>');
+		html.push('</div>');
+	
+		globalParts[part.no] = part;
+		$('#container').append(html.join(''));
+	}else{//编辑
+		
+	}
 }
 // 选中模块
 function choosePart(_this) {
