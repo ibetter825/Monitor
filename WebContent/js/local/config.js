@@ -50,8 +50,10 @@ function initDialog(_this, flg) {
 						if (!$('#form').form('validate'))
 							return;
 						var part = app.serializeForm('#form', false);
-						var no = new Date().getTime();//有点问题
-						part['no'] = no;//
+						if(optFlg == 0){
+							var no = new Date().getTime();
+							part['no'] = no;
+						}
 						initPart(part, optFlg);
 						$dialog.dialog('close');
 					}
@@ -183,14 +185,14 @@ function initGrid() {
 function initPart(part, flg) {
 	if(flg == 0){//添加
 		var html = [];
-		html.push('<div no="' + part.no + '" class="part" onclick="choosePart(this);">');
-		html.push('<ul class="part-title" title="' + part.partDesc + '">');
+		html.push('<div no="' + part['no'] + '" class="part" onclick="choosePart(this);">');
+		html.push('<ul class="part-title" title="' + part['partDesc'] + '">');
 		html.push('<li class="part-title-cont">');
 		html.push('<span class="p-t-c-left"><i></i></span>');
-		html.push('<span class="p-t-c-center">' + part.partTitle + '</span>');
+		html.push('<span class="p-t-c-center">' + part['partTitle'] + '</span>');
 		html.push('<span class="p-t-c-right"></span>');
 		html.push('</li>');
-		html.push('<li class="part-title-tip">' + part.partTip + '</li>');
+		html.push('<li class="part-title-tip">' + part['partTip'] + '</li>');
 		html.push('</ul>');
 		html.push('<ul class="part-cont">');
 		html.push('<li class="col col-4">');
@@ -210,10 +212,15 @@ function initPart(part, flg) {
 		html.push('</span>');
 		html.push('</div>');
 	
-		globalParts[part.no] = part;
+		globalParts[part['no']] = part;
 		$('#container').append(html.join(''));
 	}else{//编辑
-		
+		var $part = $('.part-selected');
+		var no = $part.attr('no');
+		$part.find('.part-title').attr('title', part['partDesc']);
+		$part.find('.p-t-c-center').text(part['partTitle']);
+		$part.find('.part-title-tip').text(part['partTip']);
+		globalParts[no] = part;
 	}
 }
 // 选中模块

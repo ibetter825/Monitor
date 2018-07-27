@@ -3,14 +3,19 @@
 <head>
 	<title>页面配置</title>
     <#include "./public/static/header.html"/>
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_766199_t7njlsuebnn.css" />
     <style>
     	.part-selected .part-title, .part-selected .part-cont {border-color: #3CB3D6;}
-    
     	.control-panel p {height: 30px; color: #fff; line-height: 30px; text-align: center; cursor: pointer;}
     	.control-panel p:HOVER {background: #D4D4D4;}
     	.c-p-add {background: #0081C2;}
     	.c-p-edit {background: #79C023;}
     	.c-p-del {background: #C23531;}
+    	
+    	.c-p-comp .iconfont {color: #0081C2;}
+    	.c-p-comp li {height: 24px; line-height: 24px; padding: 0 5px; cursor: default;}
+    	.c-p-comp li:HOVER>span {color: #0081C2;}
+    	.c-p-comp li span {display: inline; padding-left: 5px; position: relative; top: -2px;}
     </style>
 </head>
 <body>
@@ -24,6 +29,16 @@
 				<ul class="forminfo forminfo2">
 					<li><label>模块标题</label><input id="partTitle" name="partTitle" type="text"
 						class="dfinput easyui-validatebox" data-options="required:true"></li>
+					<li><label>模块频度</label>
+						<select id="partFreq" name="partFreq" class="dfinput easyui-combobox" data-options="panelHeight:'auto', panelMaxHeight:'200', editable: false">   
+						    <option value="D">天</option>
+						    <option value="T">旬</option>
+						    <option value="M">月</option>
+						    <option value="Q">季</option>
+						    <option value="H">半年</option>
+						    <option value="Y">年</option>
+						</select>
+					</li>
 					<li><label>模块提示</label><input id="partTip" name="partTip" type="text" value="币种：人民币  单位：万元"
 						class="dfinput easyui-validatebox" data-options="validType:'length[1,50]'"></li>
 					<li><label>模块状态</label>
@@ -89,10 +104,14 @@
 		<ul class="control-panel">
 			<li style="height: auto;">
 				<p class="c-p-add" onclick="initCompDialog(this, 0);">添加组件</p>
-				<ol>
-					<li>二维表</li>
-					<li>仪表盘</li>
-					<li>柱状图</li>
+				<ol class="c-p-comp">
+					<li><i class="iconfont icon-C24"></i><span>二维表</span></li>
+					<li><i class="iconfont icon-C101"></i><span>仪表盘</span></li>
+					<li><i class="iconfont icon-C03"></i><span>柱状图</span></li>
+					<li><i class="iconfont icon-C061"></i><span>折线图</span></li>
+					<li><i class="iconfont icon-C121"></i><span>饼状图</span></li>
+					<li><i class="iconfont icon-C131"></i><span>雷达图</span></li>
+					<li><i class="iconfont icon-C15"></i><span>散点图</span></li>
 				</ol>
 			</li>
 			<li onclick="initDialog(this, 0);"><p class="c-p-del">删除组件</p></li>
