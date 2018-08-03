@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50715
 File Encoding         : 65001
 
-Date: 2018-07-19 15:04:04
+Date: 2018-08-03 14:32:20
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -61,6 +61,32 @@ INSERT INTO `c_dict` VALUES ('D00104', 'D001', '年', '', '', '1', '3', '1', '',
 INSERT INTO `c_dict` VALUES ('D002', '', '指标币种', '', '', '1', '0', '0', '', '');
 INSERT INTO `c_dict` VALUES ('D00201', 'D002', '人名币', 'CNY', '', '1', '0', '1', '', '');
 INSERT INTO `c_dict` VALUES ('D00202', 'D002', '美元', 'USD', '', '1', '1', '1', '', '');
+
+-- ----------------------------
+-- Table structure for c_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `c_menu`;
+CREATE TABLE `c_menu` (
+  `menu_id` varchar(20) NOT NULL,
+  `menu_name` varchar(50) NOT NULL COMMENT '菜单名称',
+  `menu_desc` varchar(200) DEFAULT '' COMMENT '菜单描述',
+  `menu_seq` int(11) DEFAULT '0' COMMENT '排序',
+  `menu_pid` varchar(20) DEFAULT '' COMMENT '菜单父菜单id',
+  `menu_url` varchar(2000) DEFAULT '' COMMENT '菜单链接',
+  `menu_status` tinyint(4) DEFAULT '1' COMMENT '菜单状态 1 正常， 2 隐藏， 0 禁用， -1 删除',
+  `menu_type` varchar(20) DEFAULT '' COMMENT '菜单类型，关联外键包括，模块/菜单/按钮',
+  `menu_icon` varchar(50) DEFAULT '' COMMENT '菜单图标',
+  `menu_param` varchar(1000) DEFAULT '' COMMENT '菜单参数',
+  `menu_pids` varchar(500) DEFAULT '' COMMENT '菜单父级路径',
+  `menu_level` tinyint(4) DEFAULT '0' COMMENT '菜单层级',
+  PRIMARY KEY (`menu_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of c_menu
+-- ----------------------------
+INSERT INTO `c_menu` VALUES ('M99', '系统管理', '', '0', '', '', '1', '', '', '', '/M99', '0');
+INSERT INTO `c_menu` VALUES ('M9901', '用户管理', '', '0', '', '', '1', '', '', '', '/M99/M9901/', '1');
 
 -- ----------------------------
 -- Table structure for c_organ
