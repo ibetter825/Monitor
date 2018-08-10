@@ -58,6 +58,13 @@ public class User extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name="role_id")
 	)
 	private Set<Role> roles = new HashSet<>();
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "c_user_menu",
+            joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name="menu_id")
+	)
+	private Set<Menu> menus = new HashSet<>();
 	
 	public Integer getUserId() {
 		return userId;
@@ -118,5 +125,11 @@ public class User extends BaseEntity {
 	}
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+	public Set<Menu> getMenus() {
+		return menus;
+	}
+	public void setMenus(Set<Menu> menus) {
+		this.menus = menus;
 	}
 }

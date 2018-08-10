@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50715
 File Encoding         : 65001
 
-Date: 2018-08-03 14:32:20
+Date: 2018-08-10 15:50:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -175,6 +175,20 @@ INSERT INTO `c_role` VALUES ('test', '测试角色', '', '', '1', '1', '1');
 INSERT INTO `c_role` VALUES ('test02', '测试角色02', '', '', '1', '1', '2');
 
 -- ----------------------------
+-- Table structure for c_role_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `c_role_menu`;
+CREATE TABLE `c_role_menu` (
+  `role_id` varchar(20) NOT NULL,
+  `menu_id` varchar(20) NOT NULL,
+  PRIMARY KEY (`role_id`,`menu_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of c_role_menu
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for c_user
 -- ----------------------------
 DROP TABLE IF EXISTS `c_user`;
@@ -231,6 +245,24 @@ INSERT INTO `c_user_info` VALUES ('10019', '10009', 'test03', null, '15312285748
 INSERT INTO `c_user_info` VALUES ('10020', '10010', 'test04', null, '1531228597748', null);
 INSERT INTO `c_user_info` VALUES ('10021', '10011', 'test05', null, '1531228608934', null);
 INSERT INTO `c_user_info` VALUES ('10022', '10012', 'test06', null, '1531228619686', null);
+
+-- ----------------------------
+-- Table structure for c_user_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `c_user_menu`;
+CREATE TABLE `c_user_menu` (
+  `user_id` int(11) NOT NULL,
+  `menu_id` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`user_id`),
+  KEY `FK_nsmui6xfwisg8xrigfjasam40` (`menu_id`),
+  KEY `FK_49i5vtjtb38uqmxcstlpgtbaa` (`user_id`),
+  CONSTRAINT `FK_49i5vtjtb38uqmxcstlpgtbaa` FOREIGN KEY (`user_id`) REFERENCES `c_user` (`user_id`),
+  CONSTRAINT `FK_nsmui6xfwisg8xrigfjasam40` FOREIGN KEY (`menu_id`) REFERENCES `c_menu` (`menu_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of c_user_menu
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for c_user_organ

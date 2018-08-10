@@ -29,6 +29,9 @@ public class Role extends BaseEntity {
 	@JsonIgnore
 	@ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<User> users = new HashSet<>();
+	@JsonIgnore
+	@ManyToMany(mappedBy = "menus", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<Menu> menus = new HashSet<>();
 	
 	public String getRoleId() {
 		return roleId;
@@ -77,5 +80,11 @@ public class Role extends BaseEntity {
 	}
 	public void setUsers(Set<User> users) {
 		this.users = users;
+	}
+	public Set<Menu> getMenus() {
+		return menus;
+	}
+	public void setMenus(Set<Menu> menus) {
+		this.menus = menus;
 	}
 }
